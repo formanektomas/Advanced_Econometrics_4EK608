@@ -1,0 +1,617 @@
+\documentclass{beamer}
+%
+% Choose how your presentation looks.
+%
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}  
+\usepackage{bm}
+%
+% For more themes, color themes and font themes, see:
+% http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
+%
+\mode<presentation>
+{
+  \usetheme{Darmstadt}      % or try Darmstadt, Madrid, Warsaw, ...
+  \usecolortheme{default} % or try albatross, beaver, crane, ...
+  \usefonttheme{serif}  % or try serif, structurebold, ...
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+} 
+%
+%
+\title[Week1]{Week 1:  Repetition \\ Time Series Regression Models (TSRMs)}
+\author{Advanced Econometrics 4EK608}
+\institute{Vysoká škola ekonomická v Praze}
+\date{}
+
+\begin{document}
+ 
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% Uncomment these lines for an automatically generated outline.
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+%------------------------------------------------------
+\section{TSRMs - basic overview}
+
+\begin{frame}{Introduction}
+
+\begin{itemize}
+  \item Stochastic (random) process: \\ 
+  Sequence of random variables indexed by time
+  \vskip 1cm
+  \item Time series is one realization of a stochastic process
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{TSRMs examples}
+
+\begin{itemize}
+  \item Static Models
+  $$ y_t = \beta_0 + \beta_1 x_t + u_t , \hspace{1cm} t = 1, 2,  \dots, n $$
+  \item Finite Distributed Lag (FDL) Models
+  $$ y_t = \alpha_0 + \beta_0 x_t + \beta_1 x_{t-1} + \beta_2 x_{t-2} + u_t $$
+  Order of the FDL model, \\
+  Impact multiplier $\times$ long-run multiplier, \\
+  Temporary (one-off) $\times$ permanent increase in $x$, \\
+  Lag distribution. 
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{G-M assumptions for TSRMs}
+
+Definitions:
+	\begin{itemize}
+	\item Set of explanatory variables in the LRM equation at time $t$ \\ 
+    (vector $ 1 \times k$)
+    $$\boldsymbol{x}_t=(x_{t1},x_{t2}, \dots, x_{tk})$$
+    
+    \item Set of all explanatory variables (matrix $n \times k$) 
+    
+    $$\boldsymbol{X}=(\boldsymbol{x}_{1},
+    \boldsymbol{x}_{2},\dots,
+    \boldsymbol{x}_{k})$$
+	    
+    \item Usually, the first item in $\boldsymbol{x}_t$ and the first column in $\boldsymbol{X}$ correspond to the intercept.
+    \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{G-M assumptions for TSRMs}
+\begin{itemize}
+\item TS.1 Linearity \\ 
+The stochastic process $\{(x_{t1},x_{t2},\dots,x_{tk},y_t);t=1,2,\dots, n \}$ 
+follows a linear model $ y_t = \beta_0 + \beta_1 x_{t1} + \dots + \beta_k x_{tk}+u_t$.
+\vspace{0.5cm}
+\item TS.2 No perfect collinearity \\
+There is no perfect collinearity among regressors. \\
+{\footnotesize Comment: It allows collinearity among regressors.}
+\vspace{0.5cm}
+\item TS.3 Strict exogeneity \\ 
+For each $t$, the expected value of error conditionally on the explanatory variables at all time periods is zero: $ E(u_t|\boldsymbol{X})=0, \hspace{0.5cm} t = 1,2,\dots,n$ \\
+    {\footnotesize Comment: If $E(u_t|x_{t1},x_{t2},\dots,x_{tk})=E(u_t|\boldsymbol{x}_t)=0$, then $x_{tj}$ variables are contemporaneously exogenous}  
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{G-M assumptions for TSRMs}
+\begin{itemize}
+ \item TS.4 Conditional Homoskedasticity 
+ $$Var(u_t|\boldsymbol{X})=Var(u_t)=\sigma^2, \hspace{0.5cm} t=1,2,\dots,n$$
+ 
+ \item TS.5 Serial Correlation (Autocorrelation) is not present $$ cov(u_t,u_s|\boldsymbol{X}) = 0, \hspace{0.5cm} t\neq s$$
+
+ \item TS.6 Normality \\
+ $u_t$ are independent of $\boldsymbol{X}$ and $\textit{i.i.d.}$
+ \footnote{Independently and identically distributed} 
+ :  $u_t \sim N(0,\sigma^2), \textit{i.i.d.} $
+ 
+ \vspace{0.6cm}
+ 
+ \item \textbf{CLRM}: Classical linear regression model \\
+ TS.1 - TS.6 conditions hold
+ 
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{Properties of OLS estimators}
+\begin{itemize}
+\item Under TS.1 - TS.3, OLS estimators are unbiased.
+\vspace{0.5cm}
+\item Under assumptions TS.1 - TS.5, \\ 
+variance of $\hat{\beta_j}$ conditional on $\boldsymbol{X}$ is given by: 
+
+$$\textit{var}(\hat{\beta_j}|\boldsymbol{X}) 
+  =\frac{\sigma^2}{[\textit{SST}_j(1-R^2_j)]},  j=1,\dots,k$$
+
+where $\textit{SST}_j$ is the total sum of squares of $\boldsymbol{x}_{j}$ and $R^2_j$ is the coefficient of determination from auxiliary regression of $x_j$ on other explanatory variables. 
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{Properties of OLS estimators}
+\begin{itemize}
+\item Under assumptions TS.1 - TS.5, the estimator 
+
+$$\hat{\sigma}^2=\frac{SSR}{df} \hspace{0.5cm} ; \hspace{0.5cm} df=n-k-1 $$   
+is an unbiased estimator of $\sigma^2$ (variance of $u_t$).
+
+\vspace{0.5cm}
+
+\item Under assumptions TS.1 - TS.5, OLS estimators are \textbf{BLUE} conditional on $\boldsymbol{X}$
+
+\vspace{0.5cm}
+
+\item Under assumptions TS.1 - TS.6, $\hat{\beta}_j$ are normally distributed. Under $H_0$, each $t$ statistics has a $t$ distribution and $F$ statistic has a $F$ distribution (small-sample and asymptotically). The usual construction of confidence intervals is also valid. 
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\section{Trends and spurious regression}
+
+\begin{frame}{Trends and spurious regression}
+\begin{itemize}
+\item Regression: $y$ on $t$ \\ If there is a linear trend in $y$
+\vspace{0.5cm}
+\item Regression: $\log{y}$ on $t$ \\ Exponential trend, constant rate of growth of $y$
+\vspace{0.5cm}
+\item Spurious regression: \\ We can find relationship between two or more trending variables even if it does not exist in reality
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{Detrending and deseasonalizing}
+
+\textbf{Detrending algorithm (based on FWL theorem):}
+
+$$\hat{y_t}=\hat{\beta_0}+\hat{\beta_1}x_{t1}+\hat{\beta_2}x_{t2}+\hat{\beta_3}t$$
+
+\begin{itemize}
+\item Regress each variable on constant, time and save residuals $$\ddot{y}_{t}, \ddot{x}_{t1}, \ddot{x}_{t2}, \hspace{0.5cm} t=1,2,\dots, T$$
+\item Regress $\ddot{y}_{t}$ on $\ddot{x}_{t1}$, $\ddot{x}_{t2}$
+$$\hat{\ddot{y}}_{t}=\hat{\beta_1}\ddot{x}_{t1}+\hat{\beta_2}\ddot{x}_{t2}$$
+\item Coefficients $\hat{\beta_1}$, $\hat{\beta_2}$ from this regression are the same as in the original regression 
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{Detrending and deseasonalizing} 
+
+\textbf{Deseasonalizing algorithm (based on FWL theorem):} \\
+\footnotesize{Example based on quarterly data} 
+
+$$\hat{y_t}=\hat{\beta_0}+\hat{\beta_1}x_{t1}+\hat{\beta_2}x_{t2}+\hat{\beta_3}dummy1+\hat{\beta_4}dummy2+\hat{\beta_5}dummy3$$
+
+\begin{itemize}
+\item Regress variables on constant, seasonal dummies and save residuals: $$\ddot{y}_{t}, \ddot{x}_{t1}, \ddot{x}_{t2}, \hspace{0.5cm} t=1, 2,\dots, T$$
+\item Regress $\ddot{y}_{t}$ on $\ddot{x}_{t1}$, $\ddot{x}_{t2}$
+$$\hat{\ddot{y}}_{t}=\hat{\beta_1}\ddot{x}_{t1}+\hat{\beta_2}\ddot{x}_{t2}$$
+\item Coefficients $\hat{\beta_1}$, $\hat{\beta_2}$ from this regression are the same as in the original regression 
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{Coefficient of determination when $y$ is trending}
+\begin{itemize}
+\item With trending $y$, coefficient of determination overshoots.
+$$\overline{R}^2=1-\frac{\hat{\sigma}^2_u}{\hat{\sigma}^2_y}$$
+
+\item $\hat{\sigma}^2_u$is unbiased estimator of error variance and is easily estimated in the case trend is among regressors.\\
+
+\vspace{0.5cm}
+
+\item With trending $y$, $\hat{\sigma}^2_y=\frac{SST}{(n-1)}$ , where $SST=\sum_{t=1}^n (y_t-\overline{y})^2$ is neither unbiased nor consistent estimator.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{Coefficient of determination when $y$ is trending}
+\textbf{A better coefficient of determination is:}
+
+\begin{itemize}
+\item Regress $\ddot{y}_{t}$ on $\ddot{x}_{t1}$,$\ddot{x}_{t2}$ 
+
+\vspace{0.5cm}
+
+Coefficient of determination from this regression, i.e.: 
+$$R^2=1-\frac{SSR}{\sum^n_{t=1}\ddot{y}^2_t}$$ 
+is more reliable (does not overshoot) than that one from the original regression.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\section{Stationarity}
+
+\begin{frame}{Stationary and weakly dependent time series}
+\begin{itemize}
+\item Strict exogeneity, homoskedasticity, absence of serial correlation and error-normality assumptions are very limiting 
+
+\vspace{0.5cm}
+
+\item With large samples, weaker assumptions are sufficient
+
+\vspace{0.5cm}
+
+\item For large samples, key assumptions are: \\ \textbf{Stationarity} and \textbf{weak dependency}
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{Stationary and weakly dependent time series}
+\begin{itemize}
+\item Time series is stationary if its probability distributions are stable over time.
+
+\vspace{0.5cm}
+
+\item Covariance stationarity: first two moments and auto-covariance do not change over time.
+
+\vspace{0.5cm}
+
+\item Weak dependency: correlation between $x_t$ and $x_{t+h}$ ``quickly'' converges to zero with $h$ growing to infinity.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{Stationary and weakly dependent time series}
+\begin{itemize}
+\item For Central Limit Theorem (CLT) and Law of Large Numbers (LLN) to hold, dependency between observations must not be too strong and must sufficiently quickly decrease with growing time distance between them.
+
+\vspace{0.5cm}
+
+\item Time series can be non-stationary and weakly dependent.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{Stationary and weakly dependent time series}
+
+\textbf{Examples of weakly dependent time series:}
+\vspace{0.5cm}
+\begin{itemize}
+\item Moving average process of order one: MA(1)
+$$x_t=e_t+\alpha_1 e_{t-1}$$
+$e_t$ is an $\textit{iid}$ time series. Observations with higher time distance than 1 are uncorrelated.
+
+\vspace{0.5cm}
+
+\item Autoregressive proces of order 1 AR(1)
+$$y_t=\rho y_{t-1} + e_t \Rightarrow Corr(y_t,y_{t+h})=\rho^h$$
+If stability condition $|\rho|<1$ holds, TS is weakly dependent because correlation converges  to zero with growing $h$.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{Asymptotic properties of OLS estimators}
+\begin{itemize}
+\item TS.1' Linearity \\The stochastic process 
+$\{(x_{t1},x_{t2},\dots,x_{tk},y_t);t=1,2,\dots, n\}$ follows the linear model $ y_t = \beta_0 + \beta_1 x_{t1} + \dots + \beta_k x_{tk}+u_t$ 
+\\ We assume both dependent and independent variables are stationary and weakly dependent.
+\vspace{0.5cm}
+\item TS.2' No perfect collinearity \\
+There is no perfect collinearity among regressors. \\
+{\footnotesize Comment: the same assumption as TS.2}
+\vspace{0.5cm}
+\item TS.3' Contemporaneous exogeneity 
+\\Null conditional expected value of errors: 
+$$E(u_t|x_{t1},\dots,x_{tk})=E(u_t|\boldsymbol{x}_t)=0$$
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{Asymptotic properties of OLS estimators}
+\begin{itemize}
+\item Under assumptions TS.1', TS.2' and TS.3', \\OLS estimators are consistent (not unbiased)\\
+\vspace{0.5cm}
+TS.1' - TS.3' $\Rightarrow plim\hat{\beta}_j = \beta_j, \hspace{0.5cm} j=0, 1, \dots, k$
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{Asymptotic properties of OLS estimators}
+
+By removing strict exogeneity (changing TS.3 to TS.3'):
+\vspace{0.5cm}
+\begin{itemize}
+\item There is no restriction on how $u_t$ is related to regressors in other time periods. Hence: 
+\vspace{0.5cm}
+
+\item We allow for feedback from (lagged) explained variable to ``future'' values of explanatory variables 
+\vspace{0.5cm}
+
+\item We can use lagged dependent variable as regressors.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{Asymptotic properties of OLS estimators}
+\begin{itemize}
+\item TS.4' Contemporaneous homoskedasticity
+$$Var(u_t|\boldsymbol{x}_t)=Var(u_t)=\sigma^2$$
+
+\vspace{0.5cm}
+
+\item TS.5' No serial correlation \\(autocorrelation in residuals is not present)
+$$Corr(u_t,u_s|\boldsymbol{x}_t,\boldsymbol{x}_s=0), t\neq s$$
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{Asymptotic properties of OLS estimators}
+\begin{itemize}
+\item Theorem: Asymptotic normality of OLS estimators \\
+\vspace{0.5cm}
+Under assumptions TS.1' – TS.5', OLS estimators are asymptotically normally distributed. Usual OLS standard errors, $t$-statistics and $F$-statistics are asymptotically valid.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\section{Additional TS topics}
+\begin{frame}{Additional TS topics}
+\begin{itemize}
+\item Using trend-stationary time series in regression analysis.
+
+\vspace{0.5cm}
+
+\item Using highly persistent (strongly dependent) time series in regression analysis
+\begin{itemize}
+\item Random walk, random walk with drift, unit root
+process
+\item Order of integration, testing of unit root
+\item Cointegration
+\end{itemize}
+
+\vspace{0.5cm}
+
+\item Dynamically Complete Models
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{Serial correlation}
+\begin{itemize}
+\item Causes and effects
+\item Robust inference
+\item Testing AR(1) serial correlation with strictly exogenous regressors
+\begin{align}\nonumber
+y_t & = \beta_0+\beta_1 x_{t1}+\dots+\beta_k x_{tk}+u_t \\ \nonumber
+u_t & = \rho u_{t-1} + e_t \\ \nonumber
+\hat{u}_t &= \rho \hat{u}_{t-1}+error \\ \nonumber
+H_0 & : \rho=0\\\nonumber
+\end{align}
+\item Durbin-Watson test
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{Serial correlation}
+\begin{itemize}
+\item Testing AR(1) serial correlation with general regressors
+$$\hat{u}_t=\alpha_0+\alpha_1 x_{t1} + \dots + \alpha_k x_{tk} + \rho \hat{u}_{t-1} + \textit{error}$$
+$$H_0 : \rho = 0$$
+(We can use a heteroskedasticity-robust version of the test)
+
+\vspace{0.5cm}
+
+\item Breusch-Godfrey test for AR($q$) serial correlation
+$$\hat{u}_t=\alpha_0+\alpha_1 x_{t1} + \dots + \alpha_k x_{tk} + \rho_1 \hat{u}_{t-1} +\dots+ \rho_q \hat{u}_{t-q}+\textit{error}  $$
+$$H_0 : \rho_1 = \dots = \rho_q = 0$$
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\section{GLSM – matrix form}
+
+\begin{frame}{GLSM – matrix form}
+\begin{itemize}
+\item In the generalized linear regression model (GLRM):
+\begin{itemize}
+\item $E(\boldsymbol{u})=\boldsymbol{0}$
+\item $E(\boldsymbol{uu}^T)=\sigma^2\boldsymbol{H}$ \\ (i.e. not $\sigma^2 \boldsymbol{I}_{\! n}$) - covariance matrix of disturbances
+\end{itemize}
+\vspace{0.5cm}
+\item Principle of GLSM: \\Transformation of GLRM using a transformation matrix $\boldsymbol{T}$ to get: 
+$$\textit{Var}(\boldsymbol{u}) = \sigma^2 \boldsymbol{I}_{\! n}$$
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{GLSM – matrix form}
+\textbf{CLRM:} \hspace{0.2cm} $\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\beta}+\boldsymbol{u}$; estimator: $\boldsymbol{\hat{\beta}}=(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{y}$ \\
+\textbf{GLRM:} $\boldsymbol{T}\boldsymbol{y}=\boldsymbol{TX}\boldsymbol{\beta}+\boldsymbol{T}\boldsymbol{u}$\\
+\begin{itemize}
+\item For covariance matrix of the transformed model, we get:
+$$E(\boldsymbol{T}\boldsymbol{u}(\boldsymbol{T}\boldsymbol{u})^T)=
+E(\boldsymbol{T}\boldsymbol{u}\boldsymbol{u}^T\boldsymbol{T}^T)=\boldsymbol{T} E(\boldsymbol{u}\boldsymbol{u}^T)\boldsymbol{T}^T=\sigma^2\boldsymbol{THT}^T$$
+We need $\boldsymbol{THT}^T \! = \boldsymbol{I}$; from this relation we derive the transformation matrix $\boldsymbol{T}$.
+Transformation gives us model that fulfills previously broken G-M assumption.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{GLSM – matrix form}
+\textbf{GLSM algorithm:}
+\begin{enumerate}
+\item Estimate the model using OLS.
+\item Test assumption $E(\boldsymbol{uu}^T)=\sigma^2 \boldsymbol{I}_n$, if  broken:
+\item Find/set appropriate transformation matrix $\boldsymbol{T}$.
+\item Multiply variables of the model by $\boldsymbol{T}$, to get transformed variables.
+\item Estimate the model with transformed variables (use OLS for estimation).
+\item If necessary, reverse-transform the model estimated to get parameter estimates for the original specification of the LRM.
+\end{enumerate}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{GLSM – matrix form}
+\begin{itemize}
+\item Matrices $\boldsymbol{H}$ and $\boldsymbol{T}$ of the GLSM algorithm differ for heteroskedasticity  and autocorrelation.
+\vspace{0.2cm}
+\begin{itemize}
+
+\item Heteroskedasticity (CS data, matrix form, quick recap):\\
+$$\sigma^2 \bm{H} = \sigma^2 
+\begin{bmatrix}
+    h_1&  0 & \cdots & 0\\
+    0 &  h_2&  \cdots & 0\\ 
+     &    &  \vdots& \\ 
+     0 & 0 & \cdots & h_n 
+\end{bmatrix} = 
+\begin{bmatrix}
+    \sigma^2_1&  0 & \cdots & 0\\
+    0 &  \sigma^2_2&  \cdots & 0\\ 
+     &    &  \vdots& \\ 
+     0 & 0 & \cdots & \sigma^2_n 
+\end{bmatrix}
+$$
+
+GLS: $\bm{\hat{\beta}}=(\bm{X}^T \bm{\hat{H}}^{-1} \bm{X})^{-1} \bm{X}^T \bm{\hat{H}}^{-1} \bm{y}$\\
+where WLS or FGLS method is used to estimate/set $\bm{\hat{H}}$.
+\end{itemize}
+\end{itemize}
+
+
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{GLSM – matrix form}
+Autocorrelation (matrix form):
+\begin{itemize}
+\item Let's assume autocorrelation of the AR(1) form $u_t = \rho u_{t-1}+ \varepsilon_t$  ; \\ where $\rho$ is coefficient of autocorrelation $\rho \in (-1; 1)$
+\end{itemize}
+\vspace{0.2cm}
+If we know the autocorrelation coefficient $\rho$,  matrix $E(\boldsymbol{uu}^T)$ is :
+
+$$E(\boldsymbol{uu}^T)=\frac{\sigma^2_{u}}{1-\rho^2}
+    \begin{bmatrix}
+    1&  \rho &  & \rho^{n-1}\\
+    \rho &  1&  \rho & \\ 
+     &  \rho &  1& \rho\\ 
+     \rho^{n-1} &  & \rho &1 
+\end{bmatrix}$$
+
+( we assume homoskedasticity and known variance $\textit{Var}(u_t)$ )
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{GLSM – matrix form}
+\begin{itemize}
+\item Explanation of matrix $E(\boldsymbol{uu}^T)$\\
+In the AR(1) process: $Cov(u_t,u_{t+s})=\rho^s \sigma^2$, $Var(u_t)=\frac{\sigma^2_e}{1-\rho^2}$
+\vspace{0.3cm}
+\item That is why: 
+
+$H=\begin{bmatrix}
+ 1&  \rho &  & \rho^{n-1}\\
+ \rho &  1&  \rho & \\ 
+ &  \rho &  1& \rho\\ 
+\rho^{n-1} &  & \rho &1 
+\end{bmatrix}$
+\vspace{0.3cm}
+\item Usually, we do not know the matrix $\boldsymbol{H}$, it must be estimated. In such case, we call the method Feasible General Least Squares (FGLS).
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{GLSM – matrix form}
+\textbf{Prais - Winsten method (transformation)}
+\begin{itemize}
+\item Transformation by $\boldsymbol{T}$: transformed vector $\boldsymbol{y}$ and matrix $\boldsymbol{X}$
+$$\boldsymbol{T}=\sqrt[]{\frac{1}{1-\rho^2}}
+\begin{bmatrix}
+ \sqrt[]{1-\rho^2}&  0 & 0 & 0\\
+ - \rho &  1&  0 & 0\\ 
+ \cdots & \cdots & \cdots & \cdots \\
+0 &  -\rho &  1& 0\\ 
+0 & 0 & -\rho &1 
+\end{bmatrix}, \,\,
+\boldsymbol{y^\ast}=
+\begin{bmatrix}
+y_1\sqrt[]{1-\rho^2}\\
+y_2-\rho y_1\\
+y_3-\rho y_2 \\
+\cdots
+\end{bmatrix},
+$$ $$
+\boldsymbol{X^\ast}=\begin{bmatrix}
+\sqrt[]{1-\rho^2} & x_{11}\sqrt[]{1-\rho^2} & x_{21}\sqrt[]{1-\rho^2}\\
+1-\rho & x_{12}-\rho x_{11} & x_{22}-\rho x_{21} \\
+1-\rho & x_{13}-\rho x_{12} & x_{23}-\rho x_{22} \\
+\cdots & \cdots & \cdots &
+\end{bmatrix}
+$$
+
+\item P-W  transformation: quasi-differencing of all variables of the LRM and an approximation for the first period. In the transformation, we skip the fraction in front of $\boldsymbol{T}$-matrix. As a constant, it does not influence the regression result.
+
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{GLSM – matrix form}
+\textbf{Cochrane-Orcutt method (transformation)}
+\begin{itemize}
+\item P-W method without the approximation of the first observation.
+\end{itemize}
+
+\vspace{1cm}
+
+For both the P-W and C-O methods, we usually use iterations to make the estimates of the autoregressive coefficient and regression parameters of the model more accurate.
+
+\end{frame}
+
+%------------------------------------------------------
+
+\begin{frame}{Additional TS topics}
+\begin{itemize}
+\item Heteroskedasticity in time series
+\vspace{1cm}
+\begin{itemize}
+\item Autoregressive Conditional Heteroskedasticity (ARCH) models included
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\end{document}

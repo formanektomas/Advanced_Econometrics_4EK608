@@ -1,0 +1,526 @@
+\documentclass[usenames,dvipsnames]{beamer}
+%
+% Choose how your presentation looks.
+%
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}  
+\usepackage{tikz}%boxy s vysvetlivkami 
+\usetikzlibrary{calc}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{color}
+\usepackage{listings}
+
+\newcommand{\mytikzmark}[2]{%
+  \tikz[remember picture,inner sep=0pt,outer sep=0pt,baseline,anchor=base] 
+    \node (#1) {\ensuremath{#2}};}
+
+%
+% For more themes, color themes and font themes, see:
+% http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
+%
+\mode<presentation>
+{
+  \usetheme{Darmstadt}      % or try Darmstadt, Madrid, Warsaw, ...
+  \usecolortheme{default} % or try albatross, beaver, crane, ...
+  \usefonttheme{serif}  % or try default, serif, structurebold, ...
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+} 
+%
+%
+\title[Week8]{Week 8: Instrumental Variables (IVs) and Two Stage Least Squares (2SLS)}
+\author{Advanced Econometrics 4EK608}
+\institute{Vysoká škola ekonomická v Praze}
+\date{}
+
+\begin{document}
+ 
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% Uncomment these lines for an automatically generated outline.
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+%---------------------------------------------
+\section{Instrumental variables}
+\begin{frame}{Instrumental variables}
+\begin{itemize}
+\item  IVs help to solve the endogeneity problem.
+\vspace{0.3cm}
+\item Endogeneity exists  in social sciences and economics everywhere.
+\vspace{0.3cm}
+\begin{itemize}
+\item Many important variables cannot be measured
+and often are correlated with observed explanatory variables.
+\item Endogeneity can be caused by measurement errors.
+\item It is always present in simultaneous equations models.
+\end{itemize}
+\vspace{0.3cm}
+\item In this case, estimators are biased and inconsistent.
+\end{itemize}
+\end{frame}
+
+
+%---------------------------------------------
+\begin{frame}{Instrumental variables}
+\begin{itemize}
+\item  Endogeneity can sometimes be ignored, e.g. if  the estimates are coupled with the direction of the biases for key parameters and if we can draw some useful conclusion. \\(job training effect on wages: attenuated by self-selection)
+\vspace{0.3cm}
+\item Endogeneity can sometimes be solved
+\vspace{0.3cm}
+\begin{itemize}
+\item with the use of proxy variables
+\medskip
+\item with panel data methods for models with time-invariant unobserved effects (FD, FE, RE  estimators)
+\medskip
+\item with instrumental variables
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------
+
+\begin{frame}{Instrumental variables}
+\textbf{Example}:  $log(wage_i)=\beta_0+\beta_1educ_i+u_i$  \\
+\vspace{0.3cm}
+\textbf{Definition of instrumental variables}
+\begin{itemize}
+\item They are not in the regression (do not have partial effect on the dependent variable after controlling for $\bm{x}$ regressors and omitted variables.
+\item They are correlated (positively or negatively) with the endogenous variable  – instrument is relevant; can be tested
+\item They are not correlated with the error term (that is why \textit{IQ} is not a good IV); often, this cannot be tested
+\item Possible instrumental variables: father's education, mother's education, number of siblings, school proximity, month of birth (children born after August usually start school one year later)
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------
+\begin{frame}{Instrumental variables}
+\textbf{Consistency of the OLS estimator  in simple regression}
+\begin{align*}
+y_i & =\beta_0+\beta_1 x_i+u_i \\
+\mathrm{cov}(x_i, u_i) & = 0 \quad \textnormal{exogeneity assumption}
+\end{align*}
+\begin{align*}
+\mathrm{cov}(x_i,y_i-\beta_0-\beta_1x_i) = 0 &\Leftrightarrow \mathrm{cov}(x_i,y_i)-\beta_1 \mathrm{var}(x_i) =0,  \\
+\\
+\beta_1  = \mathrm{cov}(x_i,y_i)/\mathrm{var}(x_i) & \Rightarrow \hat{\beta}_1  = \widehat{\mathrm{cov}}(x_i,y_i)/\widehat{\mathrm{var}}(x_i)\\
+\end{align*}
+This holds as long as the data are such that sample variances and covariances converge to their theoretical counterparts as $n$ grows. OLS will be consistent if, and only if, exogeneity holds.
+\end{frame}
+
+%---------------------------------------------
+\begin{frame}{Instrumental variables}
+\textbf{IV estimator in simple regression}\\
+\medskip
+We assume instrumental variable \textit{z} exists:
+\begin{align*}
+\mathrm{cov}(y_i|\bm{x}_i, z_i) = 0 \qquad \mathrm{cov}(z_i, u_i) = 0 \qquad \mathrm{cov}(x_i, u_i) \neq 0
+\end{align*}
+\begin{align*}
+\mathrm{cov}(z_i,y_i-\beta_0-\beta_1x_i)=0 &\Leftrightarrow \mathrm{cov}(z_i,y_i)-\beta_1 \mathrm{cov}(z_i, x_i)=0\\
+\\
+\beta_1  = \mathrm{cov}(z_i,y_i)/\mathrm{cov}(z_i, x_i) &\Rightarrow  \hat{\beta}_{1,IV} = \widehat{\mathrm{cov}}(z_i,y_i)/\widehat{\mathrm{cov}}(z_i, x_i)\\
+\end{align*}
+$$\hat{\beta}_{1,OLS}=\frac{\sum_{i=1}^n(x_i-\overline{x})(y_i-\overline{y})}{\sum_{i=1}^n(x_i-\overline{x})^2}~; \qquad
+\hat{\beta}_{1,IV}=\frac{\sum_{i=1}^n(z_i-\overline{z})(y_i-\overline{y})}{\sum_{i=1}^n(z_i-\overline{z})(x_i-\overline{x})}$$
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Instrumental variables}
+\textbf{Statistical inference with IV estimator (SLRM)}
+\begin{itemize}
+\item In large samples, IV estimator has approximately normal distribution. 
+\item For calculation of standard errors, we usually need assumption of homoskedasticity conditional on the instrumental variable. 
+\item Asymptotic variance of the IV estimator is always higher than  of the OLS estimator. 
+$$ \textnormal{var}(\hat{\beta}_{1,IV})=\frac{\hat{\sigma}^2}{\textit{SST}_{x} \cdot R^2_{x,z}} ~~~>~~
+\textnormal{var}(\hat{\beta}_{1,OLS})=\frac{\hat{\sigma}^2}{\textit{SST}_x}$$
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Instrumental variables}
+\textbf{Statistical inference with IV estimator (SLRM)}\\
+\medskip
+\begin{itemize}
+\item Asymptotic variance of the IV estimator decreases with increasing correlation between $z$ and $x$. 
+\item IV-related routines \& tests are implemented in R, \dots 
+\item Both endogenous explanatory variables and IVs can be binary variables.
+\end{itemize}
+
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Instrumental variables}
+\textbf{Statistical inference with IV estimator (SLRM)}\\
+\bigskip
+\begin{itemize}
+\item If (small) correlation between $u$ and instrument is possible, the inconsistency in the IV estimator can be much higher than in the OLS estimator:
+\vspace{0.3cm}
+\begin{align*}
+\mathrm{plim}\hat{\beta}_{1, OLS} = \beta_1 + \mathrm{corr}(x, u) \cdot \frac{\sigma_u}{\sigma_x} \\
+~\\
+\mathrm{plim}\hat{\beta}_{1, IV} = \beta_1 + \frac{\mathrm{corr}(z, u)}{\mathrm{corr}(z, x)} \cdot \frac{\sigma_u}{\sigma_x} \\
+\end{align*}
+
+\item Weak instrument: if correlation between  $z$ and $x$ is small.
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Instrumental variables}
+\textbf{Coefficient of determination after IV estimation}
+\vspace{0.3cm}
+\begin{itemize}
+\item $R^2$ can be negative;  SSR can be higher than SST.
+\vspace{0.3cm}
+\item It does not have natural interpretation and any importance/relevance when IV method is used. 
+\vspace{0.3cm}
+\item IV method is for estimation of the ceteris paribus effect, not for maximization of the coefficient of determination (for forecasting needs).
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Instrumental variables}
+\textbf{IV estimation in multiple regression}: 
+\begin{itemize}
+\item Structural equation (as in SEMs) \\
+$y_1=\beta_0+\beta_1 y_2+\beta_2 z_1+ \dots + \beta_k z_{k-1} +u$\\
+\smallskip
+\item Reduced form for $y_2$ – endogenous variable as function of all exogenous variables (including IVs) \\
+$y_2=\pi_0+\pi_1 z_1+ \dots + \pi_{k-1} z_{k-1}+\pi_k z_k + v$
+\end{itemize}
+\vspace{0.3cm}
+$z_k$ is some exogenous variable, excluded from structural equation (order condition for identification of the structural equation),\\
+\vspace{0.3cm}
+$z_k$ is an instrumental variable for $y_2$, its coefficient must not be zero (rank condition for identification for this model) in the reduced form equation.
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Instrumental variables}
+\textbf{Calculating IV estimates in multiple regression} \\
+Exogeneity conditions: \\
+\vspace{0.2cm}
+$\mathrm{cov}(z_j,u)=0$, \quad $j=1, \dots , k$ \quad $\mathrm{E}(u)=0$ \\
+\vspace{0.3cm}
+We use their sample analogs:
+\begin{align*}
+n^{-1} & \sum_{i=1}^n (y_{i1}-\hat{\beta}_0-\hat{\beta}_1 y_{i2}-\hat{\beta}_2 z_{i1}- \dots- \hat{\beta}_k z_{ik-1})=n^{-1} \sum_{i1}^n \hat{u}_{i}=0 \\
+n^{-1} & \sum_{i=1}^n z_{ij} \! \cdot \! \hat{u}_{i} \> = \> \widehat{\mathrm{cov}}(z_j, \hat{u}) = 0,  \hspace{0.5cm} j = 1, \dots , k 
+\end{align*}
+$k+1$ equations for $k+1$ estimated parameters
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Instrumental variables}
+Conditions for $z_k$
+\vspace{0.3cm}
+\begin{itemize}
+\item It is excluded from the estimated structural equation
+\item It must be correlated with $y_2$
+\item It must not be correlated with $u$
+\end{itemize}
+\vspace{0.3cm}
+We can have more instrumental variables, all must fulfill the conditions above (exclusion restrictions). \\
+\vspace{0.3cm}
+The best IV is some linear combination of the vector $\bm{z}_i$; \\ one that is most correlated with $y_2$. It is given by the reduced form. \\
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Instrumental variables}
+\begin{itemize}
+\item In the reduced form, there are both original exogenous variables (from the structural equation) and excluded  exogenous variables.
+\vspace{0.5cm}
+\item In the reduced form, at least some coefficient for the excluded variables must be different from zero, otherwise we would get perfect collinearity between the instrumental variable given by the reduced form and original exogenous variables. 
+\begin{itemize}
+\item In other words, rank condition for identification would not be fulfilled.
+\end{itemize} 
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\section{Two stage least squares}
+\begin{frame}{Two stage least squares}
+\textbf{IV estimator is equivalent to the following procedure: }\\
+\medskip
+$y_1=\beta_0+\beta_1 y_2+\beta_2 z_1+ ... + \beta_k z_{k-1}+u$
+\medskip
+\begin{itemize}
+\item [$1^{st}$] stage: reduced form regression \\
+\quad $\hat{y}_2=\hat{\pi}_0+\hat{\pi}_1 z_1 + \dots + \hat{\pi}_{k-1} z_{k-1} + \hat{\pi}_k z_k$
+\item [$2^{nd}$] stage: \\
+\quad $y_1=\beta_0+\beta_1 \hat{y}_2 + \beta_2 z_1 + \dots + \beta_k z_{k-1} + \varepsilon$
+\medskip
+\end{itemize}
+In the $2^{\textnormal{nd}}$ stage, all variables are exogenous, because $y_2$ was replaced by its prediction which is dependent on exogenous information only. \\Alternative description: In the second stage of 2SLS, $y_2$ is cleared from its endogenous part (which is correlated with error). 
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Two stage least squares}
+\textbf{2SLS properties}
+\vspace{0.3cm}
+\begin{itemize}
+\item The standard errors from the OLS second stage regression are wrong. However, it is not difficult to compute correct standard errors (and software gives it automatically).
+\vspace{0.3cm}
+\item If there is one endogenous variable and one instrument then 2SLS = IV
+\vspace{0.3cm}
+\item With multiple endogenous variables and/or multiple instruments, 2SLS is a special case of IVR.
+\vspace{0.3cm}
+\item The 2SLS estimation can also be used if there is more than one endogenous variable. Conditions for identification must be fulfilled.
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Two stage least squares}
+ \textbf{Conditions for identification}:
+ \vspace{0.3cm}
+\begin{itemize}
+\item \textbf{Order condition:} We need at least as many excluded exogenous variables as there are included endogenous explanatory variables in the structural equation.  
+\vspace{0.2cm} 
+\\This is a necessary condition for identification. 
+\vspace{0.5cm}
+\item \textbf{Rank condition:} We touched it before; 
+\vspace{0.2cm}
+\\This is a necessary and sufficient condition for identification. 
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Two stage least squares}
+\textbf{Using 2SLS/IV as a solution to errors-in-variables}:
+\medskip
+\begin{itemize}
+\item If a second measurement of the mis-measured variable is available, this can be used as an instrumental variable for the mis-measured variable
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Two stage least squares}
+\textbf{Statistical properties of the 2SLS/IV estimator}
+\vspace{0.3cm}
+\begin{itemize}
+\item Under assumptions completely analogous to OLS, but conditioning on $z_i$ rather than on $x_i$ , 2SLS/IV is consistent and asymptotically normal.
+\vspace{0.3cm}
+\item 2SLS/IV estimator is typically much less efficient than the OLS estimator because there is more multicollinearity and less explanatory variation in the second stage regression
+\vspace{0.3cm}
+\item Problem of multicollinearity is much more serious with 2SLS than with OLS
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Two stage least squares}
+\textbf{Statistical properties of the 2SLS/IV estimator}
+\vspace{0.5cm}
+\begin{itemize}
+\item Corrections for heteroscedasticity/serial correlation analogous to OLS
+\vspace{0.3cm}
+\item 2SLS/IV easily extends to time series and panel data situations
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+% Excluded based on TC suggestion
+%\begin{frame}{Two stage least squares}
+%\textbf{Testing for endogeneity of explanatory variables}
+%\begin{align*}
+%y_1 & = \beta_0 + \beta_1 y_2 + \beta_2 z_1 +\dots+ \beta_k z_{k-1} + u_1 \\
+%y_2 & = \pi_0 + \pi_1 z_1 +\dots+ \pi_{k-1} z_{k-1} + \pi_k z_k + v_2
+%\end{align*}
+%Since each $z_j$ is uncorrelated with $u_1$, variable $y_2$ is exogenous if and only if $v_2$ is uncorrelated with $u_1$, i.e. if the parameter $\delta_1$ is zero in the regression: $u_1=\delta_1v_2+e_1$ \\ 
+%\vspace{0.3cm}
+%Test equation is: $y_1=\beta_0 + \beta_1 y_2 + \beta_2 z_1 + \dots + \beta_k z_{k-1} + \delta_1 \hat{v}_2 + e_1$ \\
+%\vspace{0.3cm}
+%If $y_2$ is exogenous, it is better to use OLS, \\ because OLS is more efficient than 2SLS.
+%\end{frame}
+%---------------------------------------------
+%\begin{frame}{Two stage least squares}
+%\textbf{Overidentification}: \\
+%\vspace{0.3cm}
+%We have more instruments than we need to estimate the parameters consistently. Through the so called ``testing of overidentifying restrictions'' we can test the exogeneity of instruments. 
+%\end{frame}
+%---------------------------------------------
+\section{IV Tests: introduction}
+\begin{frame}{IV Tests: introduction}
+LRM: $y_{i1}=\beta_0+\beta_1 y_{i2}+\beta_2 x_{i1}+u_i$; \quad $\bm{z}$ instruments exist \\
+\vspace{0.3cm}
+
+\underline{IV regression advantages} for endogenous $y_2$:
+\vspace{-0.2cm}
+\begin{align*}
+& \rightarrow \hat{\beta}_{1,OLS} \enspace \parbox[t]{24em}{ is a \textcolor{red}{biased and inconsistent estimator} \\(asymptotic errors)}\\
+ & \rightarrow \hat{\beta}_{1, IV} \enspace \parbox[t]{24em}{ is a \textcolor{blue}{biased and consistent estimator} (increased \\sample size (\textit{n}) lowers estimator bias and s.e.)} 
+\end{align*}
+\underline{IVR disadvantages (price for the IV regression)}:
+\begin{itemize}
+\item $\textnormal{s.e.}(\hat{\beta}_{1, IV}) > \textnormal{s.e.}(\hat{\beta}_{1, OLS})$
+\item $\hat{\beta}_{1, IV}$ is always biased, even if $y_2$ is actually exogenous\\
+$\hat{\beta}_{1, OLS}$ is unbiased for exogenous regressors \\ 
+\small (potentially, pending other G-M conditions).
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{IV Tests: introduction}
+LRM: $y_{i1}=\beta_0+\beta_1 y_{i2}+\beta_2 x_{i1}+u_i$; \quad $\bm{z}$ instruments exist
+\medskip
+\begin{itemize}
+\item Is the regressor $y_2$ endogenous / $\mathrm{corr}(y_2, u) \neq 0$ / ? \\
+Is it meaningful to use IVR (considering IVRs ``price'')?\\
+\textbf{Durbin-Wu-Hausman endogeneity test}\\
+\item Are the instruments actually helpful\\
+(strongly correlated with endogenous regressors)? \\
+\textbf{Weak instruments test}\\
+\item Are the instruments really exogenous / $\mathrm{corr}(z_j, u)=0$ / ?\\
+\textbf{Sargan test} (only applicable in case of over-identification)\\
+\end{itemize}
+\medskip
+\small Different tests \& specifications for IV-tests exist, often focusing on the distribution of the difference between IVR and OLS estimators ($\bm{\hat{\beta}_{IV}}-\bm{\hat{\beta}_{OLS}}$) under the corresponding $H_0$.
+\end{frame}
+%---------------------------------------------
+\subsection{Durbin-Wu-Hausman (endogeneity in regressors)}
+\begin{frame}{Durbin-Wu-Hausman endogeneity test}
+Structural equation: 
+\begin{align}
+\label{eq:one} y_{i1}=\beta_0+\beta_1 y_{i2} + \beta_2 x_{i1} + u_i; \quad \text{IVs: $z_1$ and $z_2$}
+\end{align}
+Reduced form for $y_2$: 
+\begin{align}
+\label{eq:two} y_{i2}=\pi_0 + \pi_1 z_{i1} + \pi_2 z_{i2} + \pi_3 x_{i1} + \varepsilon_i
+\end{align}
+\vspace{-0.4cm}
+\begin{itemize}
+\item[$H_0$:] $y_2$ is exogenous $\leftrightarrow$ $\hat{\varepsilon}$ is not significant when added to equation \eqref{eq:one}
+\item[$H_1$:] $y_2$ is endogenous $\rightarrow$ OLS is not consistent for \eqref{eq:one} estimation, use IVR (2SLS).
+\end{itemize}
+\textbf{\underline{Testing algorithm:}}
+\begin{enumerate}
+\item Estimate equation \eqref{eq:two} and save residuals $\hat{\varepsilon}$.
+\item Add residuals $\hat{\varepsilon}$ into equation \eqref{eq:one} and estimate using OLS\\ (use HC inference).
+\item $H_0$ is rejected if $\hat{\varepsilon}$ in the modified equation \eqref{eq:one} is statistically significant ($t$-test).
+\end{enumerate}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Durbin-Wu-Hausman endogeneity test}
+$$y_{i1}=\beta_0+\beta_1 y_{i2} + \beta_2 x_{i1} + \beta_3 \hat{\varepsilon} + u_i,$$
+\medskip
+\textbf{\underline{DWH test explanation:}} \\If $z_j$ are proper instruments (uncorrelated with $u$), then $y_2$ is endogenous (correlated with $u$) if and only if $\varepsilon$ is correlated with $u$. \\
+\medskip
+\begin{itemize}
+\item $y_2$ in \eqref{eq:one} is endogenous ~~$\Leftrightarrow ~~\textnormal{corr}(y_2,u)\neq0$
+\item From \eqref{eq:two}, $y_2 = \textit{l.f.}(\textit{instruments} \bm{~z}) + \varepsilon ~\Rightarrow~ y_2 = \hat{y}_2 + \hat{\varepsilon}$
+\item $\textnormal{corr}(y_2,u)\neq0 ~\wedge~\textnormal{corr}(\bm{z},u) = 0 ~\Rightarrow~ \textnormal{corr}(\varepsilon,u)\neq0 $
+\item $y_1$ is always correlated with $u$ in \eqref{eq:one}. 
+\item Hence, $\hat{\varepsilon}$ is significant in the regression, if $y_2$ is endogenous.
+\item $\forall z_j$ uncorrelated with $u$ is essential for DWH to ``work''.
+\end{itemize}
+
+
+\bigskip
+\textbf{\underline{Note:}} other versions of the DWH test exist...
+\end{frame}
+%---------------------------------------------
+\subsection{Weak instruments Test}
+\begin{frame}{Weak instruments}
+\textbf{Motivation for Weak instruments and Sargan tests:} \\
+\medskip
+LRM: \quad $y_{i1}=\beta_0+\beta_1 y_{i2}+\beta_2 x_{i1}+u_i$; \ $z$ instrument exists
+\bigskip
+\begin{itemize}
+\item IVR is consistent if $\mathrm{cov}(z,y_2) \neq 0$ and $\mathrm{cov}(z, u) = 0$
+\item If we allow for (weak) correlation between $z$ and $u$, the asymptotic error of IV estimator is:
+\small $$\mathrm{plim}(\hat{\beta}_{1, IV}) = \beta_1 + \frac{\mathrm{corr}(z,u)}{\mathrm{corr}(z,y_2)} \cdot \frac{\sigma_u}{\sigma_{y_2}} $$
+%BOX
+\item If $\mathrm{corr}(z, y_2)$ is too weak (too close to zero in absolute value), OLS may be better than IV. The asymptotic bias for OLS (LRM with endogenous $y_2$):
+\small $$\mathrm{plim}(\hat{\beta}_{1,OLS})=\beta_1+\mathrm{corr}(y_2,u) \cdot \frac{\sigma_u}{\sigma_{y_2}}$$
+\end{itemize}
+Rule of thumb: IF $|\mathrm{corr}(z,y_2)| < |\mathrm{corr}(y_2,u)|$, do not use IVR.
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Weak instruments}
+Structural equation: 
+\begin{align*}
+y_1=\beta_0+\beta_1 y_2 + \beta_2 x_1 + \dots + \beta_{k+1} x_k + u; \quad \text{IVs: $z_1$, $z_2$, \dots , $z_m$}
+\end{align*}
+The reduced form for $y_2$: 
+\begin{align*}
+y_2=\pi_0 + \pi_1 x_1 + \pi_2 x_2 + \dots + \pi_k x_k + \theta_1 z_1 + \dots + \theta_m z_m + \varepsilon
+\end{align*}
+\vspace{-0.3cm}
+\begin{itemize}
+\item[$H_0$:] $\theta_1=\theta_2=\dots=\theta_m=0$ \\interpretation: ``instruments are weak''.
+\item[$H_1$:] $\neg$ $H_0$
+\end{itemize}
+\bigskip
+\textbf{\underline{Testing for weak instruments:}} \\
+\medskip
+Use $F$-test (heteroskedasticity-robust) or the $LM$ test ($\chi^2$) to test for the joint null hypothesis.
+\end{frame}
+%---------------------------------------------
+\subsection{Sargan (exogeneity in IVs, over-identification only)}
+\begin{frame}{Sargan test (over-identification only)}
+Structural equation: 
+\begin{align}
+\label{eq:three} y_{i1}=\beta_0+\beta_1 y_{i2} + \beta_2 x_{i1} + u_i; \quad \text{IVs: $z_1$, $z_2$, \dots}
+\end{align}
+\vspace{-0.2cm}
+\begin{itemize}
+\item[$H_0$:] all IVs are uncorrelated with $u$
+\item[$H_1$:] at least one instrument is endogenous
+\end{itemize}
+\bigskip
+\textbf{\underline{Testing algorithm:}}
+\begin{enumerate}
+\item Estimate equation \eqref{eq:three} using IVR and save the $\hat{u}$ residuals.
+\item Use OLS to estimate auxiliary regression: \ $\hat{u} \leftarrow f(\bm{x, z})$ and save the $R_a^2$
+\item Under $H_0$: $nR_a^2 \sim \chi_q^2$ where \\$q =$ (number of IVs) - (number of endogenous regressors) 
+ \\i.e. $q$ is the number of over-identifying variables.
+\item If the observed test statistics exceeds its critical value \\(at a given significance level), we reject $H_0$.
+\end{enumerate}
+\end{frame}
+%---------------------------------------------
+\subsection{IV Tests: example}
+\begin{frame}[fragile]{IV Tests: example}
+%\begin{minipage}[t]{.3\textwidth}
+
+\tiny
+\begin{lstlisting}[escapechar=\%]
+Call:
+ivreg(formula = lbwght ~  %\mytikzmark{REG}{packs + male}% |  %\mytikzmark{IV}{faminc + motheduc + male}%, 
+    data = bwght)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.66291 -0.09793  0.01717  0.11616  0.82793 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  4.77419    0.01099 434.478  < 2e-16 ***
+packs       -0.25584    0.07613  -3.361 0.000798 ***
+male         0.02422    0.01048   2.311 0.021003 *  
+
+Diagnostic tests:
+                  df1  df2 statistic p-value    
+Weak instruments    2 1383    38.732  <2e-16 %\mytikzmark{1}{***}%
+Wu-Hausman          1 1383     5.385  0.0205 %\mytikzmark{2}{* }% 
+Sargan              1   NA     4.476  0.0344 %\mytikzmark{3}{*  }%
+---
+Signif. codes:  0 *** 0.001 ** 0.01 * 0.05 . 0.1  
+
+Residual std. error: 0.195 on 1384 d.f.
+Multiple R-Squared: -0.04371,	Adj R-sqr: -0.04522 
+Wald test: 8.342 on 2 and 1384 DF,  p-value: 0.0002504 
+\end{lstlisting}
+%\end{minipage}
+
+\begin{tikzpicture}[<-,overlay,remember picture,inner sep=0.6pt,shorten <=0.2em,font=\tiny]
+\tikzset{
+    mynode/.style={rectangle, draw=Red,fill=white, minimum size=1cm, text width=4.2cm, font=\scriptsize},
+    mynode2/.style={rectangle, minimum size=.5cm, text width=3cm},
+    mynode3/.style={rectangle, minimum size=.5cm, text width=.5cm},
+    myarrow/.style={->, >=stealth, semithick, Red},
+    myarrow2/.style={->, >=stealth, semithick, Blue}
+}
+\node[mynode] at (9,7)(box){Wooldridge, bwght dataset\\ R code, \{AER\} package};
+\node[mynode3] at (11,5.5)(box4){IVs};
+\node[mynode2] at (10.2,5)(box5){Regressors \\explicitly included \\in equation};
+\node[mynode2] at (10.2,3)(box1){\checkmark Reject $H_0$: \\IVs are weak};
+\node[mynode2] at (10.2,2)(box2){\checkmark Reject $H_0$: \\pack are exogenous};
+\node[mynode2] at (10.2,1)(box3){!! Reject $H_0$: all IVs \\ are uncorrelated with $u$ \\ (!DWH assumptions!)};
+\draw[myarrow] (box1) -- ++ (1);
+\draw[myarrow] (box2) -- ++ (2);
+\draw[myarrow] (box3) -- ++ (3);
+\draw[myarrow2] (box4) -- ++ (IV);
+\draw[myarrow2] (box5) -- ++ (REG);
+\end{tikzpicture}
+
+\end{frame}
+
+
+\end{document}
