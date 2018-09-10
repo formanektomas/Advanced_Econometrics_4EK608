@@ -73,19 +73,18 @@
 
 Definitions:
 	\begin{itemize}
-	\item Set of explanatory variables in the LRM equation at time $t$ \\ 
-    (vector $ 1 \times k$)
-    $$\boldsymbol{x}_t=(x_{t1},x_{t2}, \dots, x_{tk})$$
-    
-    \item Set of all explanatory variables (matrix $n \times k$) 
-    
-    $$\boldsymbol{X}=(\boldsymbol{x}_{1},
+	\medskip
+	\item $\boldsymbol{X}=(\boldsymbol{x}_{1},
     \boldsymbol{x}_{2},\dots,
-    \boldsymbol{x}_{k})$$
-	    
+    \boldsymbol{x}_{k})$\\Set of all explanatory variables (matrix $n \times k$) 
+    \item $\bm{x}_j = (x_{1j}, x_{2j}, \dots , x_{nj})^{\prime}$\\
+    Set of all $n$ observations of the $j$-th regressor (vector $n \times 1$)
+	\item $\boldsymbol{x}_t=(x_{t1},x_{t2}, \dots, x_{tk})$\\
+	Set of all explanatory variables observed at time $t$ \\ 
+    (vector $ 1 \times k$)
+    \medskip
     \item Usually, the first item in $\boldsymbol{x}_t$ and the first column in $\boldsymbol{X}$ correspond to the intercept.
     \end{itemize}
-
 \end{frame}
 
 %------------------------------------------------------
@@ -138,7 +137,7 @@ For each $t$, the expected value of error conditionally on the explanatory varia
 variance of $\hat{\beta_j}$ conditional on $\boldsymbol{X}$ is given by: 
 
 $$\textit{var}(\hat{\beta_j}|\boldsymbol{X}) 
-  =\frac{\sigma^2}{[\textit{SST}_j(1-R^2_j)]},  j=1,\dots,k$$
+  =\frac{\sigma^2}{\textit{SST}_j(1-R^2_j)}, \quad j=1,\dots,k$$
 
 where $\textit{SST}_j$ is the total sum of squares of $\boldsymbol{x}_{j}$ and $R^2_j$ is the coefficient of determination from auxiliary regression of $x_j$ on other explanatory variables. 
 \end{itemize}
