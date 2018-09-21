@@ -323,20 +323,20 @@ Description of the options for the \texttt{ur.df()} function:
 \medskip
 \begin{enumerate}
 \item \texttt{type "none"} \\
-$\Delta y_t = \gamma y_{t-1} + e_t$ ~\\
-\texttt{tau1:} we test for $H_0: \gamma = 0$ (unit root) 
+$\Delta y_t = \theta y_{t-1} + e_t$ ~\\
+\texttt{tau1:} we test for $H_0: \theta = 0$ (unit root) 
 \medskip
 \item \texttt{type "drift"} \\
-$\Delta y_t = a_0 + \gamma y_{t-1} + e_t$ ~\\
-\texttt{tau2:} $H_0: \gamma = 0$ (unit root) \\
-\texttt{phi1:} $H_0: \gamma = a_0 = 0$ (unit root and no drift) 
+$\Delta y_t = \alpha + \theta y_{t-1} + e_t$ ~\\
+\texttt{tau2:} $H_0: \theta = 0$ (unit root) \\
+\texttt{phi1:} $H_0: \theta = \alpha = 0$ (unit root and no drift) 
 
 \medskip
 \item \texttt{type "trend"} \\
-$\Delta y_t = a_0 + \gamma y_{t-1} + a_2t + e_t$ ~\\
-\texttt{tau3:} $H_0: \gamma = 0$ (unit root) \\
-\texttt{phi2:} $H_0: \gamma = a_0 = a_2 = 0$ (unit root, no drift, no trend) 
-\texttt{phi3:} $H_0: \gamma = a_2 = 0$ (unit root and no trend) 
+$\Delta y_t = \alpha + \theta y_{t-1} + \delta t + e_t$ ~\\
+\texttt{tau3:} $H_0: \theta = 0$ (unit root) \\
+\texttt{phi2:} $H_0: \theta = \alpha = \delta = 0$ (unit root, no drift, no trend) 
+\texttt{phi3:} $H_0: \theta = \delta = 0$ (unit root and no trend) 
 
 \end{enumerate}
 \end{frame}
@@ -346,7 +346,7 @@ $\Delta y_t = a_0 + \gamma y_{t-1} + a_2t + e_t$ ~\\
 \begin{frame}{Unit root tests}
 \begin{itemize}
 \item ADF test for TS with trend
-$$ \Delta y_t = \alpha + \delta t + \theta y_{t-1} + \gamma_1\Delta y_{t-1}+\dots+\gamma_p\Delta y_{t-p}+e_t$$
+$$ \Delta y_t = \alpha  + \theta y_{t-1} + \delta t + \gamma_1\Delta y_{t-1}+\dots+\gamma_p\Delta y_{t-p}+e_t$$
 Under the alternative hypothesis of no unit root, the process is trend-stationary.
 \medskip
 \item The critical values in the ADF distribution with time trend are even more negative as compared to random walk and random walk with a drift.
@@ -359,7 +359,7 @@ Under the alternative hypothesis of no unit root, the process is trend-stationar
 
 \begin{frame}{Unit roots and trend-stationary series}
 \begin{itemize}
-\item $ \Delta y_t = \alpha + \delta t + \theta y_{t-1} + \gamma_1\Delta y_{t-1}+\dots+\gamma_p\Delta y_{t-p}+e_t$
+\item $ \Delta y_t = \alpha  + \theta y_{t-1} + \delta t + \gamma_1\Delta y_{t-1}+\dots+\gamma_p\Delta y_{t-p}+e_t$
 \vspace{0.2cm}
 \item Terminology:
 \vspace{0.2cm}
