@@ -485,17 +485,17 @@ If the two series have differential time trends (drifts in this case), the devia
 \begin{frame}{Cointegration tests based on regression residuals}
 \textbf{Engle-Granger test} estimates a $p$-lag ADF equation:\\
 $$
-\hat{u}_t = \theta \, \hat{u}_{t-1} +
+\Delta \hat{u}_t = \theta \, \hat{u}_{t-1} +
 \sum_{j=1}^p \Delta \hat{u}_{t-j} + e_t
 $$
 \begin{itemize}
-    \item Esentially, this is an ADF test on $\hat{u}_t$ ($\theta = (\rho -1)$)
+    \item Esentially, this is an ADF test on $\hat{u}_t$ [$\theta = (\rho -1)$]
     \item Specific critical values apply (farther from 0 than $t$ or $DF$).\\~\\
 \end{itemize}
 
 \textbf{Phillips-Ouliaris test} estimates a DF equation:\\
 \vspace{-0.3cm}
-$$\hat{u}_t = \theta \, \hat{u}_{t-1} + e_t$$
+$$\Delta \hat{u}_t = \theta \, \hat{u}_{t-1} + e_t$$
 \vspace{-0.5cm}
 \begin{itemize}
     \item The $t$-ratio is based on robust standard errors,\\different estimator exist for the robust standard errors.
