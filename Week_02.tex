@@ -431,8 +431,9 @@ Some properties of integrated processes
 \vspace{0.5cm}
 \begin{enumerate}
 \item The sum of stationary and non-stationary series must be non-stationary.
-\item If $y_t=\alpha + \beta x_t$ and if $x_t$ is stationary then $y_t$ will be stationary. \\
-If $x_t$ is non-stationary then $y_t$ will be non-stationary. 
+\item Consider a process $y_t=\alpha + \beta x_t$:\\
+~$\cdot$~~ If $x_t$ is stationary then $y_t$ will be stationary. \\
+~$\cdot$~~ If $x_t$ is non-stationary then $y_t$ will be non-stationary. 
 \item If two time series are integrated of different orders, then any linear combination of the series will be integrated at the higher of the two orders of integration. 
 \item Sometimes it turns out a linear combination of two $I(d)$ series is integrated of order less then $d$. 
 \end{enumerate}
@@ -500,15 +501,14 @@ $$\textnormal{ADL}(p,q)\!: \, y_t = \beta_0 \, + \sum_{i=1}^p \beta_i y_{t-i} \,
          \sum_{j=0}^q \gamma_j x_{t-j} + u_t, \hspace{0.2cm}
          u_t \sim iid(0,\sigma^2)$$
 
-\item Common simplification to the $\textnormal{ADL}(p,q)$ model:
+\item There are many useful modifications/simplifications to the $\textnormal{ADL}(p,q)$ process. For example:
 \begin{equation} \label{ADL11}
 \textnormal{ADL}(1,1)\!: \, y_t = \beta_0 + \beta_1 y_{t-1} + 
-         \gamma_0 x_t + \gamma_1 x_{t-1} + u_t,
+         \gamma_0 x_t + \gamma_1 x_{t-1} + u_t \,.
 \end{equation}
-         
-\item In ADL$(1,1)$, if $\beta_1 = 1$ and $\gamma_1 = -\gamma_0$:
-$$\textnormal{Model in $1^{st}$ diffs.: } \,\,\, \Delta y_t = \beta_0 + \gamma_0 \Delta x_t + u_t $$.
-
+%~\\         
+Additional ADL$(1,1)$ restriction: $\beta_1 = 1$ and $\gamma_1 = -\gamma_0$
+$$\textnormal{gives a model in $1^{st}$ diffs.: } \,\,\, \Delta y_t = \beta_0 + \gamma_0 \Delta x_t + u_t\,. $$
 \end{itemize}
 
 \end{frame}
