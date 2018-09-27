@@ -51,7 +51,7 @@ Operátory zpoždění
 \end{frame}
 
 %---------------------------------------------
-\section{Lag operators}
+\section{Stationarity of ar($p$) processes}
 
 \begin{frame}{Lag operators}
 Lag operators:
@@ -72,7 +72,7 @@ $$(1-\phi_1 L - \phi_2 L^2 - \dots - \phi_p L^p)x_t = \alpha + u_t $$
 
 %---------------------------------------------
 
-\begin{frame}{Lag operators}
+\begin{frame}{Stationarity}
 \vspace{-0.5cm}
 \begin{equation} \label{eq1}
 (1-\phi_1 L - \phi_2 L^2 - \dots - \phi_p L^p)x_t = \alpha + u_t
@@ -101,7 +101,7 @@ L & = 1/\phi \\ \nonumber
 
 %---------------------------------------------
 
-\begin{frame}{Lag operators}
+\begin{frame}{Stationarity}
 \begin{block}{Illustration 2:}
 \begin{equation}
 x_t   = 2 + 3.9 x_{t-1} + 0.6 x_{t-2} - 0.8 x_{t-3} + u_t \label{eq4}
@@ -126,10 +126,10 @@ $$ (1-0.4L)(1+0.5L)(1-4L) =0 $$
 \section{Cointegration}
 
 \begin{frame}{Cointegration between two variables}
-\textbf{Superconsistency:}\footnote{Stock 1987} $y_t =  \beta_0 + \beta_1 x_t + u_t$\\
+\textbf{Superconsistency:} $y_t =  \beta_0 + \beta_1 x_t + u_t$\\
 \begin{enumerate}
 \item Provided $x_t$ and $y_t$ are cointegrated, the OLS estimators $\hat{\beta}_0$ and $\hat{\beta}_1$ will be consistent. 
-\item They converge in probability to their true values more quickly in the non-stationary case than in the stationary case. They are therefore very asymptotically efficient.
+\item $\hat{\beta}_j$ converge in probability to their true values $\beta_j$ more quickly in the cointegrated non-stationary case than in the stationary case (asymptotic efficiecy).
 \end{enumerate}
 \begin{block}{Consequences:}
 For simple static regression between two cointegrated variables: $y_t, x_t \sim C(1,1)$, super-consistency applies (with deterministic regressors such as intercept and trend added upon relevance). Dynamic misspecifications do not necessarily have serious consequences. This is a large sample property - in small samples, OLS estimators are biased.\\ (Specific statistical inference applies to cointegrating vectors.)
@@ -146,12 +146,12 @@ If two TS $x_t$ and $y_t$ are cointegrated, the short-term disequilibrium relati
  \Delta y_t = lagged(\Delta y, \Delta x) - \delta u_{t-1} + \varepsilon_t 
 \end{equation}
 where $u_{t-1} = y_{t-1} - \beta_0 - \beta_1 x_{t-1}$ is the disequilibrium error and $\delta$ is a short-run adjustment parameter. \\
-\footnotesize{Note: as $u$ is on the scale of $y$, $\delta$ can be interpreted in percentages. Example: $\delta = 0.8 \rightarrow 80 \%$ of the disequilibrium error gets corrected between $t-1$ and $t$ (on average).}
+\footnotesize{Note: as $u$ is on the scale of $y$, $\delta$ can be interpreted in percentages. Example: $\delta = +0.8 \rightarrow 80 \%$ of the disequilibrium error gets corrected between $t-1$ and $t$ (on average).}
 \vspace{0.1cm}
 
 \textbf{Two implications:}
 \begin{enumerate}
-\item The general-to-specific approach can focus on ECMs
+\item The general-to-specific model search can focus on ECMs
 \item Engle-Granger two-stage procedure
 \end{enumerate}
 \end{frame}
@@ -160,12 +160,17 @@ where $u_{t-1} = y_{t-1} - \beta_0 - \beta_1 x_{t-1}$ is the disequilibrium erro
 
 \begin{frame}{Cointegration between two variables}
 \textbf{Engle-Granger two-stage procedure:}
-\\ Way of short-cutting the search of an ECM model from general model
+
+\medskip
+We short-cut the search of an ECM from a general model
 \begin{itemize}
 \item[ $1^{st}$ ]  stage: Estimation of the cointegrating (static) regression and saving residuals $$\hat{u}_t = y_t - \hat{\beta}_0 - \hat{\beta}_1 x_t$$
 \item [$2^{nd}$]  stage: Use residuals $\hat{u}_{t-1}$ in \eqref{eq6} instead of $u_{t-1}$ and estimate by OLS
 \end{itemize}
-Estimator are consistent and asymptotically efficient, but biased in small samples.
+Estimator are consistent and asymptotically efficient, but biased in small samples. 
+
+\medskip
+\small{Assumptions: $y_t$ and $x_t$ are non-stationary and cointegrated.}
 \end{frame}
 
 %---------------------------------------------
@@ -173,11 +178,12 @@ Estimator are consistent and asymptotically efficient, but biased in small sampl
 %slide 9
 \begin{frame}{Cointegration among more than two variables}
 \textbf{Possibility of more cointegrating vectors}\\
-long-run: $r_t= \beta_0 + \beta_1 w_t + \beta_2 x_t + \beta_3 y_t$, all variables are $I(1)$\\
+long-run: $y_t= \beta_0 + \beta_1 x_t + \beta_2 w_t + \beta_3 z_t + u_t$,\\ all observed variables are $I(1)$\\
+\medskip
 If this long-run relationship exists, then the disequilibrium error \\
 \begin{equation}  \label{eq7}
-u_t= r_t - \beta_0 - \beta_1 w_t - \beta_2 x_t - \beta_3 y_t 
-\text{ should be } I(0) 
+u_t= [y_t - \beta_0 - \beta_1 x_t - \beta_2 w_t - \beta_3 z_t ]
+\quad \sim I(0) 
 \end{equation} 
 
 \vspace{0.3cm}
@@ -187,7 +193,7 @@ In the multivariate case, there may be more then one stationary linear combinati
 If a linear combination of variables such as \eqref{eq7} is stationary, then the coefficients in this relationship form a cointegrating vector, e.g. $(1,-\beta_{1},-\beta_{2},-\beta_{3})$. 
 
 \vspace{0.3cm} 
-Cointegration implies the existence of at least one cointegrating vector.
+Cointegration: the existence of at least one cointegrating vector.
 
 \end{frame}
 
@@ -195,13 +201,16 @@ Cointegration implies the existence of at least one cointegrating vector.
 
 %slide 10
 \begin{frame}{Cointegration among more than two variables}
-\textbf{Testing and estimation}\\ \hspace{0.3cm}
+\textbf{Testing and estimation}\\
+Cointegration can be tested using the EG and/or PO tests
 
-Testing is analogical to the two-variable case. \\ \hspace{0.3cm}
+\hspace{0.3cm}
 
-If there is just one cointegrating vector then estimation can still proceed by the Engle-Granger two-stage method. \\ 
+\textbf{Only one cointegrating vector exists}\\
+Estimation can proceed by the Engle-Granger two-stage method for ECMs. \\ 
 \vspace{0.3cm}
-With more then one cointegrating vectors, the preceding method is no more applicable. In such cases, Johansen (1988) suggests a maximum likelihood approach. 
+\textbf{More than one cointegrating vectors}\\
+Engle-Granger two-stage method is not applicable. Johansen (1988) suggests a maximum likelihood approach. 
 \end{frame}
 
 %---------------------------------------------
@@ -410,14 +419,140 @@ Prediction intervals: individual vs. mean value predictions:\\
 \end{itemize}
 \end{frame}
 %---------------------------------------------
+\section{Variance vs. Bias trade-off}
 
+\begin{frame}{Mean Squared Error of prediction}
+
+We can generalize the previous discussion on predictions by considering both biased and unbiased predictors and by allowing for different functional forms and complexity levels in predictive models. Predictions may be compared using:
+
+\medskip
+\begin{itemize}
+   \item $\textit{MSE} = \textnormal{E}
+   \left[y_i - \hat{f}(\bm{x}_i) \right]^2$\\
+   \smallskip
+   where $\hat{f}(\bm{x}_i)$ is the prediction that $\hat{f}$ generates for the $i$-th regressor set. $\hat{f}$ represents a general class of predictors (linear, non-linear, non-parametric, etc.) and it may produce either biased or unbiased predictions
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Variance vs. Bias trade-off}
+Population equation example: $~y = \textnormal{sin}(x)+u$
+\vspace{-1 cm}
+\begin{figure}
+\includegraphics[angle=270,scale=0.35]{img/VarBias.pdf}
+\end{figure}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Train sample \& Test sample}
+
+Suppose we fit a model $\hat{f}(\bm{x})$ to some training data $\textnormal{Tr}=\left\lbrace y_i, \bm{x}_i \right\rbrace _1 ^n$ and we wish to see how well it performs.
+
+\begin{itemize}
+\item We could compute $\textit{MSE}$ over $\textnormal{Tr}$:
+$$ \textit{MSE}_{\textnormal{Tr}} = \frac{1}{n}
+   \sum_{i \in \textnormal{Tr}}
+   \left[y_i - \hat{f}(\bm{x}_i) \right]^2 $$
+\end{itemize}
+
+When searching for the ``best'' model by minimizing $ \textit{MSE}$, the above statistic would lead to over-fit models.
+\vspace{0.3 cm}
+\begin{itemize}
+\item Instead, we should (if possible) compute the $ \textit{MSE}$ using fresh test
+data $\textnormal{Te}=\left\lbrace y_i, \bm{x}_i \right\rbrace _1 ^m$:
+$$ \textit{MSE}_{\textnormal{Te}} = \frac{1}{m}
+    \sum_{i \in \textnormal{Te}}
+   \left[y_i - \hat{f}(\bm{x}_i) \right]^2 $$
+\end{itemize}
+\end{frame}
+%------------------------------------------------
+\begin{frame}{Variance vs. Bias trade-off}
+
+Suppose we have a model $\hat{f}(\bm{x})$, fitted to some training data $\textnormal{Tr}$ and let $\left\lbrace y_0, \bm{x}_0 \right\rbrace$ be a test observation drawn from the population. If the true model is $y_i = f(\bm{x}_i) + \varepsilon_i$, \\[with $f(\bm{x}_i)= \textnormal{E}(y_i | \bm{x}_i )$],
+then the \textbf{expected test MSE} can be decomposed into:\\
+\medskip
+$\textnormal{E}(\textit{MSE}_0)
+   = Var(\hat{f}(\bm{x}_0))
+   + [Bias(\hat{f}(\bm{x}_0))]^2
+   + \textit{var}(\varepsilon_0),$
+
+where\\
+\smallskip
+$Bias(\hat{f}(\bm{x}_0)) 
+       = \textnormal{E}[\hat{f}(\bm{x}_0)]
+       - f(\bm{x}_0)$,\\
+$\varepsilon_0$ is the irreducible error: $\textnormal{E}(\textit{MSE}_0) \geq \varepsilon_0$,\\ 
+all three RHS elements are non-negative,
+\smallskip
+\\The above equation refers to the average test $\textit{MSE}$ that we would obtain if we repeatedly estimated $f(\bm{x})$ using a large number of training sets and then tested each $\hat{f}(\bm{x})$ at $\bm{x}_0$.
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Variance vs. Bias trade-off}
+$\textnormal{E}(\textit{MSE}_0)
+   = Var(\hat{f}(\bm{x}_0))
+   + [Bias(\hat{f}(\bm{x}_0))]^2
+   + \textit{var}(\varepsilon_0),$\\
+\begin{figure}
+\includegraphics[angle=0,scale=0.35]{img/biasvariance.png}
+\end{figure}
+\end{frame}
+%------------------------------------------------
+\section{$k$-Fold Cross Validation}
+\begin{frame}{$k$-Fold Cross Validation}
+\begin{itemize}
+\item Training error ($\textit{MSE}_{\textnormal{Tr}}$) can be calculated easily. 
+\item However, $\textit{MSE}_{\textnormal{Tr}}$ is not a good approximation for the $\textit{MSE}_{\textnormal{Te}}$ (out-of sample predictive properties of the model).
+\item Usually, $\textit{MSE}_{\textnormal{Tr}}$ dramatically underestimates $\textit{MSE}_{\textnormal{Te}}$.
+\end{itemize}
+\bigskip
+Cross-validation is based on re-sampling (similar to bootstrap).\\
+\medskip
+Repeatedly fit a model of interest to samples formed from the training set \& make ``test sample'' predictions, in order to obtain additional information about predictive properties of the model.\\
+\end{frame}
+%---------------------------------------------
+\begin{frame}
+\frametitle{$k$-Fold Cross Validation}
+
+\begin{itemize}
+  \item In $k$-Fold Cross-Validation ($k$FCV), the original sample is randomly partitioned into $k$ roughly equal subsamples (divisibility). 
+  \item Of the $k$ subsamples, a single subsample is retained as the test sample, and the remaining $(k-1)$ subsamples are used as training data. 
+  \item The cross-validation process is then repeated $k$ times (the $k$ folds), with each of the $k$ subsamples used exactly once as the test sample. 
+  \item The $k$ results from the folds can then be averaged to produce a single estimation. 
+  \item $k = 5$ or $k=10$ is commonly used.
+\end{itemize}  
+\end{frame}
+%------------------------------------------------
+\begin{frame}{$k$-Fold Cross Validation}
+\begin{center}
+$k$FCV example for $k=5$: \\
+(random sampling, no replacement)
+\begin{figure}
+\includegraphics[width=0.7\linewidth]{img/kFCV2.pdf}
+\end{figure}
+\end{center}
+\end{frame}
+%------------------------------------------------
+\begin{frame}{$k$-Fold Cross Validation}
+$ \textit{CV}_{(k)}= \frac{1}{k}\displaystyle\sum_{s=1}^{k} \textit{MSE}_s ,$
+\vspace{0.3cm}
+\begin{itemize}
+\item [where] $\textit{CV}_{(k)}$ is the $k$-fold \textit{CV} estimate,
+\item [ ] $k$ is the number of folds used (e.g. 5 or 10),
+\item [ ] $\textit{MSE}_s = \frac{1}{m_s} \sum_{i \in C_s}^{}(y_i - \widehat{y}_i)^2 $ 
+\item [ ] $m_s$ and $C_s$ refer to test sample  observations for each \\of the $k$ train sample / test sample steps.
+\end{itemize}
+\vspace{0.3cm}
+As we compare predictions from two or more models, 
+\\we look for the lowest $\textit{CV}_{(k)}$. 
+\end{frame}
+%---------------------------------------------
 \section{Chow tests}
 \begin{frame}{Chow tests}
+Focus on DGP stability \& model suitability for predictions.
 
+\medskip
 For any LRM: $\bm{y} = \bm{X\beta}+\bm{u}$
 \vspace{0.3cm}
 \begin{itemize}
-\item Chow tests are used to determine whether the regression function differs for different time periods \\(respondent groups). 
+\item Chow tests are used to determine whether the regression function differs for different time periods \\(or respondent groups in CS data). 
 \item Time-stability of the estimated coefficients is a necessary condition for forecasting from an estimated model.
 \item Groups can be formed by different time periods.
 
