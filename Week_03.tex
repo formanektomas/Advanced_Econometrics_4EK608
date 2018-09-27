@@ -215,7 +215,7 @@ Engle-Granger two-stage method is not applicable. Johansen (1988) suggests a max
 
 %---------------------------------------------
 
-\section{Predictions - basics}
+\section{Predictions basics - repetition from BSc courses}
 
 \begin{frame}{Predictions - basics}
 \begin{itemize}
@@ -246,7 +246,7 @@ $$y^*=\beta^*_0 + \beta^*_1 (x_1 -c_1) + \beta^*_2(x_2 - c_2) + \dots + u$$
 \begin{align} \nonumber
  \hat{y}_p &= \hat{\beta_0^*} \\ \nonumber
  \textit{s.e.}(\hat{y}_p ) &= 
-   \textit{s.e.}(\hat{\beta_0^*}), \hspace{0.2cm} i.e. \\ \nonumber
+   \textit{s.e.}(\hat{\beta_0^*}), \quad i.e. \\ \nonumber
  Var(\hat{y}_p) &= Var(\hat{\beta}_0^*)
 \end{align} 
 \end{itemize}
@@ -436,7 +436,7 @@ We can generalize the previous discussion on predictions by considering both bia
 %---------------------------------------------
 \begin{frame}{Variance vs. Bias trade-off}
 Population equation example: $~y = \textnormal{sin}(x)+u$
-\vspace{-1 cm}
+\vspace{-1cm}
 \begin{figure}
 \includegraphics[angle=270,scale=0.35]{img/VarBias.pdf}
 \end{figure}
@@ -454,7 +454,7 @@ $$ \textit{MSE}_{\textnormal{Tr}} = \frac{1}{n}
 \end{itemize}
 
 When searching for the ``best'' model by minimizing $ \textit{MSE}$, the above statistic would lead to over-fit models.
-\vspace{0.3 cm}
+\vspace{0.3cm}
 \begin{itemize}
 \item Instead, we should (if possible) compute the $ \textit{MSE}$ using fresh test
 data $\textnormal{Te}=\left\lbrace y_i, \bm{x}_i \right\rbrace _1 ^m$:
@@ -465,24 +465,24 @@ $$ \textit{MSE}_{\textnormal{Te}} = \frac{1}{m}
 \end{frame}
 %------------------------------------------------
 \begin{frame}{Variance vs. Bias trade-off}
-
 Suppose we have a model $\hat{f}(\bm{x})$, fitted to some training data $\textnormal{Tr}$ and let $\left\lbrace y_0, \bm{x}_0 \right\rbrace$ be a test observation drawn from the population. If the true model is $y_i = f(\bm{x}_i) + \varepsilon_i$, \\[with $f(\bm{x}_i)= \textnormal{E}(y_i | \bm{x}_i )$],
 then the \textbf{expected test MSE} can be decomposed into:\\
+
 \medskip
 $\textnormal{E}(\textit{MSE}_0)
    = Var(\hat{f}(\bm{x}_0))
-   + [Bias(\hat{f}(\bm{x}_0))]^2
+   + [\textit{Bias}(\hat{f}(\bm{x}_0))]^2
    + \textit{var}(\varepsilon_0),$
 
 where\\
 \smallskip
-$Bias(\hat{f}(\bm{x}_0)) 
+$\textit{Bias}(\hat{f}(\bm{x}_0)) 
        = \textnormal{E}[\hat{f}(\bm{x}_0)]
        - f(\bm{x}_0)$,\\
 $\varepsilon_0$ is the irreducible error: $\textnormal{E}(\textit{MSE}_0) \geq \varepsilon_0$,\\ 
-all three RHS elements are non-negative,
+all three RHS elements are non-negative,\\
 \smallskip
-\\The above equation refers to the average test $\textit{MSE}$ that we would obtain if we repeatedly estimated $f(\bm{x})$ using a large number of training sets and then tested each $\hat{f}(\bm{x})$ at $\bm{x}_0$.
+The above equation refers to the average test $\textit{MSE}$ that we would obtain if we repeatedly estimated $f(\bm{x})$ using a large number of training sets and then tested each $\hat{f}(\bm{x})$ at $\bm{x}_0$.
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Variance vs. Bias trade-off}
