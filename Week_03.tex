@@ -657,7 +657,7 @@ We can formulate the null of no structural change in model dynamics between the 
 \begin{itemize}
 \item 
 $ H_0: \hspace{0.5cm} \bm{\gamma}= \bm{0}$, i.e.: 
-$\gamma_0 = \gamma_1 = \gamma_2= \cdots = \gamma_k=0 $
+$\gamma_1 = \gamma_2 = \gamma_3= \cdots = \gamma_k=0 $
 \item 
 $ H_1: \hspace{0.5cm} \neg H_0$ 
 \end{itemize}
@@ -670,7 +670,8 @@ $ F = \frac{\textit{SSR}_r- \textit{SSR}_{\textit{ur}}}{\textit{SSR}_{\textit{ur
 F[k, (n-2k)] $ 
 \end{itemize}
 
-
+\medskip
+\small{Note: Here, $\beta_1$ and $\gamma_1$ both relate to the intercept.}
 
 \end{frame}
 
@@ -688,17 +689,17 @@ A simple Chow test example for CS data:
 \item Original model (Chow test restricted model):
 \\ \dots based on the well known Wooldridge dataset.
 \vspace{0.3cm}
-\\ $ \textit{cumgpa} = \beta_0 + \beta_1 \textit{sat} 
-     + \beta_2\textit{hsperc}+ \beta_3 \textit{tothrs} + u $
+\\ $ \textit{cumgpa} = \beta_1 + \beta_2 \textit{sat} 
+     + \beta_3\textit{hsperc}+ \beta_4 \textit{tothrs} + u $
 
 \vspace{0.3cm}
 \item Auxiliary model (Chow test unrestricted model):
 \begin{equation}
 \begin{aligned} 
-   \textit{cumgpa} &= \beta_0  ~~~~~~~\,+\gamma_0 \textit{female}  \\
-   &+ \beta_1\textit{sat} ~~~~+ \gamma_1 (\textit{female} \! \times \! \textit{sat} ) \\
-   &+ \beta_2\textit{hsperc} + \gamma_2 (\textit{female} \! \times \! \textit{hsperc} ) \\ 
-   &+ \beta_3 \textit{tothrs} \,+ \gamma_3(\textit{female} \! \times \! \textit{tothrs} ) + u \nonumber
+   \textit{cumgpa} &= \beta_1  ~~~~~~~\,+\gamma_1 \textit{female}  \\
+   &+ \beta_2\textit{sat} ~~~~+ \gamma_2 (\textit{female} \! \times \! \textit{sat} ) \\
+   &+ \beta_3\textit{hsperc} + \gamma_3 (\textit{female} \! \times \! \textit{hsperc} ) \\ 
+   &+ \beta_4 \textit{tothrs} \,+ \gamma_4(\textit{female} \! \times \! \textit{tothrs} ) + u \nonumber
 \end{aligned}
 \end{equation}
 \end{itemize}
@@ -711,7 +712,7 @@ A simple Chow test example for CS data:
 \begin{itemize}
 \item Null hypothesis
 \vspace{0.3cm}
-$H_0 : \gamma_0 = \gamma_1 = \gamma_2 = \gamma_3 = 0$ \\
+$H_0 : \gamma_1 = \gamma_2 = \gamma_3 = \gamma_4 = 0$ \\
 If all interactions effects are zero, we have the same regression function for both groups.
 \vspace{0.3cm}
 \item Estimate of the unrestricted model
