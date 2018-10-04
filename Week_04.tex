@@ -56,7 +56,7 @@ model částečného přizpůsobení,
 \\ koeficient přizpůsobení, rychlost
 přizpůsobení, 
 \\ adaptivní a racionální očekávání, 
-\\ hypotéza efektivních trhů, $\dots$.
+\\ hypotéza efektivních trhů.
 \end{frame}
 
 %------------------------------------------------
@@ -79,7 +79,7 @@ $$ y_t = \alpha_0 + \delta_0 x_t + \delta_1 x_{t-1} + \delta_2 x_{t-2} + u_t$$
 Dynamically complete models
 \vspace{0.5cm}
 \begin{itemize}
-\item Model is dynamically complete if we have among regressors as many lagged variables that no more additional lags can help with explanation of variance in the dependent variable. 
+\item Model is dynamically complete if we have a ``sufficient'' number of lags of regressors, so that no more additional lags would help with explanation of variance in the dependent variable. 
 \vspace{0.5cm}
 \item In dynamically incomplete models, we usually detect autocorrelation in the error term of the LRM.
 \end{itemize}
@@ -91,8 +91,10 @@ Dynamically complete models
 Infinite distributed lag (IDL) models
 \begin{itemize}
 \item Lagged regressors extend back to infinity
-\item We cannot estimate IDL models without the use of simplifying restrictions on parameters, i.e. on lag distribution
+\item We cannot estimate IDL models without the use of simplifying restrictions on parameters, \\i.e. restrictions on lag distribution
+\smallskip
 \item IDL models are useful under the assumption of lagged coefficients converging to zero as lag increases
+\smallskip
 \item Order of the IDL model ($\infty$), 
 \\impact multiplier vs. long-run multiplier, 
 \\temporary vs. permanent change in $x$,
@@ -103,26 +105,31 @@ Infinite distributed lag (IDL) models
 %------------------------------------------------
 
 \section{Polynomial distributed lag}
-\begin{frame}{FDL: Polynomial distributed lag}
+\begin{frame}{FDL: Polynomial distributed lag (Almon)}
 Used in Finite distributed lag models\\
 \dots example below also extends to higher order polynomials
-\begin{equation}
-Y_t = \alpha + \beta_0 X_t + \beta_1 X_{t-1} + \dots + \beta_m X_{t-m} + u_t 
+\begin{equation} \label{Almon1}
+y_t = \alpha + \beta_0 x_t + \beta_1 x_{t-1} + \dots + \beta_m x_{t-m} + u_t 
 \end{equation}
 \begin{figure}[!htb]
     \centering
     \begin{minipage}{.48\textwidth}
     Simplifying assumption:
-\begin{equation}
-\begin{aligned}\label{eqpol2}
-\beta_i & = k_0 + k_1 i  + k_2  i^2  \\ 
-\hline
-\beta_0 & = k_0 \\
-\beta_1 & = k_0 + k_1 + k_2 \\
-& \ldots \\ 
-\beta_m & = k_0 +  k_1 m +  k_2 m^2
-\end{aligned}
+\begin{equation} \label{eqpol2}
+~\beta_i = k_0 + k_1 i  + k_2  i^2  \\ 
 \end{equation}
+\hline 
+\small{
+\begin{equation*}
+\begin{aligned}
+\beta_0 & = k_0  \\
+\beta_1 & = k_0 + k_1 + k_2 \\
+\beta_2 & = k_0 + k_1\!\cdot\!2 + k_2\!\cdot\!4 \\
+& \ldots \\ 
+\beta_m & = k_0 +  k_1 m +  k_2 m^2 
+\end{aligned}
+\end{equation*}
+}%endsmall
 \end{minipage}
 %\hspace*{3mm}
 \begin{minipage}{0.509\textwidth}
@@ -136,12 +143,12 @@ Y_t = \alpha + \beta_0 X_t + \beta_1 X_{t-1} + \dots + \beta_m X_{t-m} + u_t
 
 \begin{frame}{Polynomial distributed lag}
 \begin{itemize}
-\item Transformation for $m=8$:
+\item Almon-type transformation of \eqref{Almon1} for $m=8$ and $k=2$:
 \begin{align} \nonumber
-Y_t & =  \alpha + k_0 X_t + (k_0 + k_1 + k_2)X_{t-1} + (k_0 + 2k_1 + 4k_2)X_{t-2} + \\ & + \dots + (k_0 + 8k_1 + 64k_2)X_{t-8}+u_t 
+y_t & =  \alpha + k_0 x_t + (k_0 + k_1 + k_2)x_{t-1} + (k_0 + 2k_1 + 4k_2)x_{t-2} + \\ & + \dots + (k_0 + 8k_1 + 64k_2)x_{t-8}+u_t 
 \\ \nonumber
-Y_t & = \alpha + k_0 (X_t + X_{t-1} + \dots + X_{t-8}) + \\ \nonumber & +  k_1(X_{t-1} + 2 X_{t-2} + \dots + 8 X_{t-8}) + \\ \nonumber & + k_2(X_{t-1} + 4X_{t-2} + \dots + 64X_{t-8}) = \\ & = 
-\alpha + k_0 \underbrace{\sum_{i=0}^8 X_{t-i}}_{W_{0t}} + k_1 \underbrace{\sum_{i=1}^8 i X_{t-i}}_{W_{1t}}  + k_2 \underbrace{\sum_{i=1}^8 i^2 X_{t-i}}_{W_{2t}}  + u_t\\
+y_t & = \alpha + k_0 (x_t + x_{t-1} + \dots + x_{t-8}) + \\ \nonumber & +  k_1(x_{t-1} + 2 x_{t-2} + \dots + 8 x_{t-8}) + \\ \nonumber & + k_2(x_{t-1} + 4x_{t-2} + \dots + 64x_{t-8}) = \\ 
+y_t & = \alpha + k_0 \underbrace{\sum_{i=0}^8 x_{t-i}}_{W_{0t}} + k_1 \underbrace{\sum_{i=1}^8 i\, x_{t-i}}_{W_{1t}}  + k_2 \underbrace{\sum_{i=1}^8 i^2 x_{t-i}}_{W_{2t}}  + u_t\\
 Y_t & = \alpha + k_0 W_{0t} + k_1 W_{1t} + k_2 W_{2t} + u_t \label{eqpol3}
 \end{align}
 We estimate \eqref{eqpol3}, then calculate $\beta_j$ as in \eqref{eqpol2}\\
@@ -154,7 +161,7 @@ We estimate \eqref{eqpol3}, then calculate $\beta_j$ as in \eqref{eqpol2}\\
 \begin{frame}{Polynomial distributed lag}
 
 \begin{itemize}
-\item Polynomial lags were developed by Almon in the 60ies.
+\item Method developed by Shirley Almon in the 60ies.
 \item Equation \eqref{eqpol3} can be generalized: for $m$ lags, sums go to $m$, for higher order polynomials, we add more $W$-terms.
 \vspace{0.3cm}
 \item Advantages of this approach:
@@ -189,7 +196,7 @@ Instantaneous propensity (multiplier): $ \delta_0$
 \\ \vspace{0.3cm}
 Long-run propensity (multiplier):
 \\ \vspace{0.3cm}
-$\delta_0+\delta_1+\dots=\gamma(1+\rho+\rho^2+\dots)=\frac{\gamma}{1-\rho}$
+$\delta_0+\delta_1+\dots=\gamma(1+\rho+\rho^2+\rho^3+\dots)=\frac{\gamma}{1-\rho}$
 
 \end{frame}
 %------------------------------------------------
@@ -213,34 +220,37 @@ y_t & = \alpha_0 + \gamma x_t + \rho y_{t-1} + v_t \label{Koyck}
 %------------------------------------------------
 \begin{frame}{Geometric distributed lag (Koyck) }
 
-IDL model:\\
+IDL model: $\quad \,y_t = \alpha + \delta_0 x_t  + \delta_1 x_{t-1} + \delta_2 x_{t-2} + \dots + u_t $\\
 \medskip
-$ y_t = \alpha + \delta_0 x_t  + \delta_1 x_{t-1} + \delta_2 x_{t-2} + \dots + u_t $\\
-\medskip
-Model after Koyck transformation:\\
-\medskip
-$y_t = \alpha_0 + \gamma x_t + \rho y_{t-1} + v_t$ \\
+Koyck transf.: $y_t = \alpha_0 + \gamma x_t + \rho y_{t-1} + v_t$ \\
 \medskip
 Using the Koyck transformation, we can calculate parameters \\of the IDL model from the estimated model after Koyck transformation:\\
 \medskip
-$\hat{\delta}_0 = \hat{\gamma}$ \\
+$\quad \hat{\delta}_0 = \hat{\gamma}$ \\
 \medskip
-$\hat{\delta}_j = \hat{\gamma} \, \hat{\rho}^{\,j} \,\, ; \,\, j = 1,2,3, \dots$ \\
+$\quad \hat{\delta}_j = \hat{\gamma} \, \hat{\rho}^{\,j} \,\, ; \,\, j = 1,2,3, \dots$ \\
 \medskip
-$\hat{\alpha} = \frac{\hat{\alpha}_0}{1-\hat{\rho}}$
+$\quad \hat{\alpha} = \frac{\hat{\alpha}_0}{1-\hat{\rho}}$\\
+\medskip
+Problems of the Koyck transformation:
+\begin{itemize}
+    \item in \eqref{Koyck}, regressor $y_{t-1}$ is not exogenous ($v_t=u_t-\rho u_{t-1}$)\\ \dots IVR will be discussed in Week 8
+    \item $v_t=u_t-\rho u_{t-1}$ is not i.i.d.
+\end{itemize}
+
 
 \end{frame}
 %------------------------------------------------
 
 \begin{frame}{Rational distributed lag}
-The geometric distributed lag is special case of \\rational distributed lag (RDL)
+The geometric distributed lag is a special case of \\rational distributed lag (RDL) model:
 \begin{align} \nonumber
 y_t & = \alpha_0+\gamma x_t + \rho y_{t-1} + v_t \hspace{0.3cm} \textnormal{(geometric distributed lag)}\\\label{eqrat1} 
 y_t & = \alpha_0+\gamma_0 x_t + \rho y_{t-1} +\gamma_1 x_{t-1} + v_t  \hspace{0.3cm} \textnormal{ (RDL)}
 \end{align}
-Successive substitution will yield (if $0 < \rho < 1$)
+This can be shown by successive substitution ($0 < \rho < 1$):
 \begin{align}\nonumber
-y_t & = \alpha_0 + \gamma_0 (x_t + \rho x_{t-1} + \rho^2 x_{t-2}+\dots) \\ & + \gamma_1 (x_{t-1} + \rho x_{t-2} + \rho^2 x_{t-3}+\dots) + \dots + u_t \\ \nonumber
+y_t & = \alpha + \gamma_0 (x_t + \rho x_{t-1} + \rho^2 x_{t-2}+\dots) \\ & + \gamma_1 (x_{t-1} + \rho x_{t-2} + \rho^2 x_{t-3}+\dots) + u_t \\ \nonumber
 y_t & = \alpha + \gamma_0 x_t + (\rho \gamma_0 + \gamma_1) x_{t-1} + \rho (\rho \gamma_0 + \gamma_1) x_{t-2} +\\ & + \rho^2 (\rho \gamma_0 + \gamma_1) x_{t-3} + \dots + u_t \label{eqrat2}
 \end{align}
 After estimating \eqref{eqrat1}, we can calculate lag distributions for \eqref{eqrat2}
@@ -250,24 +260,25 @@ After estimating \eqref{eqrat1}, we can calculate lag distributions for \eqref{e
 %------------------------------------------------
 
 \begin{frame}{Rational distributed lag}
-IDL model:\\
+RDL specification:\\
 \medskip
-$ y_t = \alpha + \delta_0 x_t  + \delta_1 x_{t-1} + \delta_2 x_{t-2} + \dots + u_t $\\
+$\quad y_t = \alpha_0+\gamma_0 x_t + \rho y_{t-1} +\gamma_1 x_{t-1} + v_t $\\
 \medskip
-RDL:\\
+can be used to calculate $\delta_h$ in the IDL model:\\
 \medskip
-$y_t = \alpha_0+\gamma_0 x_t + \rho y_{t-1} +\gamma_1 x_{t-1} + v_t $\\
+$\quad y_t = \alpha + \delta_0 x_t  + \delta_1 x_{t-1} + \delta_2 x_{t-2} + \dots + u_t $\\
 \medskip
-Impact propensity $\gamma_0$ can differ in sign from lagged coefficients: \\ 
+
+With RDLs, impact propensity $\gamma_0 \equiv \delta_0$ can differ in sign from lagged coefficients. \\
+\medskip
 $\delta_h = \rho^{h-1}(\rho \gamma_0 + \gamma_1)$ corresponds to the $x_{t-h}$ variable for $h \geq 1$. \\
 ~ \dots Note: for $\rho > 0$, $\delta_h$ doesn't change sign with growing $h \geq 1$. \\
-\vspace{0.3cm}
-Long-run propensity (multiplier):
-$$\textit{LRP} = \frac{\gamma_0+\gamma_1}{1-\rho},$$
+\medskip
+Long-run propensity: $\textit{LRP} = \frac{\gamma_0 + \gamma_1}{1-\rho},$\\
+\smallskip
 where $|\rho| < 1$ $\> \Rightarrow$ the sign of LRP follows the sign of $(\gamma_0+\gamma_1)$. \\
 \medskip
-Also,
-$$ u_t = v_t + \rho v_{t-1} + \rho^2 v_{t-2} + \cdots \> \>  MA(\infty)$$
+Also,  $u_t = v_t + \rho v_{t-1} + \rho^2 v_{t-2} + \cdots \> \>  MA(\infty)$
 
 \end{frame}
 
@@ -299,11 +310,11 @@ Note: \eqref{eqpam2} can be re-written as: $y_t= \theta {y}_t^\ast + (1-\theta)y
 \begin{frame}{Partial adjustment model}
 Parameter estimation of PAM:
 \begin{equation*}
-{y}_t^\ast = \alpha + \beta x_t + u_t ~~~~~~~~ \tag{\ref{eqpam1}}
+{y}_t^\ast = \alpha + \beta x_t + u_t ~~~~~~~~~~~~~~~~~~~~~~~~~ \tag{\ref{eqpam1}}
 \end{equation*}
 \vspace{-0.6cm}
 \begin{equation*}
-y_t - y_{t-1} = \theta ( y_t^\ast-y_{t-1}), \hspace{0.5cm} 0 < \theta < 1 \tag{\ref{eqpam2}}
+y_t= \theta {y}_t^\ast + (1-\theta)y_{t-1}, \hspace{0.5cm} 0 < \theta < 1 \tag{\ref{eqpam2}}
 \end{equation*}
 
 \begin{enumerate}
@@ -314,7 +325,7 @@ y_t &= \alpha \theta &+~ \beta \theta x_t &+~ (1-\theta) y_{t-1} &+~ \theta u_t 
 y_t &= \beta_0^{\prime} &+~ \beta_1^{\prime} x_t &+~ \beta_2^{\prime} y_{t-1} &+~ \theta u_t
 \end{aligned}
 \end{equation}
-\item Estimate \eqref{eqpam3} and then calculate parameters of a PAM \\in \eqref{eqpam1} and \eqref{eqpam2}:\\
+\item Estimate \eqref{eqpam3} and then calculate sought parameters of the PAM in \eqref{eqpam1} and \eqref{eqpam2}:\\
 \smallskip
 $\hat{\theta}= 1-\hat{\beta}_2^{\prime}$\\
 \smallskip
@@ -322,6 +333,8 @@ $\hat{\alpha} =\hat{\beta}_0^{\prime}/\hat{\theta}$\\
 \smallskip
 $\hat{\beta} =\hat{\beta}_1^{\prime}/\hat{\theta}$
 \end{enumerate}
+\medskip
+\small{\qquad Note that $\theta u_t$ can be independent of $y_{t-1}$ and i.i.d.}
 \end{frame}
 
 %------------------------------------------------
@@ -375,12 +388,14 @@ $\hat{\phi}= 1-\hat{\beta}_2^{\prime}$\\
 \smallskip
 $\hat{\alpha} =\hat{\beta}_0^{\prime}/\hat{\phi}$\\
 \smallskip
-$\hat{\beta} =\hat{\beta}_1^{\prime}/\hat{\phi}$
+$\hat{\beta} =\hat{\beta}_1^{\prime}/\hat{\phi}$\\
+\smallskip
+\footnotesize{\qquad Note: Both problems with Koyck-transformed model estimation apply.}
 \end{frame}
 %------------------------------------------------
 
 \begin{frame}{Koyck, PAM, AEH: regression of $y_t$ on $x_t$ and $y_{t-1}$}
-The same type of regression is used in:
+The same underlying regression model (statistical form) is used:
 
 \begin{itemize}
 \item The Koyck transformation:\\
@@ -400,7 +415,7 @@ Of course, not all interpretations are always relevant, we must choose according
 \end{frame}
 %------------------------------------------------
 \begin{frame}{Koyck, PAM, AEH: regression of $y_t$ on $x_t$ and $y_{t-1}$}
-\textbf{Example} We have an estimated model for $c_t \leftarrow f(x_t)$:\\
+\textbf{Example:} We have an estimated model for $c_t \leftarrow f(x_t)$:\\
 private consumption $(c_t)$ as a function of disposable GDP $(x_t)$
 \begin{equation*}
 \begin{aligned}
@@ -496,13 +511,13 @@ Agents can make prediction errors ($v_t$), so: $$x_t=x^\ast_t+v_t $$
 
 %------------------------------------------------
 
-\begin{frame}{Adaptive and rational expectations}
+\begin{frame}{Rational vs. adaptive expectations}
 Under rational expectation:
 \vspace{0.3cm}
 \begin{itemize}
-\item Expected value of prediction errors must be zero. If they were systematically different from zero, agents would adjust their forecasting methods accordingly.
+\item Expected value of prediction errors must be zero. \\If they were systematically different from zero, rational agents would immediately adjust their forecasting methods accordingly.
 \vspace{0.3cm}
-\item Prediction error must be uncorrelated with any information available when the prediction is made. If not, this would imply that the forecaster has not made use of all
+\item Prediction error must be uncorrelated with any information available when the prediction is made. \\If not, this would imply that the forecaster has not made use of all
 available information.
 \vspace{0.3cm}
 \item These properties can be used for testing the rational expectations hypothesis in different applications.
@@ -510,9 +525,6 @@ available information.
 \end{frame}
 
 %------------------------------------------------
-
-%------------------------------------------------
-
 
 \begin{frame}{Some economic application that use expectations}
 \begin{itemize}
@@ -524,8 +536,8 @@ available information.
 
 %------------------------------------------------
 
-\section{FWL theorem}
-\begin{frame}{FWL theorem}
+\section{FWL theorem - repetition from BSc courses}
+\begin{frame}{FWL theorem - repetition from BSc courses}
 Frisch and Waugh in the 30-ies: detrending \\
 Lovell in the 60-ies: deseasonalizing
 \begin{itemize}
@@ -545,19 +557,23 @@ M4: $\textit{gdp}_t = \beta_2 \textit{salmon.detrended}_t + u_t$
 \begin{frame}{FWL theorem}
 \begin{itemize}
 \item Partitioned regression
-$$ \bm{y} = \bm{X}  \bm{\beta} + u = [\bm{X}_1, \bm{X}_2] [\bm{\beta}_1, \bm{\beta}_2]^T + \bm{u} = \bm{X}_1 \bm{\beta}_1 + \bm{X}_2 \bm{\beta}_2 + \bm{u}$$
+\begin{equation} \label{FWLpart}
+\bm{y} = \bm{X}  \bm{\beta} + u = 
+\bm{X}_1 \bm{\beta}_1 + \bm{X}_2 \bm{\beta}_2 + \bm{u}
+\end{equation}
 \item Projection matrices and residual makers
 \begin{align*}
-\bm{P}  & = \bm{X}(\bm{X}^T\bm{X})^{-1}\bm{X}^T, \hspace{0.5cm}
+\bm{P}  & = \bm{X}(\bm{X}^{\prime}\bm{X})^{-1}\bm{X}^{\prime}, \hspace{0.5cm}
 & \bm{M} & = \bm{I} - \bm{P}\\
-\bm{P}_1 & = \bm{X}_1(\bm{X}_1^T\bm{X}_1)^{-1}\bm{X}_1^T, \hspace{0.5cm} & \bm{M}_1 & =\bm{I}-\bm{P}_1\\
-\bm{P}_2 & = \bm{X}_2 (\bm{X}_2^T\bm{X}_2)^{-1}\bm{X}_2^T, \hspace{0.5cm} & \bm{M}_2 & =\bm{I}-\bm{P}_2
+\bm{P}_1 & = \bm{X}_1(\bm{X}_1^{\prime}\bm{X}_1)^{-1}\bm{X}_1^{\prime}, \hspace{0.5cm} & \bm{M}_1 & =\bm{I}-\bm{P}_1\\
+\bm{P}_2 & = \bm{X}_2 (\bm{X}_2^{\prime}\bm{X}_2)^{-1}\bm{X}_2^{\prime}, \hspace{0.5cm} & \bm{M}_2 & =\bm{I}-\bm{P}_2
 \end{align*}
 \item Some properties
 \begin{align*}
-\bm{P}\bm{P}_1 & = \bm{P}_1, \hspace{0.2cm} \bm{P}\bm{X}_1 = \bm{X}_1 \textnormal{($\bm{X}_1$ is in the span ($\bm{X}$))}\\
-\bm{P}\bm{P}_1 & = (\bm{P}_1\bm{P})^T=\bm{P}_1\bm{P}=\bm{P}_1\\
-\bm{M}\bm{M}_1 & = (\bm{M}_1\bm{M})^T=\bm{M}_1\bm{M}=\bm{M}
+\bm{P}\bm{P}_1 & = \bm{P}_1, \hspace{0.2cm} \bm{P}\bm{X}_1 = \bm{X}_1~~ \textnormal{($\bm{X}_1$ is in the span ($\bm{X}$))}\\
+\bm{P}\bm{P}_1 & = (\bm{P}_1\bm{P})^{\prime}=\bm{P}_1\bm{P}=\bm{P}_1\\
+\bm{M}\bm{M}_1 & = (\bm{M}_1\bm{M})^{\prime}=\bm{M}_1\bm{M}=\bm{M} \\
+\bm{M}_1\bm{X}_1 & = \bm{0}, \quad \bm{X}_2^{\prime}\bm{M}=\bm{0} \\
 \end{align*}
 \end{itemize}
 \end{frame}
@@ -582,53 +598,37 @@ $\bm{y} = \bm{M}_1\bm{X}_2 \bm{\beta}_2 +\bm{u}$\\
 
 \begin{frame}{FWL theorem}
 
-\textbf{FWL theorem}
+\textbf{FWL theorem \& applications}
 
 \begin{enumerate}
-\item Estimates of $\beta_2$ in all four models are the same
+\item Estimates of $\beta_2$ for a partioned model \eqref{FWLpart} in all M1 - M4 models are the same
 \item Residuals from M1, M2, M3 are the same
 \end{enumerate}
 \vspace{0.5cm}
-\textbf{Proof}: Based on properties of projection matrices and residual makers, we can show that  $\bm{\hat{\beta}}_2$ estimators in all four (M1 to M4) specifications can be expressed as: 
-$$\bm{\hat{\beta}}_2 = (\bm{X}_2^T\bm{M}_1 \bm{X}_2)^{-1}\bm{X}_2^T\bm{M}_1\bm{y} $$
+\textbf{Lemma}: Based on properties of projection matrices and residual makers, we can show that  $\bm{\hat{\beta}}_2$ estimators in all four (M1 to M4) specifications can be expressed as: 
+$$\bm{\hat{\beta}}_2 = (\bm{X}_2^{\prime}\bm{M}_1 \bm{X}_2)^{-1}\bm{X}_2^{\prime}\bm{M}_1\bm{y} $$
 
 \textbf{Application:} deseasonalizing, centered coefficient of determination, interchangeability of reference categories (e.g. quarterly dummies), simplification of many proofs in econometrics
 \end{frame}
 
 %------------------------------------------------
-% Opravit dukaz podle prezentaci Jan Zouhar (4EK216)
 %
-%\begin{frame}{Detrending}
-%\begin{align*}
-%y_t & = \gamma_0 + \gamma_1 \textit{year}_t + \varepsilon_t, \hspace{0.5cm} \hat{\varepsilon}_t  \textnormal{~are detrended values of $y_t$}\\
-%\bm{y} & = \bm{X}_1 \bm{\beta}_1 + \bm{\varepsilon},\hspace{0.5cm} \hat{\bm{\varepsilon}} = \bm{M}_1 \bm{y}
-%\end{align*}
-%\begin{block}{Fundaments of the proof} %skelet??
-%from M1: 
-%\begin{align*}
-%\bm{y} & = \bm{X}_1 \bm{\hat{\beta}}_1+ \bm{X}_2\bm{\hat{\beta}}_2+\bm{M}\bm{y} \hspace{0.5cm} |\times \bm{X}^T_2\bm{M}_1\\
-%\bm{X}^T_2\bm{M}_1\bm{y} & = \underbrace{\bm{X}^T_2\underbrace{\bm{M}_1\bm{X}_1}_0 \bm{\hat{\beta}}_1}_0+ \bm{X}^T_2\bm{M}_1\bm{X}_2\bm{\hat{\beta}}_2+\underbrace{\bm{X}^T_2\underbrace{\underbrace{\bm{M}_1\bm{M}}_{\bm{M}}\bm{y}}_0}_0\\
-%\bm{X}^T_2\bm{M}_1\bm{y} & \! = \! \bm{X}^T_2\bm{M}_1\bm{X}_2\bm{\hat{\beta}}_2
-%\Rightarrow \! \bm{\hat{\beta}}_2 = (\bm{X}^T_2\bm{M}_1\bm{X}_2)^{-1}\bm{X}^T_2\bm{M}_1\bm{y}\Rightarrow \textnormal{QED}
-%\end{align*}
-%\end{block}
-%\end{frame}
-
+\begin{frame}{FWL theorem (detrending)}
+$$\bm{y} ~~=~~ 
+\bm{X}\hat{\bm{\beta}} + \hat{\bm{u}} ~~ = 
+~~ 
+\bm{Py} + \bm{My} ~~ =
+~~ 
+\bm{X}_1\hat{\bm{\beta}}_1+\bm{X}_2\hat{\bm{\beta}}_2+\bm{My}$$
+\begin{block}{Skeleton of the proof (for M1 equation):}
+\vspace{-0.3cm}
+\begin{align*}
+\bm{y} & = \bm{X}_1 \bm{\hat{\beta}}_1+ \bm{X}_2\bm{\hat{\beta}}_2+\bm{M}\bm{y} \quad
+| \quad \bm{X}^{\prime}_2\bm{M}_1 \times \\
+\bm{X}^{\prime}_2\bm{M}_1\bm{y} & = \underbrace{\bm{X}^{\prime}_2\underbrace{\bm{M}_1\bm{X}_1}_{\bm{0}} \bm{\hat{\beta}}_1}_{\bm{0}}+ \bm{X}^{\prime}_2\bm{M}_1\bm{X}_2\bm{\hat{\beta}}_2+ \underbrace{\underbrace{\bm{X}^{\prime}_2\underbrace{\bm{M}_1\bm{M}}_{\bm{M}}}_{\bm{0}}\bm{y}}_{\bm{0}}\\
+\bm{X}^{\prime}_2\bm{M}_1\bm{y} & \! = \! \bm{X}^{\prime}_2\bm{M}_1\bm{X}_2\bm{\hat{\beta}}_2 \Rightarrow \! \bm{\hat{\beta}}_2 = (\bm{X}^{\prime}_2\bm{M}_1\bm{X}_2)^{-1}\bm{X}^{\prime}_2\bm{M}_1\bm{y}\Rightarrow \textnormal{QED}
+\end{align*}
+\end{block}
+\end{frame}
 %------------------------------------------------
-
-%\begin{frame}{Detrending}
-%\begin{block}{Fundaments of the proof}
-%from M2:
-%\begin{align*}
-%\underbrace{\bm{M}_1}_{\bm{y}} \bm{y} & = \underbrace{\bm{M}_1\bm{X}_2}_{\bm{X}\bm{\beta}} \bm{\beta}_2 + \bm{u}\\
-%
-%\bm{\hat{\beta}}_2 & = (\bm{X}^T\bm{X})^{-1}\bm{X}^T \bm{y}\\
-%
-%\bm{\hat{\beta}}_2 & = (\bm{X}_2^T\bm{M}_1^T\bm{M}_1\bm{X}_2)^{-1}\bm{X}_2^T \bm{M}_1^T\bm{M}_1\bm{y}\\
-%
-%\bm{\hat{\beta}}_2 & = (\bm{X}_2^T\bm{M}_1\bm{X}_2)^{-1}\bm{X}_2^T\bm{M}_1\bm{y}\Rightarrow \textnormal{QED}\\
-%\end{align*}
-%\end{block}
-%\end{frame}
-%---------------------------------------------
 \end{document}
