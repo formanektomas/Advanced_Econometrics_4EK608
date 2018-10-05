@@ -149,7 +149,7 @@ y_t & =  \alpha + k_0 x_t + (k_0 + k_1 + k_2)x_{t-1} + (k_0 + 2k_1 + 4k_2)x_{t-2
 \\ \nonumber
 y_t & = \alpha + k_0 (x_t + x_{t-1} + \dots + x_{t-8}) + \\ \nonumber & +  k_1(x_{t-1} + 2 x_{t-2} + \dots + 8 x_{t-8}) + \\ \nonumber & + k_2(x_{t-1} + 4x_{t-2} + \dots + 64x_{t-8}) = \\ 
 y_t & = \alpha + k_0 \underbrace{\sum_{i=0}^8 x_{t-i}}_{W_{0t}} + k_1 \underbrace{\sum_{i=1}^8 i\, x_{t-i}}_{W_{1t}}  + k_2 \underbrace{\sum_{i=1}^8 i^2 x_{t-i}}_{W_{2t}}  + u_t\\
-Y_t & = \alpha + k_0 W_{0t} + k_1 W_{1t} + k_2 W_{2t} + u_t \label{eqpol3}
+y_t & = \alpha + k_0 W_{0t} + k_1 W_{1t} + k_2 W_{2t} + u_t \label{eqpol3}
 \end{align}
 We estimate \eqref{eqpol3}, then calculate $\beta_j$ as in \eqref{eqpol2}\\
 \dots note the reduction in estimated parameters (10 vs 4).
