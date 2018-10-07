@@ -338,6 +338,33 @@ $\hat{\beta} =\hat{\beta}_1^{\prime}/\hat{\theta}$
 \end{frame}
 
 %------------------------------------------------
+\begin{frame}{Partial adjustment model}
+Parameter interpretation of PAM:
+
+\begin{equation*}
+\begin{aligned}
+{y}_t^\ast &= \alpha + \beta x_t + u_t \\
+y_t &= \theta {y}_t^\ast + (1-\theta)y_{t-1}, \hspace{0.5cm} 0 < \theta < 1 \\
+\hline \\
+y_t &= \alpha \theta +~ \beta \theta x_t +~ (1-\theta) y_{t-1} +~ \theta u_t \\
+y_t &= \beta_0^{\prime} ~+~ \beta_1^{\prime} x_t +~ \beta_2^{\prime} y_{t-1} +~ \theta u_t
+\end{aligned}
+\end{equation*}
+\medskip
+Parameters:\\
+\smallskip
+\begin{itemize}
+\item[$\theta~:\quad$] $\theta= (1-\beta_2^{\prime})$ is the adjustment coefficient; higher $\hat{\theta}$ indicates higher speed of adjustment towards equilibrium.\\
+\smallskip
+\item[$\beta_1^{\prime}:\quad$] impact multiplier (short-run marginal propensity)\\
+\smallskip
+\item [$\beta~:\quad$] $\beta =\beta_1^{\prime}/\theta$ is the long run multiplier.
+\end{itemize}
+
+
+\end{frame}
+
+%------------------------------------------------
 
 \begin{frame}{Adaptive expectations hypothesis}
 Adaptive expectations hypothesis (AEH) \\ model is based on two main assumptions:
@@ -384,11 +411,11 @@ y_t &= \beta_0^{\prime} &+~ \beta_1^{\prime} x_{t} &+~ \beta_2^{\prime} y_{t-1} 
 \end{equation}
 Estimate \eqref{eqare4}, then calculate parameters in \eqref{eqare1} and \eqref{eqare2}.
 \smallskip
-$\hat{\phi}= 1-\hat{\beta}_2^{\prime}$\\
+$\hat{\phi}= 1-\hat{\beta}_2^{\prime}$ ~~~($\phi$ is the ``adaptive expectations coefficient'')\\
 \smallskip
 $\hat{\alpha} =\hat{\beta}_0^{\prime}/\hat{\phi}$\\
 \smallskip
-$\hat{\beta} =\hat{\beta}_1^{\prime}/\hat{\phi}$\\
+$\hat{\beta} =\hat{\beta}_1^{\prime}/\hat{\phi}$ ~~~~~($\beta_1^{\prime}$ and $\beta$ are the SR and LR propensities )\\
 \smallskip
 \footnotesize{\qquad Note: Both problems with Koyck-transformed model estimation apply.}
 \end{frame}
