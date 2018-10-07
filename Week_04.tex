@@ -109,8 +109,12 @@ Infinite distributed lag (IDL) models
 Used in Finite distributed lag models\\
 \dots example below also extends to higher order polynomials
 \begin{equation} \label{Almon1}
-y_t = \alpha + \beta_0 x_t + \beta_1 x_{t-1} + \dots + \beta_m x_{t-m} + u_t 
+y_t = \alpha + \beta_0 x_t + \beta_1 x_{t-1} + \dots + \beta_m x_{t-m} + u_t~~~~~~~~~~~~
 \end{equation}
+$$
+y_t = \alpha + ( \sum_{i=0}^m \beta_i x_{t-i} ) + u_t~, 
+\quad \left( i \textnormal{~is the lag operator here} \right)
+$$
 \begin{figure}[!htb]
     \centering
     \begin{minipage}{.48\textwidth}
@@ -151,7 +155,7 @@ y_t & = \alpha + k_0 (x_t + x_{t-1} + \dots + x_{t-8}) + \\ \nonumber & +  k_1(x
 y_t & = \alpha + k_0 \underbrace{\sum_{i=0}^8 x_{t-i}}_{W_{0t}} + k_1 \underbrace{\sum_{i=1}^8 i\, x_{t-i}}_{W_{1t}}  + k_2 \underbrace{\sum_{i=1}^8 i^2 x_{t-i}}_{W_{2t}}  + u_t\\
 y_t & = \alpha + k_0 W_{0t} + k_1 W_{1t} + k_2 W_{2t} + u_t \label{eqpol3}
 \end{align}
-We estimate \eqref{eqpol3}, then calculate $\beta_j$ as in \eqref{eqpol2}\\
+We estimate \eqref{eqpol3}, then calculate $\beta_i$ (lags 0 to 8) as in \eqref{eqpol2}\\
 \dots note the reduction in estimated parameters (10 vs 4).
 \end{itemize}
 \end{frame}
@@ -187,7 +191,7 @@ $ y_t = \alpha + \delta_0 x_t + \delta_1 x_{t-1} + \delta_2 x_{t-2} + \delta_3 x
 + \dots + u_t$ \\ \vspace{0.3cm}
 Assumptions for the geometric $\delta_t$ weights:
 \begin{enumerate}
-\item $\delta_t = \delta_{t-1}\rho, \hspace{0.3cm} 0 < \rho < 1 $,
+\item $\delta_t = \delta_{t-1}\, \rho, \hspace{0.3cm} 0 < \rho < 1 $,
 \item $ \delta_{j} = \gamma \rho^{\,j}$, \hspace{0.3cm} where $\gamma \equiv \delta_0$ , $\hspace{0.3cm} j=0,1,2,\dots $
 \end{enumerate}
  
@@ -248,7 +252,7 @@ The geometric distributed lag is a special case of \\rational distributed lag (R
 y_t & = \alpha_0+\gamma x_t + \rho y_{t-1} + v_t \hspace{0.3cm} \textnormal{(geometric distributed lag)}\\\label{eqrat1} 
 y_t & = \alpha_0+\gamma_0 x_t + \rho y_{t-1} +\gamma_1 x_{t-1} + v_t  \hspace{0.3cm} \textnormal{ (RDL)}
 \end{align}
-This can be shown by successive substitution ($0 < \rho < 1$):
+This can be shown by successive substitution ($|\rho| < 1$):
 \begin{align}\nonumber
 y_t & = \alpha + \gamma_0 (x_t + \rho x_{t-1} + \rho^2 x_{t-2}+\dots) \\ & + \gamma_1 (x_{t-1} + \rho x_{t-2} + \rho^2 x_{t-3}+\dots) + u_t \\ \nonumber
 y_t & = \alpha + \gamma_0 x_t + (\rho \gamma_0 + \gamma_1) x_{t-1} + \rho (\rho \gamma_0 + \gamma_1) x_{t-2} +\\ & + \rho^2 (\rho \gamma_0 + \gamma_1) x_{t-3} + \dots + u_t \label{eqrat2}
@@ -417,7 +421,7 @@ $\hat{\alpha} =\hat{\beta}_0^{\prime}/\hat{\phi}$\\
 \smallskip
 $\hat{\beta} =\hat{\beta}_1^{\prime}/\hat{\phi}$ ~~~~~($\beta_1^{\prime}$ and $\beta$ are the SR and LR propensities )\\
 \smallskip
-\footnotesize{\qquad Note: Both problems with Koyck-transformed model estimation apply.}
+\footnotesize{\qquad Note: Both problems of Koyck-transformed model estimation apply.}
 \end{frame}
 %------------------------------------------------
 
@@ -524,7 +528,7 @@ $$\mathbf{E}_{t-1}(x_t)=a_0+a_1 x_{t-1} + b_1 z_{1,t-1}+b_2 z_{2, t-2}+\dots$$
 $\mathbf{E}_{t-1}(x_t)$: expected value of $x_t$ at time $t-1$\\
 $z_{k,t-j}$: exogenous variables with impact on $\mathbf{E}_{t-1}(x_t)$\\
 \vspace{0.3cm}
-We put $x_t^\ast = \mathbf{E}_{t-1}(x_t)$ into \eqref{eqare1}\\
+We put $x_t^\ast = \mathbf{E}_{t-1}(x_t)$ into \eqref{eqare1}: $y_t = \alpha + \beta x_t^\ast + u_t$\\
 \vspace{0.3cm}
 We assume that agents:
 \begin{itemize}
@@ -539,15 +543,14 @@ Agents can make prediction errors ($v_t$), so: $$x_t=x^\ast_t+v_t $$
 %------------------------------------------------
 
 \begin{frame}{Rational vs. adaptive expectations}
-Under rational expectation:
+Under rational expectations:
 \vspace{0.3cm}
 \begin{itemize}
-\item Expected value of prediction errors must be zero. \\If they were systematically different from zero, rational agents would immediately adjust their forecasting methods accordingly.
+\item Expected value of  prediction errors $[v_t = x_t - x^\ast_t]$ must be zero. If they were systematically different from zero, rational agents would immediately adjust their forecasting methods accordingly.
 \vspace{0.3cm}
-\item Prediction error must be uncorrelated with any information available when the prediction is made. \\If not, this would imply that the forecaster has not made use of all
-available information.
+\item $[v_t = x_t - x^\ast_t]$ prediction error must be uncorrelated with any information available when the prediction is made $(t-1)$. If not, this would imply that the forecaster has not made use of all available information.
 \vspace{0.3cm}
-\item These properties can be used for testing the rational expectations hypothesis in different applications.
+\item These properties can be used for testing the rational expectations hypothesis in different applications \\(e.g. through ex-post simulated dynamic forecasts).
 \end{itemize}
 \end{frame}
 
@@ -555,7 +558,7 @@ available information.
 
 \begin{frame}{Some economic application that use expectations}
 \begin{itemize}
-\item Philips curve
+\item Philips curve (Expectations-augmented Phillips curve)
 \item Efficient market hypothesis (EMH)
 \item Consumption function - Permanent income hypothesis
 \end{itemize}
