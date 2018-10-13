@@ -434,12 +434,15 @@ Prob(F-statistics)                                                    & 0.000000
 \end{frame}
 %---------------------------------------------
 \section{Quantile regression}
-\begin{frame}{Quantile regression}
+\begin{frame}{Quantile regression (QREG)}
 \begin{itemize}
-\item Quantile regression provides estimates of the relationship between regressors and a specified quantile of the dependent variable.
-\item The (linear) quantile model can be defined as $Q[y|\bm{x}, q]=\bm{x\beta}$, such that $\textnormal{Prob}[y \le \bm{x\beta}_q|\bm{x}]=q$, $0<q<1$.
+\item Quantile regression estimates the relationship between regressors and a specified quantile of dependent variable.
+\medskip
+\item The (linear) quantile model can be defined as $Q[y|\bm{x}, q]=\bm{x\beta}$, such that $\textnormal{Prob}[y \le \bm{x\beta}_q|\bm{x}]=q$, $0<q<1$ \\where $q$ denote the $q$-th quantile.
+\medskip
 \item One important special case of quantile regression is the least absolute deviations (LAD) estimator, which corresponds to fitting the conditional median of the response variable ($q=\frac{1}{2}$).
-\item LAD estimator can be also motivated as a robust (to outliers) alternative to LS.
+\medskip
+\item QREG (LAD) estimator can be motivated as a robust  alternative to OLS (with respect to outliers).
 \end{itemize}
 \end{frame}
 %---------------------------------------------
@@ -448,22 +451,21 @@ Prob(F-statistics)                                                    & 0.000000
 \item The LAD estimator is the solution to the optimization problem: $\underset{\bm{\hat{\beta}}}{min} \sum|y_i-x_i\bm{\bm{\hat{\beta}}}|$
 \item The LAD estimator’s history predates least squares (which itself was proposed over
 200 years ago). It has seen little use in econometrics, primarily for the same reason that
-Gauss’s method (LS) supplanted LAD at its origination; LS is vastly easier to compute.
-\item Look at your software packages which methods are available for quantile regression.
-\item It can be of some interest that the original approaches used linear programming for finding the estimate (Koenkerr and Bassett (around 1980)).
+Gauss’s method (OLS) supplanted LAD at its origination; OLS is vastly easier to compute.
+\item Different software packages use a variety of iterative numerical algorithms as quantile regression estimators.
+\item Linear programming can also be used for finding QREG estimates (Koenkerr and Bassett (around 1980)).
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Quantile regression}
-Examples 7.9 (Greene): Cobb-Douglass Production Function\\
-\quad OLS $\rightarrow$ Standardized residuals indicate two outliers $\rightarrow$ LAD
+\begin{frame}{Quantile regression example}
+Example 7.9 (Greene): \\Cobb-Douglass Production Function\\
+OLS $\rightarrow$ Standardized residuals indicate two outliers $\rightarrow$ LAD
 \tiny
 \begin{table}[]
 \centering
 \begin{tabular}{@{}lllll@{}}
 \toprule
 \multicolumn{5}{l}{\multirow{4}{*}{\begin{tabular}[c]{@{}l@{}}Depednent Variable: LNYN\\ Method: Least Squares\\ Sample 1 25 \\ Included observations: 25\end{tabular}}} \\
-\multicolumn{5}{l}{}                                                                                                                                                                                 \\
 \multicolumn{5}{l}{}                                                                                                                                                                                 \\
 \multicolumn{5}{l}{}                                                                                                                                                                                 \\
 \multicolumn{5}{l}{}                                                                                                                                                                                 \\
@@ -485,14 +487,14 @@ Prob(F-statistics)                           & 0.000000                         
 \end{table}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Quantile regression}
-Examples 7.9 (Greene): Cobb-Douglass Production Function\\
+\begin{frame}{Quantile regression example}
+Example 7.9 (Greene): Cobb-Douglass Production Function\\
 \includegraphics[width=\textwidth, height=7cm]{img/Obrazek5}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Quantile Regression}
-Examples 7.9 (Greene): Cobb-Douglass Production Function\\
-(results differ from the textbook results)
+\begin{frame}{Quantile regression example}
+Example 7.9 (Greene): \\Cobb-Douglass Production Function\\
+\small{(results differ from the textbook)}
 \tiny
 \begin{table}[]
 \centering
@@ -518,9 +520,9 @@ Prob(Quasi-LR stat)                                                             
 \end{table}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Quantile regression}
-Examples 7.10 (Greene): Income Elasticity of Credit Cards Expenditure\\
-\quad OLS $\rightarrow$ LAD $\rightarrow$ Income Elasticity for 10 Deciles\\
+\begin{frame}{Quantile regression example 2}
+Example 7.10 (Greene): \\Income Elasticity of Credit Cards Expenditure\\
+\quad OLS $\quad \& \quad$ LAD $\quad \& \quad$ Income Elasticity for 10 Deciles\\
 \tiny
 \begin{table}[]
 \centering
@@ -550,8 +552,8 @@ Prob(F-statistic)                                    & 0.000000                 
 \end{table}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Quantile regression}
-Examples 7.10 (Greene): Income Elasticity of Credit Cards Expenditure\\
+\begin{frame}{Quantile regression example 2}
+Example 7.10 (Greene): \\Income Elasticity of Credit Cards Expenditure (LAD)\\
 \tiny
 \begin{table}[]
 \centering
@@ -578,9 +580,8 @@ Prob(Quasi-LR stat)                                                             
 \end{table}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Quantile regression}
-Examples 7.10 (Greene): Income Elasticity of Credit Cards Expenditure\\
-%\includegraphics[width=10cm, height=6.7cm]{img/Obrazek9}
+\begin{frame}{Quantile regression example 2}
+Example 7.10 (Greene): \\Income Elasticity of Credit Cards Expenditure\\
 \includegraphics[width=10cm, height=6.7cm]{img/quantil_regression.pdf}
 \end{frame}
 %---------------------------------
