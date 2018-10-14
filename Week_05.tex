@@ -257,48 +257,53 @@ OLS estimators we have used for parameters in the CLRM can be derived by the met
 \medskip
 Single $\theta$ parameter case:\\
 \begin{itemize}
-\item $1^{st}$ step: deriving a likelihood function $L=L(\theta ,x_1, x_2, ... , x_n)$, where $x_i$ is observation, $\theta$ is parameter of the distribution.\\
+\item $1^{st}$ step: deriving a likelihood function $L=L(\theta ,y_1, y_2, ... , y_n)$, where $y_i$ is observation of $Y$ (stochastic), $\theta$ is parameter of the distribution.\\
 \item $2^{nd}$ step: finding maximum of $L$ with respect to $\theta$, \\that maximum is $\tilde{\theta} = \theta_{MLE}$
 \end{itemize}
 With more parameters: $\bm{\theta} = (\theta_1, \dots , \theta_m)^{\prime}$
-$$L=L(\theta_1, \theta_2, ... \theta_m, x_1, x_2, ... , x_n)$$
+$$L=L(\theta_1, \theta_2, ... \theta_m, y_1, y_2, ... , y_n)$$
 We find MLEs of the $m$ parameters by partially differentiating the likelihood function $L$ with respect to each $\theta$ and then setting all the partial derivatives obtained to zero.\\
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Estimators and estimation methods}
+Likelihood function:\\ 
+$f(y_1,y_2,\dots,y_n|\bm{\theta}) = \prod_{i=1}^n f(y_i|\bm{\theta}) = L(\bm{\theta}|\bm{y})$ \\
+where $f(y|\bm{\theta})$ is the pdf of $y$, conditioned on set of parameters $\bm{\theta}$.\\
+\medskip
 \centerline{\underline{Maximum likelihood estimation of CLRM parameters:}}
 \begin{align*}
 \textnormal{CLRM: } y_i= \alpha + \beta x_i + \varepsilon_i \qquad \mathbf{E}(y_i) & =\alpha +\beta x_i = \bm{x}_i^{\prime}\bm{\beta}\\
 \textit{var}(y_i) & =\textit{var}(\varepsilon_i)=\sigma^2
 \end{align*}
-Probability density function for \textbf{Normal distribution}:
-$f(Y)=(2\pi\sigma^2)^{-0.5} \hspace{0.1cm} exp[-(y-\mu)^2/2\sigma^2]$ \parbox[t]{10em}{where $Y$ is a general \\ random variable} \\
-~~\\
+Probability density function for \textbf{Normal distribution}:\\
+\medskip
+$f(y|\bm{\theta})=(2\pi\sigma^2)^{-0.5} \hspace{0.1cm} exp[-(y-\mu)^2/2\sigma^2]$\\
 \bigskip
 In the case of CLRM, for each $y_i=\alpha + \beta x_i + \varepsilon_i$: \\
-\bigskip
-$f(y_i)=(2\pi\sigma^2)^{-0,5} \hspace{0.1cm} exp[-(y_i-\mathbf{E}(y_i))^2/2\sigma^2]$\\
-Likelihood function: $~~L =f(y_1) \cdot f(y_2) \cdot ... \cdot f(y_n)$
+\medskip
+$f(y_i, \bm{x}_i|\bm{\theta})=(2\pi\sigma^2)^{-0,5} \hspace{0.1cm} exp[-(y_i-\mathbf{E}(y_i))^2/2\sigma^2]$, that is:\\
+$f(y_i, \bm{x}_i|\bm{\theta})=(2\pi\sigma^2)^{-0,5} \hspace{0.1cm} exp[-(y_i-\bm{x}_i^{\prime}\bm{\beta})^2/2\sigma^2]$
+
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Estimators and estimation methods}
-Log-likehood ($LL$) function, \textbf{Normal distribution} assumed\\
-(and $\mathbf{E}(y_i)=\bm{x}_i^{\prime}\bm{\beta}$):
+Log-likehood ($LL$) function, \textbf{Normal distribution} assumed,\\
+estimation of CLRM parameters:\\
 \begin{align*}
-LL & =\sum_{i=1}^n log[f(y_i)] = \\
+log L(\bm{\theta}|\bm{y}, \bm{X} ) & =\sum_{i=1}^n log[f(y_i|\bm{x}_i, \bm{\theta})] = \\
 & = -\frac{1}{2} \sum_{i=1}^n \left\lbrace { log(2\pi) + log(\sigma^2)+\frac{1}{\sigma^2}[y_i-\bm{x}_i^{\prime}\bm{\beta}]^2} \right\rbrace = \\ 
 & = -\frac{n}{2}log(2\pi)-\frac{n}{2}log(\sigma^2)-\frac{1}{2\sigma^2} \sum_{i=1}^n [y_i-\bm{x}_i^{\prime}\bm{\beta}]^2
 \end{align*}
 \\ \bigskip
-max $LL$ is for min: $(\sum_{i=1}^n[y_i-\bm{x}_i^{\prime}\bm{\beta}]^2 ~|~ \sigma^2)$ \\
-numerical iterative method is used for $\bm{\theta}=(\alpha, \beta, \sigma)$ estimation\\
+numerical iterative method is used for $\bm{\theta}=(\alpha, \beta, \sigma^2)$ estimation\\
+(by maximizing the log-likelihood function).\\
 if CLRM assumptions hold $\Rightarrow$ MLE estimators $\tilde{\alpha}$, $\tilde{\beta}$ and $\tilde{\sigma}^2$\\ are identical to OLS-generated estimators $\hat{\alpha}$, $\hat{\beta}$ (and $\hat{\sigma}^2$).
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Estimators and Estimation Methods}
 \textbf{Basic MLE assumptions}\\
 \begin{itemize}
-    \item \textbf{Parameter space:} Gaps and nonconvexities in parameter spaces would generally collide with estimation procedures (settings such as $\sigma^2 > 0$ are OK).
+    \item \textbf{Parameter space:} Gaps and nonconvexities in parameter spaces would generally collide with estimation algorithms (settings such as $\sigma^2 > 0$ are OK).
     \item \textbf{Identifiability:} The parameter vector $\bm{\theta}$ is identified (estimable), if for two vectors, $\bm{\theta}^{*} \neq \bm{\theta}$ and for some data observations $\bm{x}$, $L(\bm{\theta}^{*}|\bm{x}) \neq L(\bm{\theta}|\bm{x})$.
     \item \textbf{Well-behaved data:} Laws of large numbers (LLN) apply. Some form of CLT can be applied to the gradient (i.e. for the estimation method).
     \item \textbf{Regularity conditions:} ``well behaved'' derivatives of $f(y_i|\bm{\theta})$ with respect to $\bm{\theta}$ (see Greene, chapter 14.4.1).
@@ -334,71 +339,96 @@ if CLRM assumptions hold $\Rightarrow$ MLE estimators $\tilde{\alpha}$, $\tilde{
 \section{Nonlinear regression models}
 \begin{frame}{Nonlinear regression: linear vs. nonlinear models}
 \textbf{Linear model:}
-\begin{align*}
-y_i & = x_{i1}\beta_1 + x_{i2} \beta_2 + \dots + \varepsilon_i \\
-y_i & = f_1(x_{i1}) \beta_1 + f_2(x_{i2}) \beta_2 + \dots + \varepsilon_i
-\end{align*}
-Conditional mean function $\mathbf{E}[y|\bm{x},\bm{\beta}]= \bm{x}'\bm{\beta}$
-\\
-\vspace{0.5cm}
-\textbf{Nonlinear models:}\\
-Linear model is a special case of the nonlinear model: 
-\begin{align*}
-y_i=h(x_{i1}, x_{i2}, \dots, x_{ip};\beta_1,\beta_2,\dots,\beta_K)+\varepsilon_i
-\end{align*}
-Conditional mean function $\mathbf{E}[y|\bm{x},\bm{\beta}]= h(\bm{x},\bm{\beta})$\\
-$\partial\mathbf{E}[y|\bm{x}],\bm{\beta}]/\partial \bm{x}$ is no longer equal to $\bm\beta$, \\ then how should $\bm\beta$ be interpreted?\\
-\vspace{0.2cm}
-For nonlinear models, nonlinear LS have been developed.
-\end{frame}
-%---------------------------------------------
-
-\begin{frame}{Nonlinear regression: linear vs. nonlinear models}
-\textbf{Assumptions (comparison with the linear case)}
+$$
+y_i = \bm{x}_i^{\prime}\bm{\beta} + \varepsilon_i
+$$
+\textbf{Nonlinear model:}
+$$
+~~~~~y_i = h(\bm{x}_i\, , \,\bm{\beta}) + \varepsilon_i
+$$
 \begin{itemize}
-\item Functional form
-\item Identifiability $\times$ full rank assumption
-\end{itemize}
-The parameter vector in the model is identified (estimable) if there is no nonzero parameter $\bm{\beta}_0 \neq \bm{\beta}$ such that $h(\bm{x}_i, \bm{\beta}_0)=h(\bm{x}_i, \bm{\beta})$ for all $\bm{x}_i$.
-\begin{itemize}
-\item Zero mean of the disturbances
-\item Homoscedasticity and nonautocorrelation
+    \item Linear model is a special case of the nonlinear model.
+    \item Linear models are linear in parameters \\(encompass regressors such as $x_i^2$, etc.)
+    \item Many nonlinear model may be transformed into linear models (log-transformation)
+    \item For nonlinear models, nonlinear LS (NLS) are available.
+    \item $\partial h(\bm{x}_i\, , \,\bm{\beta})/\partial \bm{x}$ is no longer equal to $\bm\beta$
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Nonlinear regression: linear vs. nonlinear models}
+\begin{frame}{Nonlinear regression}
+\textbf{Assumptions of the nonlinear regression model}\\
 \begin{itemize}
-\item Data Generation Process
+ \item[1] \textbf{Functional form:} The conditional mean function for $y_i$, given $\bm{x}_i$ is: $$\mathbf{E}[y_i|\bm{x}_i] = h(\bm{x}_i\, , \,\bm{\beta})~, \quad i=1,2,\dots,n$$
+ \item[2] \textbf{Identifiability of model parameters:} The parameter vector in the model is identified (estimable) if there is no nonzero parameter $\bm{\beta}^0 \neq \bm{\beta}$ such that $h(\bm{x}_i, \bm{\beta}^0)=h(\bm{x}_i, \bm{\beta})$ for all $\bm{x}_i$.
+ \medskip
+ \item[3] \textbf{Zero mean of the disturbance:} For $y_i = h(\bm{x}_i\, , \,\bm{\beta}) + \varepsilon_i$, we assume $$
+ \mathbf{E}[\varepsilon_i| h(\bm{x}_i\, , \,\bm{\beta})] = 0~, \quad i=1,2,\dots,n
+ $$
+ i.e. disturbance at observation $i$ is uncorrelated with the conditional mean function.
 \end{itemize}
-The data generating process for $\bm{x}_i$ is assumed to be a well-behaved population such that first and second moments of the data can be assumed to converge to fixed, finite population counterparts. The crucial assumption is that the process generating $\bm{x}_i$ is strictly exogenous to that generating $\varepsilon_i$
-\begin{itemize}
-\item Underlying probability model
-\end{itemize}
-There is a well-defined probability distribution generating $\varepsilon_i$. At this point, we assume only that this process produces a sample of uncorrelated, identically (marginally) distributed random variables $\varepsilon_i$ with mean zero and variance $\sigma^2$ conditioned on $h(\bm{x}_i, \bm{\beta})$. Thus, at this point, our statement of the model is \textbf{semi-parametric}.
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Nonlinear Regression: Nonlinear Least Squares}
-\begin{itemize}
-\item Minimization of \qquad $S(\bm{\beta})=\sum[y_i-h(\bm{x}_i, \bm{\beta})]^2$
+\begin{frame}{Nonlinear regression}
+\textbf{Assumptions of the nonlinear regression model}\\
 \medskip
+\begin{itemize}
+ \item[4] \textbf{Homoskedasticity and nonautocorrelation:}\\
+ \medskip
+ conditional homoskedasticity:
+ $$
+ \mathbf{E}[\varepsilon_i^2| h(\bm{x}_i\, , \,\bm{\beta})] = \sigma^2, \quad i=1,2,\dots,n
+ $$
+ nonautocorrelation:
+ $$
+ \mathbf{E}[\varepsilon_i\varepsilon_j| h(\bm{x}_i\, , \,\bm{\beta}), h(\bm{x}_j\, , \,\bm{\beta})] = 0, \quad \textnormal{for all~}i\neq j
+ $$
 \end{itemize}
-Using standard procedure, we can get $k$ first order conditions.
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Nonlinear regression}
+\textbf{Assumptions of the nonlinear regression model}\\
+\medskip
+\begin{itemize}
+\item[5] \textbf{Data generating process:} DGP for $\bm{x}_i$ is assumed to be a well-behaved population such that first and second sample moments of the data can be assumed to converge to fixed, finite population counterparts. The crucial assumption is that the process generating $\bm{x}_i$ is strictly exogenous to that generating $\varepsilon_i$
+\item[6] \textbf{Underlying probability model} There is a well-defined probability distribution generating $\varepsilon_i$. At this point, we assume only that this process produces a sample of uncorrelated, identically (marginally) distributed random variables $\varepsilon_i$ with mean zero and variance $\sigma^2$ conditioned on $h(\bm{x}_i, \bm{\beta})$. Thus, at this point, our statement of the model is \textbf{semi-parametric}.
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Nonlinear Regression: NLS}
+\textbf{NLS: estimator of the nonlinear regression model}\\
+\bigskip
+\begin{itemize}
+\item NLS: \qquad min:~~ $S(\bm{\beta})=\sum[y_i-h(\bm{x}_i, \bm{\beta})]^2$
+\medskip
+\item Using standard procedure, we can get $k$ first order conditions for the minimization:
+$$
+\frac{\partial S(\bm{\beta})}{\partial \bm{\beta} } = 
+\sum_{i=1}^n \, [y_i-h(\bm{x}_i, \bm{\beta})] 
+\frac{\partial h(\bm{x}_i\, , \,\bm{\beta})]}{\partial \bm{\beta}}
+= \bm{0}
+$$
+
+\end{itemize}
 \smallskip
 \begin{itemize}
-\item In the context of the linear model, the \textbf{orthogonality condition} $E[\bm{x}_i, \varepsilon_i]=0$ produces least squares as a \textbf{GMM estimator} for the linear model. The orthogonality condition is that the regressors and the disturbance in the model are uncorrelated.
+\item The above first order conditions are also moment conditions and this defines the NLS estimator as a GMM estimator.
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{Nonlinear regression: nonlinear least squares}
+\begin{frame}{Nonlinear regression: NLS}
+\textbf{NLS: estimator of the nonlinear regression model}\\
+\bigskip
 \begin{itemize}
-\item In a similar way, the first order conditions from above are also moment conditions and this defines the nonlinear least squares estimator as a GMM estimator. This - if necessary assumptions (and some other conditions) are fulfilled - allows to deduce that the NLS estimator has good large sample properties: consistency and asymptotic normality.
-\item Hypothesis testing: The principal testing procedure is the Wald test, which relies on the consistency and asymptotic normality of the estimator - large sample results. The \textit{F} test relies on normally distributed disturbances, so in the nonlinear case, where we rely on large-sample results, the Wald statistic will be the primary inference tool. \textbf{Lagrange multiplier tests} for the general case can also be constructed.
+\item NLS being a GMM estimator allows us to deduce that the NLS estimator has good large sample properties: consistency and asymptotic normality (if assumptions are fulfilled) .
+\medskip
+\item Hypothesis testing: The principal testing procedure is the Wald test, which relies on the consistency and asymptotic normality of the estimator. Likelihood ratio and LM tests can also be constructed.
 \end{itemize}
 \end{frame}
 %---------------------------------------------
 
 \begin{frame}{Nonlinear regression: computing NLS estimates}
-For nonlinear models, a closed-form solution usually does not exist.
+For nonlinear models, a closed-form solution (NLS estimator) usually does not exist.\\
+\medskip
 \begin{itemize}
 \item Most of the nonlinear maximization problems are solved by an \textbf{iterative algorithm}.
 \item The most commonly used of iterative algorithms are \textbf{gradient methods}.
