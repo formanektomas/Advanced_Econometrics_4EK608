@@ -45,6 +45,7 @@ Methods, Nonlinear Regression, Quantile Regression}
 
 %---------------------------------------------
 \section{Estimators and estimation methods}
+\subsection{Properties of estimators - repetition from BSc courses}
 \begin{frame}{Estimators and estimation methods}
 Notation:
 \begin{itemize}
@@ -55,8 +56,9 @@ Notation:
 Basic notions: 
 \begin{itemize}
 \item All estimators posses sampling distribution\\
-$1^{st}$ moment (mean) $\mathbf{E}(\hat{\theta})$\\
-$2^{nd}$ moment (variance) $\mathbf{E}[(\hat{\theta}-\mathbf{E}(\hat{\theta}))^2]$
+~~mean: $\mathbf{E}(\hat{\theta})$\\
+~~variance: $\mathbf{E}[(\hat{\theta}-\mathbf{E}(\hat{\theta}))^2]$\\
+~~etc.
 \item Estimators $\times$ estimate 
 \item Many estimators exist for a parameter (population mean):
 \end{itemize}
@@ -117,7 +119,7 @@ Large sample properties of estimators \& definitions:\\
 \bigskip
 \item \textbf{Consistency} 
 \item Unbiased estimators are not necessarily consistent.
-\item If $\hat{\theta}$ is an unbiased estimator of $\theta$ and $\textit{plim}(\textnormal{var}(\hat{\theta}))=0$ \\i.e. [ $\textit{var}(\hat{\theta}) \rightarrow 0 \textnormal{ as } n \rightarrow \infty$], then $\textit{plim}(\hat{\theta}) = \theta$. 
+\item If $\hat{\theta}$ is an unbiased estimator of $\theta$ and $\textnormal{plim}(\textit{var}(\hat{\theta}))=0$ \\i.e. [ $\textit{var}(\hat{\theta}) \rightarrow 0 \textnormal{ as } n \rightarrow \infty$], then $\textnormal{plim}(\hat{\theta}) = \theta$. 
 \item Consistent estimators: unibased \& their variance shrinks to zero as sample size grows (entire population is used).
 \begin{itemize}
 \item Minimal requirement for estimator used in statistics or econometrics.
@@ -177,10 +179,28 @@ OLS estimators we have used for parameters in the CLRM can be derived by the met
 %---------------------------------------------
 \begin{frame}{Estimators and estimation methods}
 \begin{itemize}
+\item In a LRM: $\, \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_{1} + \dots + \hat{\beta}_k x_{k} \,$, the $k+1$ parameters are \textbf{OLS}-estimated by minimizing:
+\begin{equation} \label{OLS1}
+\sum_{i=1}^n \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right)^2
+\end{equation}
+\item $1^{st}$ order conditions for \eqref{OLS1}, plus assumptions $E(u)=0$ and $E(x_j \cdot u)=0$, can be combined into a \textbf{MM} estimator:
+\begin{equation*}
+\begin{aligned}
+\sum_{i=1}^n ~~~~\left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right) &= 0\\
+\sum_{i=1}^n  x_{i1} \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right) &= 0\\
+\dots &\\
+\sum_{i=1}^n x_{ik} \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right) &= 0\\
+\end{aligned}
+\end{equation*}
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+\begin{itemize}
     \item Let $\bm{h}(\bm{w}) = \bm{h}(y,\bm{x}, \bm{z}, \bm{\theta})$ define a regression model, 
-    \\where $\bm{z}$ is a set of $r$ instruments (IVs) - see Week 8
-    \\for simplicity, we can start by assuming  $\bm{x} \equiv \bm{z}$
-    \item \textbf{Method of moments estimator} $\hat{\bm{\theta}}_{MM}$ minimizes:
+    \\where $\bm{z}$ is a set of $r$ instruments (IVs) - see Week 8.
+    \\For simplicity, we can start by assuming  $\bm{x} \equiv \bm{z}$.
+    \item \textbf{Method of moments estimator} $\hat{\bm{\theta}}_{\textit{MM}}$ minimizes:
     $$
     \underset{\hat{\bm{\theta}}}{\textnormal{min}}:
     \left[ \frac{1}{n} \sum_{i=1}^n \bm{h}(\bm{w}_i,\hat{\bm{\theta}} )
@@ -198,24 +218,6 @@ OLS estimators we have used for parameters in the CLRM can be derived by the met
     $$
     where $\bm{W}_n$ is a conveniently chosen ($r \times r$) matrix. 
     \\ \small{(any positive definite matrix that may depend on data but not on $\theta$, e.g. $I_r$. Optimum $\bm{W}_n$: see e.g. Greene, chapter. 13.4.2)}
-\end{itemize}
-\end{frame}
-%---------------------------------------------
-\begin{frame}{Estimators and estimation methods}
-\begin{itemize}
-\item In a LRM: $\, \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_{1} + \dots + \hat{\beta}_k x_{k} \,$, the $k+1$ parameters are \textbf{OLS}-estimated by minimizing:
-\begin{equation} \label{OLS1}
-\sum_{i=1}^n \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right)^2
-\end{equation}
-\item $1^{st}$ order conditions for \eqref{OLS1}, plus assumptions $E(u)=0$ and $E(x_j \cdot u)=0$, can be combined into a \textbf{MM} estimator:
-\begin{equation*}
-\begin{aligned}
-\sum_{i=1}^n ~~~~\left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right) &= 0\\
-\sum_{i=1}^n  x_{i1} \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right) &= 0\\
-\dots &\\
-\sum_{i=1}^n x_{ik} \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right) &= 0\\
-\end{aligned}
-\end{equation*}
 \end{itemize}
 \end{frame}
 %---------------------------------------------
@@ -264,39 +266,69 @@ We find MLEs of the $m$ parameters by partially differentiating the likelihood f
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Estimators and estimation methods}
+\centerline{\underline{Maximum likelihood estimation of CLRM parameters:}}
+\begin{align*}
+\textnormal{CLRM: } y_i= \alpha + \beta x_i + \varepsilon_i \qquad \mathbf{E}(y_i) & =\alpha +\beta x_i = \bm{x}_i^{\prime}\bm{\beta}\\
+\textit{var}(y_i) & =\textit{var}(\varepsilon_i)=\sigma^2
+\end{align*}
+Probability density function for \textbf{Normal distribution}:
+$f(Y)=(2\pi\sigma^2)^{-0.5} \hspace{0.1cm} exp[-(y-\mu)^2/2\sigma^2]$ \parbox[t]{10em}{where $Y$ is a general \\ random variable} \\
+~~\\
+\bigskip
+In the case of CLRM, for each $y_i=\alpha + \beta x_i + \varepsilon_i$: \\
+\bigskip
+$f(y_i)=(2\pi\sigma^2)^{-0,5} \hspace{0.1cm} exp[-(y_i-\mathbf{E}(y_i))^2/2\sigma^2]$\\
+Likelihood function: $~~L =f(y_1) \cdot f(y_2) \cdot ... \cdot f(y_n)$
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+Log-likehood ($LL$) function, \textbf{Normal distribution} assumed\\
+(and $\mathbf{E}(y_i)=\bm{x}_i^{\prime}\bm{\beta}$):
+\begin{align*}
+LL & =\sum_{i=1}^n log[f(y_i)] = \\
+& = -\frac{1}{2} \sum_{i=1}^n \left\lbrace { log(2\pi) + log(\sigma^2)+\frac{1}{\sigma^2}[y_i-\bm{x}_i^{\prime}\bm{\beta}]^2} \right\rbrace = \\ 
+& = -\frac{n}{2}log(2\pi)-\frac{n}{2}log(\sigma^2)-\frac{1}{2\sigma^2} \sum_{i=1}^n [y_i-\bm{x}_i^{\prime}\bm{\beta}]^2
+\end{align*}
+\\ \bigskip
+max $LL$ is for min: $(\sum_{i=1}^n[y_i-\bm{x}_i^{\prime}\bm{\beta}]^2 ~|~ \sigma^2)$ \\
+numerical iterative method is used for $\bm{\theta}=(\alpha, \beta, \sigma)$ estimation\\
+if CLRM assumptions hold $\Rightarrow$ MLE estimators $\tilde{\alpha}$, $\tilde{\beta}$ and $\tilde{\sigma}^2$\\ are identical to OLS-generated estimators $\hat{\alpha}$, $\hat{\beta}$ (and $\hat{\sigma}^2$).
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and Estimation Methods}
+\textbf{Basic MLE assumptions}\\
 \begin{itemize}
-\item MLE is only possible if we know the form of the probability distribution function for the population.
+    \item \textbf{Parameter space:} Gaps and nonconvexities in parameter spaces would generally collide with estimation procedures (settings such as $\sigma^2 > 0$ are OK).
+    \item \textbf{Identifiability:} The parameter vector $\bm{\theta}$ is identified (estimable), if for two vectors, $\bm{\theta}^{*} \neq \bm{\theta}$ and for some data observations $\bm{x}$, $L(\bm{\theta}^{*}|\bm{x}) \neq L(\bm{\theta}|\bm{x})$.
+    \item \textbf{Well-behaved data:} Laws of large numbers (LLN) apply. Some form of CLT can be applied to the gradient (i.e. for the estimation method).
+    \item \textbf{Regularity conditions:} ``well behaved'' derivatives of $f(y_i|\bm{\theta})$ with respect to $\bm{\theta}$ (see Greene, chapter 14.4.1).
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and Estimation Methods}
+\textbf{MLE properties}\\
+\begin{itemize}
+    \item \textbf{Consistency:} $\textnormal{plim}(\hat{\bm{\theta}}) = \bm{\theta}_0$ ~~($\bm{\theta}_0$ is the true parameter)
+    \medskip
+    \item \textbf{Asymptotic normality} of $\bm{\hat{\theta}}$
+    \medskip
+    \item \textbf{Asymptotic efficiency:}  $\bm{\hat{\theta}}$ is asymptotically efficient and achieves the Cramér-Rao lower bound for consistent estimators (see Greene, chapter 14.4.5)
+    \medskip
+    \item \textbf{Invariance:} MLE of $\bm{\gamma}_0=\bm{c}(\bm{\theta}_0)$ is $\bm{c}(\bm{\hat{\theta}})$ if $\bm{c}(\bm{\theta}_0)$ \\is a continuous and countinuously differentiable function.
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+\textbf{MLE - summary}\\
+\begin{itemize}
+\item MLE is only possible if we know the form of the probability distribution function for the population (Normal, Poisson, Negative Binomial, etc.).
 \medskip
 \item MLEs possess the large sample properties of consistency and asymptotic efficiency. There is no guarantee that they possess any desirable small-sample properties. 
 \medskip
 \item Under CLRM assumptions, MLE estimator are identical to OLS estimators.
 \medskip
-\item \textbf{Identification:} The parameter vector $\bm{\theta}$ is identified (estimable), if for two vectors, $\bm{\theta}^{*} \neq \bm{\theta}$ and for some data observations $\bm{x}$, $L(\bm{\theta}^{*}|\bm{x}) \neq L(\bm{\theta}|\bm{x})$.
+\item MLE-related tests (Likelihood ratio, Wald, LM) will be discussed separately, with reference to a specific model type (e.g. LDVs in Weeks 11 to 13).
 \end{itemize}
-\end{frame}
-%---------------------------------------------
-\begin{frame}{Estimators and estimation methods}
-\centerline{\underline{Maximum likelihood estimation of CLRM parameters:}}
-\begin{align*}
-\textnormal{CLRM: } y_i= \alpha + \beta x_i + \varepsilon_i \qquad \mathbf{E}(y_i) & =\alpha +\beta x_i \\
-\textit{var}(y_i) & =\textit{var}(\varepsilon_i)=\sigma^2
-\end{align*}
-Probability density function for normal distribution:
-$f(X)=(2\pi\sigma^2)^{-0.5} \hspace{0.1cm} exp[-(x-\mu)^2/2\sigma^2]$ \parbox[t]{10em}{where $x$ is a general \\ random variable} \\
-For each $y_i$ \\
-$f(y_i)=(2\pi\sigma^2)^{-0,5} \hspace{0.1cm} exp[-(y_i-\mathbf{E}(y_i))^2/2\sigma^2]$
-$$L =f(y_1) \cdot f(y_2) \cdot ... \cdot f(y_n)$$
-\end{frame}
-%---------------------------------------------
-\begin{frame}{Estimators and estimation methods}
-Log-likehood function:
-\begin{align*}
-LL & =\sum_{i=1}^n log[f(y_i)] = \\
-& = \sum_{i=1}^n \left\lbrace { -\frac{1}{2} log(2\pi)-\frac{1}{2} log(\sigma^2)-\frac{1}{2\sigma^2}[y_i-\bm{E}(y_i)]^2} \right\rbrace = \\ 
-& = -\frac{n}{2}log(2\pi)-\frac{n}{2}log(\sigma^2)-\frac{1}{2\sigma^2} \sum_{i=1}^n [y_i-\bm{E}(y_i)]^2
-\end{align*}
-\\ \bigskip
-max $LL$ is for min $\sum_{i=1}^n[y_i-\mathbf{E}(y_i)]^2 $ \\ $\Rightarrow$ MLE estimators $\tilde{\alpha}$, $\tilde{\beta}$ are identical to OLS estimators $\hat{\alpha}$, $\hat{\beta}$\\
 \end{frame}
 %---------------------------------------------
 \section{Nonlinear regression models}
