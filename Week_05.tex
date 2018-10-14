@@ -110,17 +110,18 @@ Large sample properties of estimators \& definitions:
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Estimators and estimation methods}
-Large sample properties of estimators \& definitions:
+Large sample properties of estimators \& definitions:\\
+\medskip
 \begin{itemize}
 \item Asymptotic unbiasedness 
 \bigskip
 \item \textbf{Consistency} 
 \item Unbiased estimators are not necessarily consistent.
-\item If $\hat{\theta}$ is an unbiased estimator of $\theta$ and $\textit{var}(\hat{\theta} \rightarrow 0 \textnormal{ as } n \rightarrow \infty$, then $\textit{plim}(\hat{\theta}) = \theta$. 
+\item If $\hat{\theta}$ is an unbiased estimator of $\theta$ and $\textit{plim}(\textnormal{var}(\hat{\theta}))=0$ \\i.e. [ $\textit{var}(\hat{\theta}) \rightarrow 0 \textnormal{ as } n \rightarrow \infty$], then $\textit{plim}(\hat{\theta}) = \theta$. 
 \item Consistent estimators: unibased \& their variance shrinks to zero as sample size grows (entire population is used).
 \begin{itemize}
 \item Minimal requirement for estimator used in statistics or econometrics.
-\item If some estimator is not consistent, then it does not help us with estimation of population $\theta$ values, even if we have unlimited data.
+\item If some estimator is not consistent, then it does not provide estimates of population $\theta$ values, even with unlimited data.
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -173,7 +174,32 @@ OLS estimators we have used for parameters in the CLRM can be derived by the met
 \item $\frac{\sum_{i=1}^n (x_i-\overline{x})^2}{n-1}$: sample variance is the second sample moment about the mean
 \end{itemize}
 \end{frame}
-
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+\begin{itemize}
+    \item Let $\bm{h}(\bm{w}) = \bm{h}(y,\bm{x}, \bm{z}, \bm{\theta})$ define a regression model, 
+    \\where $\bm{z}$ is a set of $r$ instruments (IVs) - see Week 8
+    \\for simplicity, we can start by assuming  $\bm{x} \equiv \bm{z}$
+    \item \textbf{Method of moments estimator} $\hat{\bm{\theta}}_{MM}$ minimizes:
+    $$
+    \underset{\hat{\bm{\theta}}}{\textnormal{min}}:
+    \left[ \frac{1}{n} \sum_{i=1}^n \bm{h}(\bm{w}_i,\hat{\bm{\theta}} )
+    \right]^{\prime}
+    \left[ \frac{1}{n} \sum_{i=1}^n \bm{h}(\bm{w}_i,\hat{\bm{\theta}} )
+    \right]
+    $$
+    \item If $\bm{x} \neq \bm{z}$ and \# IVs > \# regressors (overidentification), \textbf{Generalized method of moments} is used (GMM)
+    $$
+    \underset{\hat{\bm{\theta}}}{\textnormal{min}}:
+    \left[ \frac{1}{n} \sum_{i=1}^n \bm{h}(\bm{w}_i,\hat{\bm{\theta}} )
+    \right]^{\prime} \bm{W}_n
+    \left[ \frac{1}{n} \sum_{i=1}^n \bm{h}(\bm{w}_i,\hat{\bm{\theta}} )
+    \right]
+    $$
+    where $\bm{W}_n$ is a conveniently chosen ($r \times r$) matrix. 
+    \\ \small{(any positive definite matrix that may depend on data but not on $\theta$, e.g. $I_r$. Optimum $\bm{W}_n$: see e.g. Greene, chapter. 13.4.2)}
+\end{itemize}
+\end{frame}
 %---------------------------------------------
 \begin{frame}{Estimators and estimation methods}
 \begin{itemize}
@@ -190,6 +216,23 @@ OLS estimators we have used for parameters in the CLRM can be derived by the met
 \sum_{i=1}^n x_{ik} \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right) &= 0\\
 \end{aligned}
 \end{equation*}
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Estimators and estimation methods}
+\textbf{MM - consistency conditions}\\
+\medskip
+\begin{itemize}
+  \item \textbf{Convergence of the moments:} Sample moments converge in probability to their population counterparts.
+  \medskip
+  \item \textbf{Identification:} Parameters are identified in terms of the moment equations.
+  \begin{itemize}
+      \item \textbf{Order condition:} \# IVs $\geq$ \# model variables.
+      \item \textbf{Rank condition:} Moment equations are not redundant
+      \item Identification will be discussed in detail during Week 8
+  \end{itemize}
+  \medskip
+  \item \textbf{Limiting Normal distribution for the sample moments:} Population moments obey central limit theorem (CLT) or some similar variant.
 \end{itemize}
 \end{frame}
 %---------------------------------------------
@@ -438,7 +481,7 @@ Prob(F-statistics)                                                    & 0.000000
 \begin{itemize}
 \item Quantile regression estimates the relationship between regressors and a specified quantile of dependent variable.
 \medskip
-\item The (linear) quantile model can be defined as $Q[y|\bm{x}, q]=\bm{x}^{\prime}\bm{\beta}_q$, such that $\textnormal{Prob}[y \le \bm{x}^{\prime}\bm{\beta}_q|\bm{x}]=q$, $0<q<1$ \\where $q$ denote the $q$-th quantile.
+\item The (linear) quantile model can be defined as $Q[y|\bm{x}, q]=\bm{x}^{\prime}\bm{\beta}_q$, such that $\textnormal{Prob}[y \le \bm{x}^{\prime}\bm{\beta}_q|\bm{x}]=q$, $0<q<1$ \\where $q$ denotes the $q$-th quantile.
 \medskip
 \item One important special case of quantile regression is the least absolute deviations (LAD) estimator, which corresponds to fitting the conditional median of the response variable ($q=\frac{1}{2}$).
 \medskip
@@ -468,21 +511,21 @@ where $e_i = (y_i - \bm{x}_i\bm{\hat{\beta}}_q)$.
 \underset{\bm{\hat{\beta}}_{q}}{\textnormal{min:}} \quad Q_n(\bm{\hat{\beta}}_{q}) =
 \sum_{i=1}^n |y_i-\bm{x}_i\bm{\hat{\beta}}_{q}|
 $$
-\item LAD estimator predates OLS (itself older than 200 years). So far, QREG and LAD has seen little use in econometrics, as OLS is vastly easier to compute.
-\item Different software packages use a variety of iterative optimization algorithms for QREG/LAD estimation.
-\item Linear programming can also be used for finding QREG estimates (Koenkerr and Bassett (around 1980)).
+\item LAD estimator predates OLS (itself older than 200 years). Until recently, QREG and LAD have seen little use in econometrics, as OLS is vastly easier to compute.
+\item Different software packages use a variety of optimization algorithms for QREG/LAD estimation.
+\item Linear programming can be used for finding QREG estimates (Koenkerr and Bassett (around 1980).
 \end{itemize}
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Quantile regression}
 
-Coefficient interpretation example:\\
+QREG coefficient interpretation example:\\
 \bigskip
-\begin{enumerate}
-    \item $\textnormal{wage}_i = \beta_0 + u_i$
-    \item $\textnormal{wage}_i = \beta_0 + \beta_1 \textnormal{female}_i + u_i$
-        \item $\textnormal{wage}_i = \beta_0 + \beta_1 \textnormal{female}_i + \beta_2 \, \textnormal{exper}_i + u_i$
-\end{enumerate}
+\begin{itemize}
+    \item[(1)] $\textnormal{wage}_i = \beta_0 + u_i$
+    \item[(2)] $\textnormal{wage}_i = \beta_0 + \beta_1 \textnormal{female}_i + u_i$
+    \item[(3)] $\textnormal{wage}_i = \beta_0 + \beta_1 \textnormal{female}_i + \beta_2 \, \textnormal{exper}_i + u_i$
+\end{itemize}
 \bigskip
 The above equations are estimated by OLS / LAD / QREG:\\
 \bigskip
@@ -491,7 +534,7 @@ The above equations are estimated by OLS / LAD / QREG:\\
  \hline
  Coefficient   &     OLS     &   LAD ($q=\tfrac{1}{2}$)   &  QREG ($q=\tfrac{3}{4}$)\\
  \hline 
- (1)~$\beta_0$ &   $\hat{\beta}_0=\overline{y}$ & $\hat{\beta}_0=\tilde{y}$ & $\hat{\beta}_0=Q_3$\\
+ (1)~$\beta_0$ &   $\hat{\beta}_0=\overline{y}$ & $\hat{\beta}_0=\tilde{\,y\,}$ & $\hat{\beta}_0=Q_3$\\
  & sample mean  & sample median & sample $3^{rd}$ quartile\\
  \hline
  (2)~$\beta_0, \beta_1$ & conditional sample mean & conditional sample median & conditional sample $Q_3$\\
