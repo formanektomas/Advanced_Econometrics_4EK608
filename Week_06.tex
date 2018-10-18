@@ -98,7 +98,7 @@ $(\textit{female} \times d91)_{it}$ is an interaction element, may be used to de
     mynode/.style={rectangle,draw=ProcessBlue, fill=White, semithick, inner sep=.2em, minimum size=2em, text centered, text width=8em},
     myarrow/.style={->, >=stealth, thin, Red}
 }
-\node[mynode] at (4.7,3) (Box){Each year, we draw $500$ individuals at random. Individual respondents are not followed. Total observations: $N \times T = 1.500$};
+\node[mynode] at (4.7,3.3) (Box){Each year, we draw $500$ individuals at random. Individual respondents are not followed. Total observations: $N \times T = 1.500$};
   \draw[myarrow] (Box) -- ++   (500);
 \end{tikzpicture}
 \end{frame}
@@ -112,7 +112,7 @@ $(\textit{female} \times d91)_{it}$ is an interaction element, may be used to de
 \textbf{Chow test for structural changes across time} \\
 \smallskip
 Basically an \textit{F}-test for linear restrictions, can be used to determine whether the estimated slope coefficients change across time.\\
-\smallskip
+\medskip
 In our $\log(wage)$ equation, we would test the $H_0$ of ``time-invariant'' $\beta_3, \beta_4$ and $\beta_5$ coefficients, while allowing for time dummies (time-specific intercepts).
 \end{frame}
 %---------------------------------
@@ -158,7 +158,7 @@ $F=\frac{( \mytikzmark{SSRr}{\textit{SSR}_r}- \mytikzmark{SSRur}{\textit{SSR}_{u
 \item Measure: Effect at different catalyst volumes (reaction speed, product volume, \dots)
 \item Perform the experiment $n$-times
 \item Control for other factors (heat, \dots)
-\item Estimate average effect (\& st. error)
+\item Estimate average effect \\(\& standard error)
 \end{itemize}
 \end{minipage}
 };
