@@ -146,7 +146,7 @@ $F=\frac{( \mytikzmark{SSRr}{\textit{SSR}_r}- \mytikzmark{SSRur}{\textit{SSR}_{u
     rectangle, rounded corners, inner sep=1pt, inner ysep=10pt]
 \tikzstyle{fancytitle} =[fill=blue!35, text=black]
 %---------------------------------
-\section{Policy analysis with pooled cross sections}
+\section{Policy analysis with pooled cross sections (DiD estimator)}
 \begin{frame}{Policy analysis with pooled cross sections}
 \begin{tikzpicture}
 \node [mybox] (box){%
@@ -328,18 +328,28 @@ Topic not fully covered here, for detailed information see:\\
 \section{Panel data}
 \begin{frame}{Panel data}
 \begin{itemize}
-\item Panel data:\\
-We follow $N$ cross-sectional units for $T$ time periods
-\vspace{0.5cm}
+\item $N$ individual CS units are followed over $T$ time periods
+\medskip
 \item Short panels: $N \gg T$ \\
-Working with short panels is similar to cross-sectional data analysis
-\vspace{0.5cm}
+Working with short panels is similar to CS data analysis. If CS units are randomly drawn from a population and $T$ is small and fixed, then asymptotic analysis (properties) hold for arbitrary time dependence and distributional heterogeneity across time.
+\medskip
 \item Long panels: $T \gg N$ \\
-Working with long panels is similar to time-series analysis
-\vspace{0.5cm}
-\item Ideally, we have panels with both $T$ and $N$ large….
-\vspace{0.5cm}
-\item Balanced $\times$ unbalanced panels
+Working with long panels is similar to time-series analysis. In TS analysis, stationarity \& weak dependency conditions apply. SURE (Seemingly Unrelated Regression Equation) approach can be used: for the regression equations (with identical regressor structure), we estimate contemporaneous error covariances and use this information to improve efficiency of the estimate (see Greene, chapter 10.2)
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{Panel data}
+\begin{itemize}
+\item Large panel datasets: $T$ and $N$ large\\
+Both CS and TS analysis assumptions apply, specialized estimators exist for large (heterogeneous) panels.\\Cointegrated series in panels: estimation and tests by Pesaran.
+\bigskip
+\item \textbf{Balanced panels:} obs. available for all $T$ on all CS units. Often assumed for simplicity of interpretation.
+\smallskip
+\item \textbf{Unbalanced panels:} mechanics of coefficient estimation do not differ. Model interpretation may require formal description of why the panel may be unbalanced. \\Problems may be caused by: 
+\begin{itemize}
+    \item \textbf{Sample selection bias:} with e.g. self-selection, coefficients can be be biased and inconsistent.
+    \item \textbf{Attrition bias:} even if participants are randomly selected  at the beginning of observation, they often leave (medical study, school, etc.) on a non-random basis.   
+\end{itemize}
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -828,7 +838,7 @@ where $v_{it} = a_i + u_{it}$ and $\textit{cov}(\bm{x}_{it},a_i)=0$; \ $t=1,2, \
 \bigskip
 \begin{itemize}
 \item The above equation may be estimated by \textbf{OLS, LSDV, within} and \textbf{between} estimators. All estimators mentioned are consistent but inefficient (due to autocorrelation in $v_{it}$).\\
-\item Under special conditions, a consistent and efficient FGLS-based estimation method exists: the \textbf{RE estimator}.
+\item Under special conditions (RE assumptions), a consistent and asymptotically efficient FGLS-based estimation method exists: the \textbf{RE estimator}.\\(More asymptotically efficient than pooled OLS or FE estimator, for $T$ fixed as $N \rightarrow \infty$.)
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -1010,10 +1020,10 @@ with uncorrelated random effect $r_i$ but with the time averages as additional r
 \vspace{0.3cm}
 \underline{The resulting CRE estimate for $\beta$ is identical to the FE estimator}.
 \begin{itemize}
-\item CRE allows for incorporation of time-invariant regressors: Besides $\hat{\beta}_{CRE} = \hat{\beta}_{FE}$, we can include arbitrary time invariant regressors and estimate $\hat{\gamma}_{CRE}$ values.
+\item CRE allows for incorporation of time-invariant regressors: Besides $\hat{\beta}_{\textit{CRE}} = \hat{\beta}_{\textit{FE}}$, we can include arbitrary time invariant regressors and estimate $\gamma_{\textit{CRE}}$ values.
 \item CRE allows for convenient testing of FE vs. RE:
 	\begin{itemize}
-	\item[$H_0$:] $\gamma = 0$ can be evaluated using $\hat{\gamma}_{CRE}$ and appropriate (HCE) standard errors against
+	\item[$H_0$:] $\gamma = 0$ can be evaluated using $\hat{\gamma}_{\textit{CRE}}$ and appropriate (HCE) standard errors against
 	\item[$H_1$:] $\gamma \neq 0$
 	\end{itemize}
 \end{itemize}
@@ -1126,10 +1136,16 @@ $\Delta y_{it} = \delta_1 \Delta y_{i,t-1} + \Delta \bm{x}^T_{it} \bm{\beta} + \
 \item Advanced course on panel data \\
 \textsubscript{\textcolor{Blue}{\url{http://people.stern.nyu.edu/wgreene/Econometrics/PanelDataNotes.htm}} }
 \bigskip
-\item Mixed effects models \\
-\textsubscript{ \textcolor{Blue}{\url{http://www.bodowinter.com/tutorial/bw_LME_tutorial1.pdf}} } \\
+\item Mixed effects model \\
+Extension to the RE model \\(intercept and -some- coefficients have a random term):
+$$
+y_{it}=\bm{x}_{it}^{\prime} \bm{\beta} + \bm{z}_{it}^{\prime}( \bm{\gamma} + \bm{h}_i) +
+(\alpha + u_i) + \varepsilon_{it}
+$$
+where $\bm{h}_i$ describes random variation of the paremeter(s) across individuals.\\
 \medskip
-\textsubscript{ \textcolor{Blue}{\url{http://www.bodowinter.com/tutorial/bw_LME_tutorial2.pdf}} } \\
+
+\textsubscript{ \textcolor{Blue}{\url{http://www.bodowinter.com/tutorial/bw_LME_tutorial1.pdf}} } \\
 \end{itemize}
 \end{frame}
 %---------------------------------
