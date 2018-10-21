@@ -247,7 +247,7 @@ Treatment                                  & $\beta_0 + \beta_1$ & $\beta_0 + \d
 Treatment - Control                        & $\beta_1$           & $\beta_1 + \delta_1$                      & \circled{$\delta_1$}            \\ \hline
 \end{tabular}
 \end{table} 
-Even if $\bm{x_{it} \gamma}$ is added back to the equation, interpretation of $\delta_1$ remains essentially unchanged.
+Even if $\bm{x}_{it} \bm{\gamma}$ is added back to the equation, interpretation of $\delta_1$ remains essentially unchanged.
 \begin{tikzpicture}[<-,overlay,remember picture,inner sep=1.5pt,shorten <=0.2em,font=\tiny]
 \tikzset{
     mynode/.style={rectangle,draw=MidnightBlue, very thick, inner sep=.2em, minimum size=3.73em, text width=25.8em}
@@ -470,7 +470,7 @@ $(\textit{female} \times \textit{exper})_{it}$ is an interaction element, change
 %---------------------------------
 \section{Least square dummy variable (LSDV) regression}
 \begin{frame}{LSDV regression}
-In the model $y_{it} = \bm{x_{it} \beta} + a_i + u_{it}$, \\
+In the model $y_{it} = \bm{x}_{it} \bm{\beta} + a_i + u_{it}$, \\
 \medskip
 $a_i$ are usually regarded as unobservable variables. \\
 This approach gives appropriate interpretation of $\bm{\beta}$. \\
@@ -487,7 +487,7 @@ Sample interaction element: \quad $\mytikzmark{delta}{\delta_1} (\mytikzmark{ind
     mynode/.style={rectangle,draw=ProcessBlue,  fill=White, semithick, inner sep=.2em, minimum size=2em, text centered, text width=8em},
     myarrow/.style={->, >=stealth, thin, Red}
 }
-\node[mynode] at (3,-0.3) (delta*){$\delta_1$ measures the difference in $x_1$ slope for $\textit{ind1}$ };
+\node[mynode] at (3,-0.3) (delta*){$\delta_1$ measures the difference in $x_1$ of slope for $\textit{ind1}$ };
 \draw[myarrow] (delta*) -- ++   (delta);
 	\node[mynode] at (6.4,-0.3) (ind*){Dummy, $\textit{ind1}_i = 1$ for individual $1 (i=1)$ and zero otherwise};
 	\draw[myarrow] (ind*) -- ++   (ind);
@@ -497,9 +497,9 @@ Sample interaction element: \quad $\mytikzmark{delta}{\delta_1} (\mytikzmark{ind
 \end{frame}
 %---------------------------------
 \begin{frame}{LSDV regression - example}
-$$y_{it} = \alpha_1 \mytikzmark{ind1}{\boxed{\textit{ind}1_{it}}} + \alpha_2 \mytikzmark{ind2}{\boxed{\textit{ind}2_{it}}} + \dots + \alpha_N \mytikzmark{indN}{\boxed{\textit{ind}N_{it}}} + \beta_1 x_{it1} + \dots + \beta_k x_{itk} + u_{it}$$
+$$y_{it} = \alpha_1 \mytikzmark{ind1}{\boxed{\textit{ind}1_{i}}} + \alpha_2 \mytikzmark{ind2}{\boxed{\textit{ind}2_{i}}} + \dots + \alpha_N \mytikzmark{indN}{\boxed{\textit{ind}N_{i}}} + \beta_1 x_{it1} + \dots + \beta_k x_{itk} + u_{it}$$
 \begin{itemize}
-\item $\hat{\bm{\beta}}_{LSDV}$ is identical to $\hat{\bm{\beta}}_{FE}$ (explained next) - it is a consistent estimator of $\bm{\beta}$, even if we hold $T$ fixed and $N \rightarrow \infty$.
+\item $\hat{\bm{\beta}}_{LSDV}$ is identical to $\hat{\bm{\beta}}_{FE}$ (explained next) - it is a consistent estimator of $\bm{\beta}$ if we hold $T$ fixed and $N \rightarrow \infty$ \\(atually, consistency applies more generally).
 \item For $\hat{\bm{\alpha}}$ (vector of individual $\hat{\alpha}_i$ values), such consistency does not hold: as $N \rightarrow \infty$, information does not accumulate for $a_i$.
 \end{itemize}
 \begin{tikzpicture}[<-,overlay,remember picture,inner sep=1.5pt,shorten <=0.02em,font=\scriptsize]
@@ -507,7 +507,7 @@ $$y_{it} = \alpha_1 \mytikzmark{ind1}{\boxed{\textit{ind}1_{it}}} + \alpha_2 \my
     mynode/.style={rectangle,draw=ProcessBlue,  fill=White, semithick, inner sep=0.02em, minimum size=1em, text centered, text width=30em},
     myarrow/.style={->, >=stealth, thin, Red}
 }
-\node[mynode] at (5.5,4) (dummy){Dummy equals $1$, only if the observation at time $t$ relates to the appropriate C-S unit.};
+\node[mynode] at (5.5,4) (dummy){Dummy equals $1$ only if observations (time-invariant) relate to $i$-th C-S unit.};
 \draw[myarrow] (dummy) -- ++   (ind1);
 \draw[myarrow] (dummy) -- ++   (ind2);
 \draw[myarrow] (dummy) -- ++   (indN);
@@ -530,13 +530,13 @@ FD is most suitable when we have $t = 1; 2$ – two period panel (FD may be used
 \end{frame}
 %---------------------------------
 \begin{frame}{FD estimator – more than two time periods}
-$$y_{it} = \delta_1 + \delta_2 d2_t + \delta_3 d3_t + \bm{x_{it} \beta} + a_i + u_{it};$$
+$$y_{it} = \delta_1 + \delta_2 d2_t + \delta_3 d3_t + \bm{x}_{it} \bm{\beta} + a_i + u_{it};$$
 \hfill $3$ periods $(t=1,2,3)$, $3N$ total observations\\
 \medskip
 First differences (FD) transformation: 
 \begin{align}
 \label{eq:one}
-\Delta y_{it} = \delta_2 \Delta d2_t + \delta_3 \Delta d3_t + \Delta \bm{x_{it} \beta} + \Delta u_{it}
+\Delta y_{it} = \delta_2 \Delta d2_t + \delta_3 \Delta d3_t + \Delta \bm{x}_{it} \bm{\beta} + \Delta u_{it}
 \end{align}
 \begin{itemize}
 \item We only have data for $t = 2,3$. i.e. we have $N(T-1)$ observations after differencing.
@@ -552,10 +552,10 @@ Unless time intercepts are of direct interest, we transform the FD equation so t
 and -undifferenced- time dummies (usually, we leave out $d2$)
 \begin{align}
 \label{eq:two}
-\Delta y_{it} = \alpha_0 + \alpha_3 d3_t + \Delta \bm{ x_{it} \beta} + \Delta u_{it}
+\Delta y_{it} = \alpha_0 + \alpha_3 d3_t + \Delta \bm{x}_{it} \bm{\beta} + \Delta u_{it}
 \end{align}
 this may be generalized for $T>3$:
-$$\Delta y_{it} = \alpha_0 + \alpha_3 d3_t +\alpha_4 d4_t + \dots + \alpha_T dT_t + \Delta \bm{ x_{it} \beta} + \Delta u_{it}$$
+$$\Delta y_{it} = \alpha_0 + \alpha_3 d3_t +\alpha_4 d4_t + \dots + \alpha_T dT_t + \Delta \bm{x}_{it} \bm{\beta} + \Delta u_{it}$$
 \medskip
 Both \eqref{eq:one} \& \eqref{eq:two} model specifications lead to identical $\hat{\bm{\beta}}$.
 \end{frame}
@@ -650,7 +650,7 @@ $\mytikzmark{u}{\overline{y}_i = \beta_1 \overline{x}_{i1} + \dots + \beta_k \ov
 By subtracting individual averages from the original observations (time-demeaning), we get:\\
 $\Rightarrow \boxed{[y_{it} - \overline{y}_{i}]} = \beta_1 \boxed{[x_{it1}-\overline{x}_{i1}]}+\dots+\beta_k \boxed{[x_{itk}-\overline{x}_{ik}]}+\boxed{[u_{it}- \overline{u}_i]}$\\
 \medskip
-Alternative notation: $\ddot{y}_{it} = \bm{\ddot{x}_{it} \beta} + \ddot{u}_{it}$; where $\ddot{y}_{it} = y_{it} - \overline{y}_{i}$, etc.\\
+Alternative notation: $\ddot{y}_{it} = \bm{\ddot{x}}_{it} \bm{\beta} + \ddot{u}_{it}$; where $\ddot{y}_{it} = y_{it} - \overline{y}_{i}$, etc.\\
 \medskip
 FE estimator, denoted $\bm{\hat{\beta}}_{FE}$, is the pooled OLS estimator applied to time-demeaned data.
 \begin{tikzpicture}[<-,overlay,remember picture,inner sep=1.5pt,shorten <=0.2em,font=\scriptsize]
@@ -690,7 +690,7 @@ However, in most practical applications, $a_i$ values bear limited useful inform
 Degrees of freedom for the FE estimator:
 \begin{itemize}
 \vspace{0.5cm}
-\item We have $N \times T$ observations for the equation $\ddot{y}_{it} = \bm{\ddot{x}_{it} \beta} + \ddot{u}_{it}$ but the $df$ of the FE estimator are NOT equal to $(N \times T) - k$
+\item We have $N \times T$ observations for the equation $\ddot{y}_{it} = \bm{\ddot{x}}_{it} \bm{\beta} + \ddot{u}_{it}$ but the $df$ of the FE estimator are NOT equal to $(N \times T) - k$
 \vspace{0.5cm}
 \item For each C-S observation $i$, we loose one $df$.\\
 \dots for each $i$, the demeaned errors $\ddot{u}_{it}$ add up to zero when summed over time. 
@@ -781,7 +781,7 @@ see Wooldridge (2010)
 \medskip
 \begin{itemize}
 \item \textbf{Within estimator}\\
-For equation  $\ddot{y}_{it} = \bm{\ddot{x}_{it} \beta} + \ddot{u}_{it}$, the FE estimator (pooled OLS on time-demeaned data) is often called within estimator, as it uses variation within each cross-section.
+For equation  $\ddot{y}_{it} = \bm{\ddot{x}}_{it} \bm{\beta} + \ddot{u}_{it}$, the FE estimator (pooled OLS on time-demeaned data) is often called within estimator, as it uses variation within each cross-section.
 \item \textbf{Between estimator}\\
 Is obtained as the OLS estimation of $\overline{y}_i = \beta_1 \overline{x}_{i1} + \dots + \beta_k \overline{x}_{ik} + \overline{a}_i + \overline{u}_i$ \ (after adding intercept)\\
 \medskip
@@ -805,7 +805,7 @@ The between estimator uses only variation between the cross-section observations
 \begin{itemize}
 \item For $T \gg N$, especially if non-stationary series are involved, FE may lead to spurious regression problems, while the FD help us transforming integrated series into weakly dependent series.
 \item If strict exogeneity is violated, both FE and FD are biased. However, FE is likely to have less bias than FD (unless $T=2$). The bias of FD does not depend on $T$, while the bias in FE tends to zero at rate $1/T$.
-\item \dots it may be a good idea to use both FD and FE. If the results are not method-sensitive, so much better. If the results from FE and FD differ significantly, we sometimes report both.
+\item \dots it may be a good idea to use both FD and FE. If the results are not method-sensitive, so much the better. If the results from FE and FD differ significantly, we sometimes report both.
 \end{itemize}
 \end{frame}
 %---------------------------------
