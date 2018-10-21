@@ -180,10 +180,13 @@ OLS estimators we have used for parameters in the CLRM can be derived by the met
 \begin{frame}{Estimators and estimation methods}
 \begin{itemize}
 \item In a LRM: $\, \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_{1} + \dots + \hat{\beta}_k x_{k} \,$, the $k+1$ parameters are \textbf{OLS}-estimated by minimizing:
+\footnotesize{
 \begin{equation} \label{OLS1}
 \sum_{i=1}^n \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right)^2
 \end{equation}
-\item $1^{st}$ order conditions for \eqref{OLS1}, plus assumptions $E(u)=0$ and $E(x_j \cdot u)=0$, can be combined into a \textbf{MM} estimator:
+} %end footnotesize
+\item In MM, population moment assumptions $E(u)=0$ and $E(x_j \cdot u)=0$ are used for sample-based estimation (identical to $1^{st}$ order conditions for \eqref{OLS1} - OLS is a type of MM estimator):
+\footnotesize{
 \begin{equation*}
 \begin{aligned}
 \sum_{i=1}^n ~~~~\left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right) &= 0\\
@@ -192,6 +195,7 @@ OLS estimators we have used for parameters in the CLRM can be derived by the met
 \sum_{i=1}^n x_{ik} \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_k x_{ik} \right) &= 0\\
 \end{aligned}
 \end{equation*}
+} %end footnotesize
 \end{itemize}
 \end{frame}
 %---------------------------------------------
