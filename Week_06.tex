@@ -931,8 +931,7 @@ RE is asymptotically efficient
 \begin{align*}
 \widehat{\log}(\textit{wage}_{it})
   = \ & .92 \  \mytikzmark{educ}{\boxed{\textit{educ}_{it}}} - 
-       .139 \ \mytikzmark{black}{\boxed{\textit{black}_{it}}} + 
-       .22 \ \mytikzmark{hisp}{\boxed{\textit{hisp}_{it}}}      \\
+       \textit{black}_{it} + \textit{hisp}_{it}      \\
 ( & .011)  \qquad \quad  (.048)  \qquad \quad \ (.043) \\
 + \ & .106 \ \textit{exper}_{it} - .0047 \ \textit{exper}^2_{it} + .064 \ \textit{married}_{it} \\
 ( & .015)  \qquad \quad \ \  (.0007)  \qquad \quad \ \ (.017) \\
@@ -946,8 +945,6 @@ RE is asymptotically efficient
 }
 \node[mynode] at (9.4,5.3) (box){Random effects is used because many of the variables are time-invariant. \underline{But is the random effects} \underline{assumption realistic?}};
   \draw[myarrow] (educ) -- ++   (box);
- \draw[myarrow] (black) -- ++  (box);
-  \draw[myarrow] (hisp) -- ++ (box);
 \end{tikzpicture}
 
 \textbf{Random effects or fixed effects?} \\
