@@ -294,11 +294,11 @@ $$
 \medskip
 \begin{itemize} 
 \item \textbf{Order condition:} We need at least as many IVs (excluded exogenous variables) as there are included endogenous regressors in the main (structural) equation.  
-\\This is a necessary condition for identification. 
-\medskip 
+\\ \medskip This is a necessary condition for identification. 
+\bigskip
 \item \textbf{Rank condition:} Ensures that $\hat{\bm{X}} = 
 \bm{Z}(\bm{Z}^{\prime}\bm{Z})^{-1} \bm{Z}^{\prime}\bm{X}$ can be calculated (will be discussed in detail with respect to 2SLS method and SEM models).
-\\This is a necessary and sufficient condition for identification. 
+\\ \medskip This is a necessary and sufficient condition for identification. 
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -319,7 +319,7 @@ $$ \textnormal{var}(\hat{\beta}_{1,IV})=\frac{\hat{\sigma}^2}{\textit{SST}_{x} \
 %---------------------------------------------
 \begin{frame}{Instrumental variables: statistical properties}
 \textbf{SLRM:} $y_{i1} = \beta_0 + \beta_1 x_{i1} + u_i \quad |~x_{i1} \textnormal{~endog.,~} z_{i1} \textnormal{~exists}$
-\medskip
+\bigskip
 \begin{itemize}
 \item Asymptotic variance of the IV estimator decreases with increasing correlation between $z$ and $x$. 
 \medskip
@@ -505,17 +505,17 @@ Is it meaningful to use IVR (considering IVRs ``price'')?\\
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Durbin-Wu-Hausman endogeneity test}
-$$y_{i1}=\beta_0+\beta_1 y_{i2} + \beta_2 x_{i1} + \beta_3 \hat{\varepsilon} + u_i,$$
+$$y_{i1}=\beta_0+\beta_1 y_{i2} + \beta_2 x_{i1} + \beta_3 \hat{\varepsilon} + u_i, \qquad \qquad (1)$$
 \medskip
-\textbf{\underline{DWH test motivation:}} \\If $z_j$ are proper instruments (uncorrelated with $u$), then $y_2$ is endogenous (correlated with $u$) if and only if $\varepsilon$ is correlated with $u$. \\
+\textbf{\underline{DWH test motivation:}} \\If $z_1$ is a proper instruments (uncorrelated with $u$), then $y_2$ is endogenous (correlated with $u$) if and only if $\varepsilon$ (error from reduced form equation) is correlated with $u$. \\
 \medskip
 \begin{itemize}
 \item $y_2$ in \eqref{eq:one} is endogenous ~~$\Leftrightarrow ~~\textnormal{corr}(y_2,u)\neq0$
-\item From \eqref{eq:two}, $y_2 = \textit{l.f.}(\textit{instruments} \bm{~z}) + \varepsilon ~\Rightarrow~ y_2 = \hat{y}_2 + \hat{\varepsilon}$
+\item Reduced form: $y_2 = \textit{l.f.}(x_1, z_1) + \varepsilon ~\Rightarrow~ y_2 = \hat{y}_2 + \hat{\varepsilon}$
 \item $\textnormal{corr}(y_2,u)\neq0 ~\wedge~\textnormal{corr}(\bm{z},u) = 0 ~\Rightarrow~ \textnormal{corr}(\varepsilon,u)\neq0 $
 \item $y_1$ is always correlated with $u$ in \eqref{eq:one}. 
 \item Hence, $\hat{\varepsilon}$ is significant in the regression, if $y_2$ is endogenous.
-\item $\forall z_j$ uncorrelated with $u$ is essential for DWH to ``work''.
+\item $\forall z_1$ uncorrelated with $u$ is essential for DWH to ``work''.
 \end{itemize}
 \bigskip
 \textbf{\underline{Note:}} other versions of the DWH test exist...
