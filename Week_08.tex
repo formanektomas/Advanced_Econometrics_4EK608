@@ -172,14 +172,49 @@ Usually, $\textit{IQ}$ is not a good IV - it's often correlated with $\textit{ab
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{IVR estimator is biased and consistent}
+\begin{frame}{Instrumental variables: IVR as MM estimator}
+Exogenous regressors:
+\medskip
+\begin{itemize}
+    \item MM: replace $E[\bm{X}^{\prime}(\bm{y}-\bm{X\beta})]=\bm{0}$ by $\frac{1}{n}[\bm{X}^{\prime}(\bm{y}-\bm{X\hat{\beta}})]=\bm{0}$\\and solve moment equations
+    \medskip
+    \item OLS provides identical estimate: $\bm{\hat{\beta}}_{\textnormal{OLS}} = (\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{y} $
+\end{itemize}
+\bigskip
+With endogenous regressors (exact identfication), moment conditions change:
+\medskip
+\begin{itemize}
+    \item MM: replace $E[\bm{Z}^{\prime}(\bm{y}-\bm{X\beta})]=\bm{0}$ by $\frac{1}{n}[\bm{Z}^{\prime}(\bm{y}-\bm{X\hat{\beta}})]=\bm{0}$\\and solve moment equations
+    \medskip
+    \item IVR provides identical estimate: $\bm{\hat{\beta}}_{\textnormal{IV}} = (\bm{Z}^{\prime}\bm{X})^{-1} \bm{Z}^{\prime}\bm{y} $
+\end{itemize}
+
+\end{frame}
+%---------------------------------------------
+\begin{frame}{Instrumental variables: IVR as MM estimator}
+
+$y_{i1}=\beta_0 + \beta_1 y_{i2} + \beta_2 x_{i2} + \dots + \beta_k x_{ik} + u_{i} \quad|~z_1 \textnormal{~ is IV for } y_2$\\
+\begin{align*}
+n^{-1} \sum_{i=1}^n ~~~~~~(y_{i1}-\hat{\beta}_0-\hat{\beta}_1 y_{i2}-\hat{\beta}_2 x_{i2}- \dots- \hat{\beta}_k x_{ik})&=0 \\
+n^{-1} \sum_{i=1}^n \, \textcolor{red}{z_{i1}} \cdot (y_{i1}-\hat{\beta}_0-\hat{\beta}_1 y_{i2}-\hat{\beta}_2 x_{i2}- \dots- \hat{\beta}_k x_{ik})&=0 \\
+n^{-1} \sum_{i=1}^n \, \textcolor{blue}{x_{i2}} \cdot (y_{i1}-\hat{\beta}_0-\hat{\beta}_1 y_{i2}-\hat{\beta}_2 x_{i2}- \dots- \hat{\beta}_k x_{ik})&=0 \\
+       & \dots \\
+n^{-1} \sum_{i=1}^n \, \textcolor{blue}{x_{ik}} \cdot (y_{i1}-\hat{\beta}_0-\hat{\beta}_1 y_{i2}-\hat{\beta}_2 x_{i2}- \dots- \hat{\beta}_k x_{ik})&=0
+\end{align*} 
+\vspace{-0.5cm}
+\begin{itemize}
+    \item In moment equations, $y_{i2}$ is replaced by $z_{i1}$
+    \item Exogenous regressors serve as their own instruments.
+\end{itemize}
+\end{frame}
+%---------------------------------------------
+\begin{frame}{IVR estimator is consistent}
 \begin{align*}
     \bm{\hat{\beta}}_{\textnormal{IV}} &= (\bm{Z}^{\prime}\bm{X})^{-1} \bm{Z}^{\prime}\bm{y} &|~ \textnormal{subs. for~} \bm{y} \\
      \bm{\hat{\beta}}_{\textnormal{IV}} &= (\bm{Z}^{\prime}\bm{X})^{-1} \bm{Z}^{\prime}(\bm{X \beta} + \bm{u}) &|~ \textnormal{rearrange} \\
     \bm{\hat{\beta}}_{\textnormal{IV}} &= \bm{\beta} + (\bm{Z}^{\prime}\bm{X})^{-1} \bm{Z}^{\prime}\bm{u}
     \end{align*}
 \begin{itemize}
-    \item In small (finite) samples, $[(\bm{Z}^{\prime}\bm{X})^{-1} \bm{Z}^{\prime}\bm{u}] \neq \bm{0}$ because of endogeneity in $\bm{X}$.
     \medskip
     \item If consistency condition holds: $\textnormal{plim}\left[\frac{1}{n}\bm{Z}^{\prime}\bm{u}\right]= \bm{0}$, \\$\bm{\hat{\beta}}_{\textnormal{IV}}$ is consistent.
     \medskip
@@ -187,22 +222,6 @@ Usually, $\textit{IQ}$ is not a good IV - it's often correlated with $\textit{ab
     $$
     \bm{\hat{\beta}}_{\textnormal{IV}} = \bm{\beta} + (n^{-1}\bm{Z}^{\prime}\bm{X})^{-1}\, n^{-1}\bm{Z}^{\prime}\bm{u}
     $$
-\end{itemize}
-\end{frame}
-%---------------------------------------------
-\begin{frame}{Instrumental variables: IVR as MM estimator}
-\vspace{-0.5cm}
-$$y_{i1}=\beta_0 + \beta_1 y_{i2} + \beta_2 x_{i2} + \dots + \beta_k x_{ik} + u_{i} \quad|~z_1 \textnormal{~ is IV for } y_2$$
-\begin{align*}
-n^{-1} \sum_{i=1}^n ~~~~~~(y_{i1}-\hat{\beta}_0-\hat{\beta}_1 y_{i2}-\hat{\beta}_2 x_{i2}- \dots- \hat{\beta}_k x_{ik})&=0 \\
-n^{-1} \sum_{i=1}^n \, \textcolor{red}{z_{i1}} \cdot (y_{i1}-\hat{\beta}_0-\hat{\beta}_1 y_{i2}-\hat{\beta}_2 x_{i2}- \dots- \hat{\beta}_k x_{ik})&=0 \\
-n^{-1} \sum_{i=1}^n \, \textcolor{blue}{x_{i2}} \cdot (y_{i1}-\hat{\beta}_0-\hat{\beta}_1 y_{i2}-\hat{\beta}_2 x_{i2}- \dots- \hat{\beta}_k x_{ik})&=0 \\
-       & \dots \\
-n^{-1} \sum_{i=1}^n \, \textcolor{blue}{x_{ik}} \cdot (y_{i1}-\hat{\beta}_0-\hat{\beta}_1 y_{i2}-\hat{\beta}_2 x_{i2}- \dots- \hat{\beta}_k x_{ik})&=0
-\end{align*}
-\begin{itemize}
-    \item In moment equations, $y_{i2}$ is replaced by $z_{i1}$
-    \item Exogenous regressors serve as their own instruments.
 \end{itemize}
 \end{frame}
 %---------------------------------------------
