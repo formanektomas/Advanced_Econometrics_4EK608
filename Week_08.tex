@@ -32,6 +32,7 @@
   \usefonttheme{serif}  % or try default, serif, structurebold, ...
   \setbeamertemplate{navigation symbols}{}
   \setbeamertemplate{caption}[numbered]
+  \setbeamertemplate{headline}{}
 } 
 %
 %
@@ -181,7 +182,7 @@ Exogenous regressors:
     \item OLS provides identical estimate: $\bm{\hat{\beta}}_{\textnormal{OLS}} = (\bm{X}^{\prime}\bm{X})^{-1} \bm{X}^{\prime}\bm{y} $
 \end{itemize}
 \bigskip
-With endogenous regressors (exact identfication), moment conditions change:
+With endogenous regressors (exact identification), moment conditions change:
 \medskip
 \begin{itemize}
     \item MM: replace $E[\bm{Z}^{\prime}(\bm{y}-\bm{X\beta})]=\bm{0}$ by $\frac{1}{n}[\bm{Z}^{\prime}(\bm{y}-\bm{X\hat{\beta}})]=\bm{0}$\\and solve moment equations
@@ -297,7 +298,7 @@ $$
 \\ \medskip This is a necessary condition for identification. 
 \bigskip
 \item \textbf{Rank condition:} Ensures that $\hat{\bm{X}} = 
-\bm{Z}(\bm{Z}^{\prime}\bm{Z})^{-1} \bm{Z}^{\prime}\bm{X}$ can be calculated (will be discussed in detail with respect to 2SLS method and SEM models).
+\bm{Z}(\bm{Z}^{\prime}\bm{Z})^{-1} \bm{Z}^{\prime}\bm{X}$ can be calculated (will be discussed in detail with respect to 2SLS method and formally for SEM models).
 \\ \medskip This is a necessary and sufficient condition for identification. 
 \end{itemize}
 \end{itemize}
@@ -360,9 +361,9 @@ $$ \textnormal{var}(\hat{\beta}_{1,IV})=\frac{\hat{\sigma}^2}{\textit{SST}_{x} \
 \item Asy.Var$(\hat{\bm{\beta}}_{\textnormal{IV}}) = \hat{\sigma}^2
 (\bm{Z}^{\prime}\bm{X})^{-1}(\bm{Z}^{\prime}\bm{Z})(\bm{X}^{\prime}\bm{Z})^{-1}
 $\\
-for the exactly identified case.
+for the exactly identified \& homoskedastic case.
 \medskip
-\item With over-identification, the Asy.Var$(\hat{\bm{\beta}}_{\textnormal{IV}})$ formula is complex and built into all SW packages.
+\item With heteroskedasticity and/or over-identification, the Asy.Var$(\hat{\bm{\beta}}_{\textnormal{IV}})$ formula is complex and built into all SW packages.
 \end{itemize}
 \end{frame}
 %---------------------------------------------
@@ -419,7 +420,7 @@ $y_1=\beta_0+\beta_1 \hat{y}_2 +\beta_2 x_2+ \dots + \beta_k x_{k} +u$
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Instrumental variables}
-IVs - summary\\
+Instrumental variables: summary\\
 \vspace{0.3cm}
 \begin{itemize}
 \item Excluded from the main / structural equation
@@ -437,7 +438,7 @@ With multiple endogenous regressors, reduced forms for each endogenous regressor
 \textbf{2SLS properties}
 \vspace{0.3cm}
 \begin{itemize}
-\item The standard errors from the OLS second stage regression are biased and inconsistent estimators with respect to the original structural equation (SW handles automatically).
+\item The standard errors from the OLS second stage regression are biased and inconsistent estimators with respect to the original structural equation (SW handles this problem automatically).
 \vspace{0.3cm}
 \item If there is one endogenous variable and one instrument then 2SLS = IV
 \vspace{0.3cm}
@@ -462,14 +463,14 @@ With multiple endogenous regressors, reduced forms for each endogenous regressor
 \textbf{Statistical properties of the 2SLS/IV estimator}
 \vspace{0.5cm}
 \begin{itemize}
-\item Corrections for heteroscedasticity/serial correlation analogous to OLS
+\item Corrections for heteroskedasticity/serial correlation analogous to OLS
 \vspace{0.3cm}
-\item 2SLS/IV easily extends to time series and panel data situations
+\item 2SLS/IV estimamtion easily extends to time series and panel data situations
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-\section{IV Tests: introduction}
-\begin{frame}{IV Tests: introduction}
+\section{IV tests: introduction}
+\begin{frame}{IV tests: introduction}
 LRM: $y_{i1}=\beta_0+\beta_1 y_{i2}+\beta_2 x_{i1}+u_i$; \quad $\bm{z}$ instruments exist \\
 \vspace{0.3cm}
 \underline{IV regression advantages} for endogenous $y_2$:
@@ -481,13 +482,14 @@ LRM: $y_{i1}=\beta_0+\beta_1 y_{i2}+\beta_2 x_{i1}+u_i$; \quad $\bm{z}$ instrume
 \underline{IVR disadvantages (price for the IV regression)}:
 \begin{itemize}
 \item $\textnormal{s.e.}(\hat{\beta}_{1, IV}) > \textnormal{s.e.}(\hat{\beta}_{1, OLS})$
-\item $\hat{\beta}_{1, IV}$ is always biased, even if $y_2$ is actually exogenous\\
+\item $\hat{\beta}_{1, IV}$ is biased, even if $y_2$ is actually exogenous\\
+\smallskip
 $\hat{\beta}_{1, OLS}$ is unbiased for exogenous regressors \\ 
 \small (potentially, pending other G-M conditions).
 \end{itemize}
 \end{frame}
 %---------------------------------------------
-\begin{frame}{IV Tests: introduction}
+\begin{frame}{IV tests: introduction}
 LRM: $y_{i1}=\beta_0+\beta_1 y_{i2}+\beta_2 x_{i1}+u_i$; \quad $\bm{z}$ instruments exist
 \medskip
 \begin{itemize}
@@ -501,13 +503,13 @@ Is it meaningful to use IVR (considering IVRs ``price'')?\\
 \textbf{Sargan test} (only applicable in case of over-identification)\\
 \end{itemize}
 \medskip
-\small Different tests \& specifications for IV-tests exist, often focusing on the distribution of the difference between IVR and OLS estimators ($\bm{\hat{\beta}_{IV}}-\bm{\hat{\beta}_{OLS}}$) under the corresponding $H_0$.
+\small Different types \& specifications for IV-tests exist, often focusing on the distribution of the difference between IVR and OLS estimators ($\bm{\hat{\beta}_{IV}}-\bm{\hat{\beta}_{OLS}}$) under the corresponding $H_0$.
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Durbin-Wu-Hausman endogeneity test}
-$$y_{i1}=\beta_0+\beta_1 y_{i2} + \beta_2 x_{i1} + \beta_3 \hat{\varepsilon} + u_i, \qquad \qquad (1)$$
+$$y_{i1}=\beta_0+\beta_1 y_{i2} + \beta_2 x_{i1} +  u_i ~~~~|~z_{i1}, \qquad \qquad (1)$$
 \medskip
-\textbf{\underline{DWH test motivation:}} \\If $z_1$ is a proper instruments (uncorrelated with $u$), then $y_2$ is endogenous (correlated with $u$) if and only if $\varepsilon$ (error from reduced form equation) is correlated with $u$. \\
+\textbf{\underline{DWH test motivation:}} \\If $z_1$ is a proper instrument (uncorrelated with $u$), then $y_2$ is endogenous (correlated with $u$) if and only if $\varepsilon$ (error from reduced form equation) is correlated with $u$. \\
 \medskip
 \begin{itemize}
 \item $y_2$ in \eqref{eq:one} is endogenous ~~$\Leftrightarrow ~~\textnormal{corr}(y_2,u)\neq0$
@@ -515,7 +517,7 @@ $$y_{i1}=\beta_0+\beta_1 y_{i2} + \beta_2 x_{i1} + \beta_3 \hat{\varepsilon} + u
 \item $\textnormal{corr}(y_2,u)\neq0 ~\wedge~\textnormal{corr}(\bm{z},u) = 0 ~\Rightarrow~ \textnormal{corr}(\varepsilon,u)\neq0 $
 \item $y_1$ is always correlated with $u$ in \eqref{eq:one}. 
 \item Hence, $\hat{\varepsilon}$ is significant in the regression, if $y_2$ is endogenous.
-\item $\forall z_1$ uncorrelated with $u$ is essential for DWH to ``work''.
+\item IV/IVs uncorrelated with $u$ is essential for DWH to ``work''.
 \end{itemize}
 \bigskip
 \textbf{\underline{Note:}} other versions of the DWH test exist...
@@ -544,7 +546,7 @@ Reduced form for $y_2$:
 \end{enumerate}
 \end{frame}
 %---------------------------------------------
-\subsection{Weak instruments Test}
+\subsection{Weak instruments test}
 \begin{frame}{Weak instruments}
 \textbf{Motivation for Weak instruments and Sargan tests:} \\
 \medskip
@@ -603,8 +605,8 @@ Structural equation:
 \end{enumerate}
 \end{frame}
 %---------------------------------------------
-\subsection{IV Tests: example}
-\begin{frame}[fragile]{IV Tests: example}
+\subsection{IV tests: example}
+\begin{frame}[fragile]{IV tests: example}
 %\begin{minipage}[t]{.3\textwidth}
 
 \tiny
