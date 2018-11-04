@@ -476,15 +476,15 @@ LRM: $y_{i1}=\beta_0+\beta_1 y_{i2}+\beta_2 x_{i1}+u_i$; \quad $\bm{z}$ instrume
 \underline{IV regression advantages} for endogenous $y_2$:
 \vspace{-0.2cm}
 \begin{align*}
-& \rightarrow \hat{\beta}_{1,OLS} \enspace \parbox[t]{24em}{ is a \textcolor{red}{biased and inconsistent estimator} \\(asymptotic errors)}\\
- & \rightarrow \hat{\beta}_{1, IV} \enspace \parbox[t]{24em}{ is a \textcolor{blue}{biased and consistent estimator} (increased \\sample size (\textit{n}) lowers estimator bias and s.e.)} 
+& \rightarrow \hat{\beta}_{1,\textnormal{OLS}} \enspace \parbox[t]{24em}{ is a \textcolor{red}{biased and inconsistent estimator} \\(asymptotic errors)}\\
+ & \rightarrow \hat{\beta}_{1, \textnormal{IV}} \enspace \parbox[t]{24em}{ is a \textcolor{blue}{biased and consistent estimator} (increased \\sample size (\textit{n}) lowers estimator bias and s.e.)} 
 \end{align*}
 \underline{IVR disadvantages (price for the IV regression)}:
 \begin{itemize}
-\item $\textnormal{s.e.}(\hat{\beta}_{1, IV}) > \textnormal{s.e.}(\hat{\beta}_{1, OLS})$
-\item $\hat{\beta}_{1, IV}$ is biased, even if $y_2$ is actually exogenous\\
+\item $\textnormal{s.e.}(\hat{\beta}_{1, \textnormal{IV}}) > \textnormal{s.e.}(\hat{\beta}_{1,\textnormal{OLS}})$
+\item $\hat{\beta}_{1, \textnormal{IV}}$ is biased, even if $y_2$ is actually exogenous\\
 \smallskip
-$\hat{\beta}_{1, OLS}$ is unbiased for exogenous regressors \\ 
+$\hat{\beta}_{1, \textnormal{OLS}}$ is unbiased for exogenous regressors \\ 
 \small (potentially, pending other G-M conditions).
 \end{itemize}
 \end{frame}
@@ -514,7 +514,7 @@ $$y_{i1}=\beta_0+\beta_1 y_{i2} + \beta_2 x_{i1} +  u_i ~~~~|~z_{i1}, \qquad \qq
 \begin{itemize}
 \item $y_2$ in \eqref{eq:one} is endogenous ~~$\Leftrightarrow ~~\textnormal{corr}(y_2,u)\neq0$
 \item Reduced form: $y_2 = \textit{l.f.}(x_1, z_1) + \varepsilon ~\Rightarrow~ y_2 = \hat{y}_2 + \hat{\varepsilon}$
-\item $\textnormal{corr}(y_2,u)\neq0 ~\wedge~\textnormal{corr}(\bm{z},u) = 0 ~\Rightarrow~ \textnormal{corr}(\varepsilon,u)\neq0 $
+\item $\textnormal{corr}(y_2,u)\neq0 ~\wedge~\textnormal{corr}(\hat{y}_2,u) = 0 ~\Rightarrow~ \textnormal{corr}(\varepsilon,u)\neq0 $
 \item $y_1$ is always correlated with $u$ in \eqref{eq:one}. 
 \item Hence, $\hat{\varepsilon}$ is significant in the regression, if $y_2$ is endogenous.
 \item IV/IVs uncorrelated with $u$ is essential for DWH to ``work''.
@@ -601,7 +601,7 @@ Structural equation:
 \item Use OLS to estimate auxiliary regression: \ $\hat{u} \leftarrow f(\bm{x, z})$ and save the $R_a^2$
 \item Under $H_0$: $nR_a^2 \sim \chi_q^2$ where \\$q =$ (number of IVs) - (number of endogenous regressors) 
  \\i.e. $q$ is the number of over-identifying variables.
-\item If the observed test statistics exceeds its critical value \\(at a given significance level), we reject $H_0$.
+\item If the observed test statistic exceeds its critical value \\(at a given significance level), we reject $H_0$.
 \end{enumerate}
 \end{frame}
 %---------------------------------------------
