@@ -21,7 +21,6 @@
   \usefonttheme{serif}  % or try default, serif, structurebold, ...
   \setbeamertemplate{navigation symbols}{}
   \setbeamertemplate{caption}[numbered]
-  \setbeamertemplate{headline}{}
 } 
 %
 %
@@ -356,102 +355,18 @@ depends on the parameters of the DGP.\\
 %---------------------------------------------
 \section{Miscellaneous topics}
 \begin{frame}{Miscellaneous topics}
+
 \textbf{Miscellaneous topics}\\
 not specifically  related to SEMs\\
 \medskip
 \begin{itemize}
-\item Simulations 
-\item Bootstrap
-\item Monte Carlo studies
-\bigskip
 \item Simple-to-general approach to econometric modeling
 \item General-to-specific approach to econometric modeling\\
 \bigskip
+\item Monte Carlo studies\\
+\bigskip
 \item Data mining
 \end{itemize}
-\end{frame}
-%---------------------------------------------
-\subsection{Simulations, Bootstrap \& Monte Carlo studies}
-\begin{frame}{Simulations \& Monte Carlo studies}
-Simulations and simulation-based methods are used for:
-\bigskip
-\begin{itemize}
-    \item Inferring characteristics of random variables
-    \item Inferring characteristics of estimators and estimator functions
-    \item Inferring characteristics of tests
-    \item Can be used for construction of numerical (approximate) estimators for highly complex scenarios \\(see Greene, Chapter 15.6)
-\end{itemize}
-\medskip
-Bootstrap and Monte Carlo studies are two common simulation-based methods.
-\end{frame}
-%---------------------------------------------
-\begin{frame}{Bootstrap}
-Based on repeated draws (with replacement)\\
-``Resampling'' of the primary sample
-\bigskip
-\begin{itemize}
-    \item[] \textbf{Sample:~~~~} Population (size $N$) $\Rightarrow$ Sample (size $n$) 
-    \item[] \textbf{Bootstrap:} ~Sample (size $n$) $\Rightarrow$ Bootstrap sample (size $n$) 
-\end{itemize}
-\bigskip
-Bootstrap is used for calculating confidence intervals, standard errors and/or bias in estimators.\\
-\bigskip
-Bootstrap is based on the assumption that our ``primary sample'' is a representative sample from the population. By repeatedly sampling (with replacement) from the ``primary sample'', we simulate sampling from the (original) population.\\
-\bigskip
-While taking repeated samples from the population is the best approach, bootstrap is the second best approach if primary source of sampling are not accessible (cost, time, \dots).
-\end{frame}
-%---------------------------------------------
-\begin{frame}{Bootstrap}
-\begin{enumerate} 
-    \item From a dataset (primary sample with $n$ observations), take $B$ (say, 1.000) bootstrap samples (i.e. each bootstrap sample has $n$ observations, chosen randomly with replacement from the original sample).
-    \medskip
-    \item For each bootstrap sample, calculate the statistic(s) required: median, variance, regression coefficients in a LRM, etc. Save results for each bootstrap sample. 
-    \medskip
-    \item From saved ($B$) results, we obtain the required distributional characteristics.
-\end{enumerate}
-\begin{itemize} 
-    \bigskip
-    \item Observed data need not follow a specific distribution \\(e.g. normally distributed errors in LRMs).
-    \medskip
-    \item Useful mainly for CS data (less so for TS analysis)\\
-    Efron, Tibshirani: An Introduction to the Bootstrap (1993)
-\end{itemize}
-\end{frame}
-%---------------------------------------------
-\begin{frame}{Bootstrap: Examples}
-\begin{itemize} 
-    \item Sample mean, sample median and their standard errors\\
-    \smallskip
-    $\textnormal{s.e.}({\overline{x}})=\frac{\hat{\sigma}}{\sqrt{n}}$\\
-    $\textnormal{s.e.}({\widetilde{x}})=~?$
-    \bigskip
-    \item Variance in OLS coefficients - small samples:\\
-    \medskip
-    $\hat{\bm{\beta}} \sim N(\bm{\beta}, \, \hat{\sigma}^2(\bm{X}^{\prime}\bm{X})^{-1})$ if and only if $u_i \sim N(0, \sigma^2), i.i.d.$\\(other G.M. assumptions pending)\\
-    \medskip
-    First, HC-consistent estimates of variance / var($\hat{\bm{\beta}}$) / have asymptotic relevance only\\
-    \medskip
-    Second, the distribution of $u_i$ may be unknown (Jarque-Berra test rejects $H_0$ of normality in residuals).
-\end{itemize}
-\bigskip
-Both problems may be solved using the bootstrap method.\\
-In R, \texttt{\{boot\}} package is available.
-\end{frame}
-%---------------------------------------------
-\begin{frame}{Monte Carlo studies}
-\begin{itemize}
-    \item Analysis/comparison of properties of estimators.\\
-    \item For example, in TS analysis, finite-sample properties are often analytically inaccessible.
-    \item We may either compare different estimators (using same dataset) or experiment with DGP (simulate different $\texttt{ar(p)}$ properties in error term) and study behavior of the estimators.
-\end{itemize}
-\bigskip
-Monte Carlo studies (in 4 steps):\\
-\begin{enumerate}
-\item Model the data generating process
-\item Generate many sets of artificial data
-\item Use the data and estimator to create repeated estimates
-\item Use these estimates to gauge the sampling distribution properties (test power, predictive properties \dots).
-\end{enumerate}
 \end{frame}
 %---------------------------------------------
 \subsection{Alternative approaches to econometric modeling}
@@ -515,9 +430,24 @@ Advantages of the general-to-specific approach\\
 \end{itemize}
 \end{frame}
 %---------------------------------------------
+\subsection{Monte Carlo studies}
+\begin{frame}{Monte Carlo studies}
+Simulation exercises designed to shed light on small-sample properties for a given estimation problem.\\
+\smallskip
+For many estimators, small-sample properties cannot \\(are hard to) be derived analytically.\\
+\bigskip
+Monte Carlo studies (in 4 steps):\\
+\begin{enumerate}
+\item Model the data generating process
+\item Generate many sets of artificial data
+\item Use the data and estimator to create repeated estimates
+\item Use these estimates to gauge the sampling distribution properties (predictive properties \dots) of that estimator.
+\end{enumerate}
+\end{frame}
+%---------------------------------------------
 \subsection{Data mining}
 \begin{frame}{Data mining}
-We use brute-force alogithms to find some statistically significant relationship. It can be completely misleading – as following example shows. \\
+We ``torture'' the data until we find some statistically significant relationship. It can be completely misleading – as following example shows. \\
 \bigskip
 Repetition:  \\
 \medskip
