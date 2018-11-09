@@ -142,8 +142,8 @@ $\Rightarrow y_2  = \bigg[ \frac{\alpha_2 \beta_1}{1-\alpha_2 \alpha_1} \bigg] z
 \begin{frame}{Examples}
 \textcolor{Blue}{Example 2: (Structural equations)} \\Estimation of murder rates\\
 \medskip
-\qquad $\textit{murdpc} = \alpha_1 \textit{polpc} + \beta_{10} + \beta_{11} \textit{incpc} + u_1$ \\
-\qquad \hspace{0.25cm} $\textit{polpc} = \alpha_2 \textit{murdpc} + \beta_{20} +\bm{\beta} (\textit{other factors}) + u_2$ \\
+\qquad $\textit{murdpc} = \beta_{10} + \alpha_1 \textit{polpc} +  \beta_{11} \textit{incpc} + u_1$ \\
+\qquad \hspace{0.25cm} $\textit{polpc} = \beta_{20} + \alpha_2 \textit{murdpc} + \bm{\beta} (\textit{other factors}) + u_2$ \\
 \medskip
 \begin{itemize}
 \item $1^{st}$ equation describes the behaviour of murderers, \\$2^{nd}$ one the behaviour of municipalities. \\Each one has its ceteris paribus interpretation.\\
@@ -187,23 +187,24 @@ Identification conditions for a sample 2-equation SEM \\(individual $i$ subscrip
 \qquad $y_2 = \beta_{20} + \alpha_2 y_1 + \beta_{21} z_{21} + \beta_{22} z_{22} + \dots + \beta_{2k} z_{2k} + u_2$\\ 
 \medskip
 \begin{itemize}
-\item  Order condition (necessary): $1^{st}$ equation is identified \\if at least one exogenous variable $z$ is excluded from $1^{st}$ equation (yet in the SEM) .
+\item  Order condition (necessary): $1^{st}$ equation is identified \\if at least one exogenous variable $z$ is excluded from $1^{st}$ equation (yet in the SEM).
 \item Rank condition (necessary and sufficient): $1^{st}$ equation is identified if and only if the second equation includes at least one exogenous variable excluded from the first equation with a nonzero coefficient, so that it actually appears in the reduced form. 
 \item For the second equation, the conditions are analogous.
+\item Some estimation approaches allow for identification through IVs not explicitly included in the SEM.
 \end{itemize}
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Examples}
 \textcolor{Blue}{Example 4: (Identification)}\\ Labor supply of married working women\\
 \bigskip
-Supply: 
+Supply (workers): 
 \vspace{0.1cm}
 \begin{flalign*}
 \textit{hours} = \alpha_1 \log(\textit{wage}) & + \beta_{10} + \beta_{11} \textit{educ} + \beta_{12} \textit{age} + \beta_{13} \textit{kidslt}6 && \\
  & + \beta_{14} \textit{nwifeinc} + u_1 &&
 \end{flalign*} \\
 \medskip
-Demand:
+Demand (enterprises):
 \smallskip
 \begin{flalign*}
 \log(\textit{wage}) = & \alpha_2 \textit{hours} + \beta_{20} +\beta_{21} \textit{educ} + \beta_{22} \textit{exper} + \beta_{23} \textit{exper}^2 + u_2 && \\
@@ -280,57 +281,37 @@ Rank condition: based on matrix algebra \& IV estimator\\
 \medskip
 We begin explanation of rank condition as follows:\\
 \smallskip
-consider IVR for a just-identified $i$-th equation of SEM\\
+consider IVR for an identified $i$-th equation of SEM\\
 \medskip
 $\bm{y}_i = \bm{X}_i \bm{\beta} + \bm{u}_i$\\
 \medskip
 $\bm{X}_i$ is a $(n\! \times \! k)$ matrix, includes the intercept column,\\
 \medskip
-$\bm{W}$ is a $(n\! \times \! k)$ matrix, includes the intercept column,\\
-(endogenous regressors are replaced by the same number of IVs).\\
+$\hat{\bm{X}}_i$ is a $(n\! \times \! k)$ matrix, includes the intercept column.\\
+Exogenous regressors are repeated from $\bm{X}_i$, endogenous are projected to the column space of $\bm{Z}$: a $(n\! \times \! l)$ matrix of all exogenous variables in the SEM.\\
 \bigskip
 \begin{itemize}
 \item[OLS] $\hat{\bm\beta}_{\textit{OLS}}=
 \left(\bm{X}^{\prime}_i \bm{X}_i \right)^{-1}\! \bm{X}^{\prime}_i \bm{y}$\\
 \medskip
 \item[IVR] $\hat{\bm\beta}_{\textit{IVR}}=
-\left(\bm{W}^{\prime}\bm{X}_i \right)^{-1}\! \bm{W}^{\prime} \bm{y}$\\
+\left(\hat{\bm{X}}^{\prime}_i \bm{X}_i \right)^{-1}\! \hat{\bm{X}}^{\prime}_i \bm{y}$\\
 \medskip
-\item[MM] $\bm{W}^{\prime} \! \left( \bm{y} - \bm{X}_i \hat{\bm{\beta}} \right) = \bm{0} \qquad$ (moment conditions)
+\item[GMM] $\hat{\bm{X}}^{\prime}_i \! \left( \bm{y} - \bm{X}_i \hat{\bm{\beta}} \right) = \bm{0} \qquad$ (moment conditions)
 \end{itemize}
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Identification in SEMs with more than two equations}
 Rank condition: based on matrix algebra \& IV estimator (cont.)\\
 \medskip
-\begin{itemize}
-\item For over-identified SEM equations, $\hat{\bm\beta}_{\textit{IVR}}=
-\left(\bm{W}^{\prime}\bm{X}_i \right)^{-1}\! \bm{W}^{\prime} \bm{y}$ cannot be calculated as dimensions of $\bm{W} \! , \bm{X}_i$ are not compatible with calculating the inverse $\left(\bm{W}^{\prime}\bm{X}_i \right)^{-1}$.\\
-\medskip
-\item \textbf{Generalized IV estimator} (GIVE), 
-\\based on a $(n\! \times \! n) $ projection matrix $\bm{P}_W$:\\
-\medskip
-$\bm{P}_W= \bm{W} \left(\bm{W}^{\prime}\bm{W}\right)^{-1}\! \bm{W}^{\prime}$\\
-\bigskip
-\item[GIVE] $\hat{\bm\beta}_{\textit{GIVE}}=
-\left(\bm{X}^{\prime}_i \bm{P}_W \bm{X}_i\right)^{-1}\! \bm{X}^{\prime}_i \bm{P}_W \, \bm{y}$\\
-\medskip
-\item[MM] $\bm{X}^{\prime}_i \bm{P}_W \! \left( \bm{y} - \bm{X}_i \hat{\bm{\beta}} \right) = \bm{0} \qquad$ (moment conditions)
-\end{itemize}
-\end{frame}
-%---------------------------------------------
-\begin{frame}{Identification in SEMs with more than two equations}
-Rank condition: based on matrix algebra \& IV estimator (cont.)\\
-\medskip
-$\hat{\bm\beta}_{\textit{GIVE}}=
-\left(\bm{X}^{\prime}_i \bm{P}_W \bm{X}_i\right)^{-1}\! \bm{X}^{\prime}_i \bm{P}_W \, \bm{y}$\\
+$\hat{\bm\beta}_{\textit{IVR}}=
+\left(\hat{\bm{X}}^{\prime}_i \bm{X}_i \right)^{-1}\! \hat{\bm{X}}^{\prime}_i \bm{y}$\\
 \bigskip
 \begin{itemize}
-\item \textbf{Order condition}: The necessary condition for the $i$-th equation to be identified (full rank of $\bm{P}_W\bm{X}_i)$ is that the number instruments contained in $\bm{W}$ should be no less than the number of explanatory variables in $\bm{X}_i$.\\
+\item \textbf{Order condition}: The necessary condition for the $i$-th equation to be identified is that the number of columns (exogenous variables of SEM) in $\bm{Z}$ should be no less than the number of columns (explanatory variables) in $\bm{X}_i$.\\
 \medskip
-\item \textbf{Rank condition}: The necessary and sufficient condition for identification of the $i$-th equation is that $\bm{P}_W\bm{X}_i$ should have full column rank of $\bm{X}_i$.\\
-\dots ensures non-singularity of  $\bm{X}^{\prime}_i \bm{P}_W \bm{X}_i$,\\
-\dots and the existence of $\left(\bm{X}^{\prime}_i \bm{P}_W \bm{X}_i\right)^{-1}$.
+\item \textbf{Rank condition}: The necessary and sufficient condition for identification of the $i$-th equation is that $\hat{\bm{X}}^{\prime}_i$ has full column rank of $\bm{X}_i$.\\
+\dots ensures the existence of $\left(\hat{\bm{X}}^{\prime}_i \bm{X}_i \right)^{-1}$.
 \end{itemize}
 \end{frame}
 %---------------------------------------------
@@ -342,11 +323,11 @@ Identification: recap \& final remarks\\
 \smallskip
 \item Structural equations can be estimated (IV/2SLS) \\only if identified: i.e. if rank condition is met.\\
 \bigskip
-\item Checking rank condition for $\bm{P}_W\bm{X}_i$ is easy \\for any given (finite) dataset.\\
+\item With SW, checking rank condition for $\left(\hat{\bm{X}}^{\prime}_i \bm{X}_i \right)^{-1}$ is easy for finite datasets.\\
 \smallskip
 \item Asymptotic identification may be ``tricky'': \\because some columns in $\bm{X}_i$ are endogenous,\\
 \smallskip
-plim $n^{-1} \bm{X}^{\prime}_i \bm{P}_W \bm{X}_i$ ~~ \\
+plim $n^{-1} \hat{\bm{X}}^{\prime}_i \bm{X}_i$ ~~ \\
 \smallskip 
 depends on the parameters of the DGP.\\
 \medskip
@@ -356,8 +337,7 @@ depends on the parameters of the DGP.\\
 %---------------------------------------------
 \section{Miscellaneous topics}
 \begin{frame}{Miscellaneous topics}
-\textbf{Miscellaneous topics}\\
-not specifically  related to SEMs\\
+\textbf{Miscellaneous topics} - not specifically  related to SEMs\\
 \medskip
 \begin{itemize}
 \item Simulations 
@@ -398,16 +378,16 @@ Bootstrap is used for calculating confidence intervals, standard errors and/or b
 \bigskip
 Bootstrap is based on the assumption that our ``primary sample'' is a representative sample from the population. By repeatedly sampling (with replacement) from the ``primary sample'', we simulate sampling from the (original) population.\\
 \bigskip
-While taking repeated samples from the population is the best approach, bootstrap is the second best approach if primary source of sampling are not accessible (cost, time, \dots).
+While taking repeated samples from the population is the best approach, bootstrap is the second best approach if primary source of sampling is not accessible (cost, time, \dots).
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Bootstrap}
 \begin{enumerate} 
-    \item From a dataset (primary sample with $n$ observations), take $B$ (say, 1.000) bootstrap samples (i.e. each bootstrap sample has $n$ observations, chosen randomly with replacement from the original sample).
+    \item From a dataset (primary sample with $n$ observations), take $B$ (say, 1.000) bootstrap samples (each bootstrap sample has $n$ observations, chosen randomly with replacement from the original sample).
     \medskip
     \item For each bootstrap sample, calculate the statistic(s) required: median, variance, regression coefficients in a LRM, etc. Save results for each bootstrap sample. 
     \medskip
-    \item From saved ($B$) results, we obtain the required distributional characteristics.
+    \item From our saved results ($B$ bootstrap samples), we obtain the required distributional characteristics.
 \end{enumerate}
 \begin{itemize} 
     \bigskip
@@ -425,7 +405,7 @@ While taking repeated samples from the population is the best approach, bootstra
     $\textnormal{s.e.}({\overline{x}})=\frac{\hat{\sigma}}{\sqrt{n}}$\\
     $\textnormal{s.e.}({\widetilde{x}})=~?$
     \bigskip
-    \item Variance in OLS coefficients - small samples:\\
+    \item Variance in OLS coefficients - small sample problems:\\
     \medskip
     $\hat{\bm{\beta}} \sim N(\bm{\beta}, \, \hat{\sigma}^2(\bm{X}^{\prime}\bm{X})^{-1})$ if and only if $u_i \sim N(0, \sigma^2), i.i.d.$\\(other G.M. assumptions pending)\\
     \medskip
@@ -434,7 +414,7 @@ While taking repeated samples from the population is the best approach, bootstra
     Second, the distribution of $u_i$ may be unknown (Jarque-Berra test rejects $H_0$ of normality in residuals).
 \end{itemize}
 \bigskip
-Both problems may be solved using the bootstrap method.\\
+Such problems may be solved using the bootstrap method.\\
 In R, \texttt{\{boot\}} package is available.
 \end{frame}
 %---------------------------------------------
