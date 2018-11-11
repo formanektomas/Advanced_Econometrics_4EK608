@@ -279,25 +279,22 @@ structural equation $i$ cannot be estimated by 2SLS/IVR.
 \begin{frame}{Identification in SEMs with more than two equations}
 Rank condition: based on matrix algebra \& IV estimator\\
 \medskip
-We begin explanation of rank condition as follows:\\
-\smallskip
-consider IVR for an identified $i$-th equation of SEM\\
+Consider IVR for an identified $i$-th equation of SEM\\
 \medskip
 $\bm{y}_i = \bm{X}_i \bm{\beta} + \bm{u}_i$\\
 \medskip
-$\bm{X}_i$ is a $(n\! \times \! k)$ matrix, includes the intercept column,\\
+$\bm{X}_i$ is a $(n\! \times \! k)$ matrix, includes the intercept column and all endogenous regressors of the $i$-th equation,\\
 \medskip
 $\hat{\bm{X}}_i$ is a $(n\! \times \! k)$ matrix, includes the intercept column.\\
 Exogenous regressors are repeated from $\bm{X}_i$, endogenous are projected to the column space of $\bm{Z}$: a $(n\! \times \! l)$ matrix of all exogenous variables in the SEM.\\
 \bigskip
+Single equation (limited information) estimator for each $i$-th equation:
 \begin{itemize}
-\item[OLS] $\hat{\bm\beta}_{\textit{OLS}}=
-\left(\bm{X}^{\prime}_i \bm{X}_i \right)^{-1}\! \bm{X}^{\prime}_i \bm{y}$\\
 \medskip
-\item[IVR] $\hat{\bm\beta}_{\textit{IVR}}=
+\item $\hat{\bm\beta}_{\textit{IVR}} = \hat{\bm\beta}_{2\textit{SLS,i}}=
 \left(\hat{\bm{X}}^{\prime}_i \bm{X}_i \right)^{-1}\! \hat{\bm{X}}^{\prime}_i \bm{y}$\\
 \medskip
-\item[GMM] $\hat{\bm{X}}^{\prime}_i \! \left( \bm{y} - \bm{X}_i \hat{\bm{\beta}} \right) = \bm{0} \qquad$ (moment conditions)
+\item $\hat{\bm{X}}^{\prime}_i \! \left( \bm{y} - \bm{X}_i \hat{\bm{\beta}} \right) = \bm{0} \qquad$ (GMM moment conditions)
 \end{itemize}
 \end{frame}
 %---------------------------------------------
