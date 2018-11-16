@@ -1196,9 +1196,9 @@ $\bm{\Delta}\bm{y}_t = \bm{\Theta} \bm{D}_t + \mytikzmark{K}{\circled{$\bm{\Pi} 
 \medskip
 where \ $\bm{\Pi} = \bm{A}_1 + \bm{A}_2 + \dots + \bm{A}_p - \bm{I}_{m \times m}$ is the long-run impact matrix \\
 \smallskip
-\hspace*{1cm} rank($\bm{\Pi}$) defines $r$, the number of CI vectors\\
+\hspace*{1cm} $0 \leq$ rank$(\bm{\Pi}) < m$ defines $r$, the number of CI vectors\\
 \smallskip
-\hspace*{1cm} $\bm{\Gamma}_k$ are the short-run impact matrices\\
+\hspace*{1cm} $\bm{\Gamma}_k = - \sum_{j=k+1}^p \bm{A}_j \quad k=1,\dots,p-1$ : short-run impact matrices\\
 \medskip
 Note that VAR($p$) is transformed into a ``VECM($p-1$)''
 
@@ -1255,6 +1255,73 @@ $2^{nd}$ equation relates changes in $y_{2t}$ to disequilibrium error $(y_{1,t-1
 \end{enumerate}
 \begin{itemize}
 \item[$\checkmark$] IRFs and forecasts may be generated after a VECM is estimated \dots
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{VECM: Johansen’s methodology}
+
+$\bm{\Delta}\bm{y}_t = \bm{\Theta} \bm{D}_t + \bm{\Pi} \bm{y}_{t-1} + \bm{\Gamma}_1 \bm{\Delta} \bm{y}_{t-1} + \dots + \bm{\Gamma}_{p-1} \bm{\Delta} \bm{y}_{t-p+1} + \bm{\varepsilon}_t$, \\
+\bigskip
+If $\bm{y}_t \sim I(1) \quad \Rightarrow \quad \bm{\Pi}$ is a singular matrix: $0 \leq$ rank$(\bm{\Pi}) < m$
+\bigskip
+\begin{enumerate}
+    \item rank $(\bm{\Pi}) = 0 \quad \Rightarrow \quad \bm{\Pi} = \bm{0}$\\
+    $\bm{y}_t$ is not cointegrated and the VECM is a VAR on $1^{\textnormal{st}}$ diffs.\\
+    \bigskip
+    \item $0 <$ rank$(\bm{\Pi}) = r < m$\\
+    $\bm{y}_t$ is cointegrated with $r$ linearly independent vectors\\
+    and $(m-r)$ common stochastic trends.
+    \bigskip
+    \item \dots~ rank$(\bm{\Pi}) = m \quad \Longleftrightarrow \quad \bm{y}_t \sim I(0)$\\full rank of $\bm{\Pi}$ means that $\bm{y}_t$ is in fact stationary.
+\end{enumerate}
+\end{frame}
+%---------------------------------
+\begin{frame}{VECM: Johansen’s methodology}
+Johansen's Trace Statistic \& test\\
+\bigskip
+\begin{itemize}
+    \item Based on the estimated eigenvalues of the matrix $\bm{\Pi}$:\\
+    $\hat{\lambda}_1 > \hat{\lambda}_2 > \dots > \hat{\lambda}_m \qquad \textnormal{~~~where~~~}0 \leq \lambda_j < 1$\\
+    (and $r$ is the \# of nonzero eigenvalues)
+    \medskip
+    \item $H_0(r)~:~r=r_0$ \\$H_1(r_0):~r > r_0$
+    \medskip
+    \item $\textit{LR}_{\textit{tr}}\, (r_0) =~ - T \! \displaystyle \sum_{i=r_0+1}^m \log(1-\hat{\lambda}_i) $\\
+    \medskip
+    \item Under $H_0$, eigenvectors $\hat{\lambda}_{r_0+1}, \dots, \hat{\lambda}_{m}$ should be close to zero (as well as the $\textit{LR}_{\textit{tr}}$ statistic). \\
+    \medskip
+    \item Under $H_0$, $\textit{LR}_{\textit{tr}}$ follows a multivariate Dickey-Fuller distribution.
+\end{itemize}
+\end{frame}
+%---------------------------------
+\begin{frame}{VECM: Johansen’s methodology}
+Testing sequence for Johansen's Trace-Statistic test\\
+\bigskip
+\begin{enumerate}
+    \item[1] $H_0:~~r=0$ \qquad \qquad ~vs. \qquad $H_1:~~0 < r \leq m$
+    \item[2] $H_0:~~r=1$ \qquad \qquad  ~vs. \qquad $H_1:~~1 < r \leq m$
+    \item[3] $H_0:~~r=2$ \qquad  \qquad ~vs. \qquad $H_1:~~2 < r \leq m$
+    \item[] ~$\cdots$ \qquad \qquad \qquad ~~~~~$\cdots$ \qquad \qquad $\cdots$
+    \item[m] $H_0:~~r=m-1$ \qquad ~vs. \qquad $H_1:~~r = m$
+\end{enumerate}
+\bigskip
+We keep increasing $r$ until we no longer reject the null.
+\end{frame}
+%---------------------------------
+\begin{frame}{VECM: Johansen’s methodology}
+Johansen's Maximum Eigenvalue statistic \& test\\
+\bigskip
+\begin{itemize}
+    \item Based on the estimated eigenvalues of the matrix $\bm{\Pi}$:\\
+    $\hat{\lambda}_1 > \hat{\lambda}_2 > \dots > \hat{\lambda}_m \qquad \textnormal{~~~where~~~}0 \leq \lambda_j < 1$
+    \medskip
+    \item $H_0(r_0):~r=r_0$ \\$H_1(r_0):~r = r_0+1$
+    \medskip
+    \item $\textit{LR}_{\textit{max}}\, (r_0)=~ - T \log(1-\hat{\lambda}_{r_0+1}) $\\
+    \medskip
+    \item Under $H_0$, $\textit{LR}_{\textit{max}}$ follows a complex multivariate distribution (critical values implemented in SW).
+    \medskip
+    \item Testing sequence is analogous
 \end{itemize}
 \end{frame}
 %---------------------------------
