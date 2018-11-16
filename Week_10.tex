@@ -87,12 +87,12 @@
 Univariate autoregressive models (\underline{AR models}) describe specific time-varying processes in nature, economy, etc.
 \begin{itemize}
 \item AR processes/models may be either stationary or non-stationary.
-\item AR($p$) model (autoregressive model of order $p$): the modeled variable depends linearly on its own previous values and a stochastic term
+\item AR($p$) model (autoregressive model of order $p$): the modelled variable depends linearly on its own previous values and a stochastic term
 \end{itemize}
 \medskip
 AR($p$): $y_t = c + \rho_1 y_{t-1} + \rho_2 y_{t-2} + \dots + \rho_p y_{t-p} + u_t = c + \sum_{i=1}^p \rho_i y_{t-i} + u_t$ \\
 \bigskip
-\underline{\textbf{VAR models}} generalize the univariate autoregressive model (AR model) by allowing for more than one evolving variable:\\ $y_t$ becomes $\bm{y}_t$, where $\bm{y}_t^T = (y_{1t}, y_{2t}, \dots , y_{mt})$\\
+\underline{\textbf{VAR models}} generalize the univariate autoregressive model (AR model) by allowing for more than one evolving variable:\\ $y_t$ becomes $\bm{y}_t$, where $\bm{y}_t^{\prime} = (y_{1t}, y_{2t}, \dots , y_{mt})$\\
 \begin{itemize}
 \item VAR models capture linear interdependencies among multiple time series 
 \item Atheoretical: The only prior knowledge required for VAR modeling is a list of variables which can be hypothesized to affect each other inter-temporally
@@ -294,10 +294,10 @@ Hence, in practical applications, the elements of $\bm{u}_t$ tend to be contempo
 	\vspace*{-0.7mm}
 	\item On the other hand, because of the degrees of freedom problem, variables frequently have to be excluded from the model and limit has to be placed on the length of lags.
 	\end{itemize}
-\textbf{Decide whether to include any deterministic variables}
+\textbf{Decide on inclusion of deterministic regressors}
 \vspace*{-1.5mm}
 \begin{itemize}
-\item Trends, time dummies, seasonal terms, even exogenous regressors (e.g. oil/energy prices).\{often, VAR models augmented by deterministic regressors are called VARX($p$) models\}
+\item Trends, time \& seas. dummies, exogenous regressors (oil price). \\VAR models augmented by deterministic regressors are often called VARX($p$) models.
 \end{itemize}
 \end{frame}
 %---------------------------------
@@ -313,7 +313,7 @@ Hence, in practical applications, the elements of $\bm{u}_t$ tend to be contempo
 	\vspace*{2mm}
 			Definition easily extends to the situation where $X$ and $Y$ are multidimensional 					processes.
 	\item GC is a statistical concept \{its not an ``actual'' causality\}.
-	\item Different types of GC tests exist.
+	\item Different types of GC tests exist. (Sims test, modified Sims test)
 	\item \textbf{GC tests apply to stationary series!}
 	\end{itemize}
 \end{frame}
@@ -347,19 +347,19 @@ $T$ - number of observations}};
 \end{tikzpicture}
 \end{frame}
 %---------------------------------
-\begin{frame}{VAR: Model setup and testing}
-\textbf{GC tests: Sims test (Modified Sims Test)}\\
-\bigskip
-The following equation is used to test whether $Y$ causes $X$:
-\begin{flalign*}
-y_t = c + \sum_{i = -p}^{p} \theta_i x_{t-i} + \sum_{i = 1}^{s} \beta_i y_{t-i} + u_t &&
-\end{flalign*}
-We test the $H_0$ (No $Y \rightarrow X$ in terms of GC) of $\theta_i = 0$ for all $i=-p, (-p+1), \dots, -1$\\
-\bigskip
-\dots Both the restricted and unrestricted equations are estimated, then we use their SSR to perform an $F$ test.\\
-\bigskip
-The Sims test includes both leads and lags of $X$, so it uses up more degrees of freedom.
-\end{frame}
+%\begin{frame}{VAR: Model setup and testing}
+%\textbf{GC tests: Sims test (Modified Sims Test)}\\
+%\bigskip
+%The following equation is used to test whether $Y$ causes $X$:
+%\begin{flalign*}
+%y_t = c + \sum_{i = -p}^{p} \theta_i x_{t-i} + \sum_{i = 1}^{s} \beta_i y_{t-i} + u_t &&
+%\end{flalign*}
+%We test the $H_0$ (No $Y \rightarrow X$ in terms of GC) of $\theta_i = 0$ for all $i=-p, (-p+1), \dots, -1$\\
+%\bigskip
+%\dots Both the restricted and unrestricted equations are estimated, then we use their SSR to perform an $F$ test.\\
+%\bigskip
+%The Sims test includes both leads and lags of $X$, so it uses up more degrees of freedom.
+%\end{frame}
 %---------------------------------
 \begin{frame}{VAR: Model setup and testing}
 \textbf{Wald test for GC}\\
@@ -391,7 +391,7 @@ Wald test may be used as an asymptotical test for such constraints. \\
 \vspace*{2mm}
 \begin{itemize}
 \item When estimating VARs or conducting GC tests, results can be sensitive to the lag length of the VAR
-\item Sometimes the lag length corresponds to the data, such that quarterly data have $4$ lags, monthly data have $12$ lags, etc.
+\item Sometimes the VAR model lag length corresponds to the data, such that quarterly data have $4$ lags, monthly data have $12$ lags, etc.
 \item A more rigorous way to determine the optimal lag length is to use the Akaike or Schwarz-Bayesian information criteria (IC).
 \item However, VAR model estimations tend to be sensitive to the presence of autocorrelation. In such case, after using IC, if there is any evidence of autocorrelation, further lags are added, above the number indicated by the IC, until the autocorrelation is removed.
 \end{itemize}
@@ -1029,7 +1029,7 @@ Hence, IRFs based on the \underline{\textbf{transformed model}} depict the isola
 \small
 \textbf{IRF orthogonalization – a generalized approach \& notation:}\\
 \bigskip
-In a VAR($p)$ model, $\bm{\Sigma}_u = \textit{cov}(\bm{u}_t)$ is the white noise covariance matrix and it may be expressed as $\bm{\Sigma}_u =\bm{PP'}$ where $\bm{P}$ is a lower triangular matrix (assumptions on $\bm{\Sigma}_u$ apply).\\
+In a VAR($p)$ model, $\bm{\Sigma}_u = \textit{cov}(\bm{u}_t)$ is the error-term covariance matrix and it may be expressed as $\bm{\Sigma}_u =\bm{PP'}$ where $\bm{P}$ is a lower triangular matrix (assumptions on $\bm{\Sigma}_u$ apply).\\
 \medskip
 Orthogonalized IRFs from a VAR($p$) model $\bm{y}_t = \bm{A}_1 \bm{y}_{t-1} + \bm{A}_2 \bm{y}_{t-2} + \dots + \bm{A}_p \bm{y}_{t-p} + \bm{u}_t$ \\may be calculated using the transformed MA representation:\\
 \medskip
@@ -1151,9 +1151,9 @@ The $1^{st}$ equation describes the long-run equilibrium, $2^{nd}$ and $3^{rd}$ 
 \medskip
 Possible economic setup for the example:\\
 \medskip
-$y_{1t} \sim I(1)$ nominal F/X rate between two currencies (domestic/foreign), \\ 
-$y_{2t} \sim I(1)$ describes domestic inflation (e.g. CPI), \\
-$y_{3t} \sim I(1)$ describes foreign inflation. \\
+$y_{1t} \sim I(1)$ nominal F/X rate index for 2 currencies (domestic/foreign), \\ 
+$y_{2t} \sim I(1)$ domestic inflation index (e.g. CPI), \\
+$y_{3t} \sim I(1)$ foreign inflation. \\
 \medskip
 We can test a hypothesis of stationary combination of the three series:\\  real exchange rate $\sim I(0)$: under $H_0$: $\bm{\beta} = (1, -1, -1)'$ \\ \dots i.e. the 2 identifying CI restrictions imposed are: $\beta_2 = \beta_3 = 1$ 
 \end{frame}
@@ -1263,12 +1263,7 @@ $2^{nd}$ equation relates changes in $y_{2t}$ to disequilibrium error $(y_{1,t-1
 Advanced analysis of univariate and multivariate time series (with examples in 
 \textcolor{Blue}{\textbf{R}})\\
 \bigskip
-\tiny
 \textcolor{Blue}{
-\url{https://www.rmetrics.org/files/Meielisalp2007/Presentations/Pfaff.pdf} \\
-\vspace{0.2cm}
-\tiny \url{https://www.rmetrics.org/files/Meielisalp2007/Presentations/Breymann.pdf} \\
-\vspace{0.5cm}
 \tiny
 \url{http://faculty.washington.edu/ezivot/econ589/manual.pdf}
 }
