@@ -520,12 +520,13 @@ Autocorrelation (matrix form):
 \vspace{0.2cm}
 If we know the autocorrelation coefficient $\rho$,  matrix $E(\boldsymbol{uu}^T)$ is :
 
-$$E(\boldsymbol{uu}^T)=\frac{\sigma^2_{u}}{1-\rho^2}
+$$E(\boldsymbol{uu}^T)= \sigma^2_u\bm{H} = \frac{\sigma^2_{\varepsilon}}{1-\rho^2}
     \begin{bmatrix}
-    1&  \rho &  & \rho^{n-1}\\
-    \rho &  1&  \rho & \\ 
-     &  \rho &  1& \rho\\ 
-     \rho^{n-1} &  & \rho &1 
+    1&  \rho & \rho^2 & \rho^3 & \cdots & \rho^{n-1}\\
+    \rho &  1&  \rho & \rho^2 & \cdots & \rho^{n-2} \\ 
+    \rho^2 &  \rho &  1& \rho  & \cdots & \rho^{n-3} \\ 
+    \cdots & \cdots & \cdots & \cdots & \cdots & \cdots \\
+     \rho^{n-1} & \rho^{n-2} & \rho^{n-3} & \cdots & \rho & 1
 \end{bmatrix}$$
 
 ( we assume homoskedasticity and known variance $\textit{Var}(u_t)$ )
@@ -535,16 +536,22 @@ $$E(\boldsymbol{uu}^T)=\frac{\sigma^2_{u}}{1-\rho^2}
 
 \begin{frame}{GLSM – matrix form}
 \begin{itemize}
-\item Explanation of matrix $E(\boldsymbol{uu}^T)$\\
-In the AR(1) process: $Cov(u_t,u_{t+s})=\rho^s \sigma^2$, $Var(u_t)=\frac{\sigma^2_e}{1-\rho^2}$
+\item Explanation of matrix $E(\boldsymbol{uu}^T)$: start with $u_t = \rho u_{t-1}+ \varepsilon_t$\\
+$u_t= \varepsilon_t + \rho \varepsilon_{t-1} + \rho^2 \varepsilon_{t-2} + \dots$ \qquad where $\varepsilon$ are $i.i.d.$\\
+Hence, $\sigma^2_u \equiv \textnormal{var}(u_t)= 
+\sigma^2_{\varepsilon} + \rho^2 \sigma^2_{\varepsilon} + \rho^4 \sigma^2_{\varepsilon} 
++ \rho^6 \sigma^2_{\varepsilon} + \dots
+= \frac{\sigma^2_{\varepsilon}}{1-\rho^2}$\\
+(Note: $\textnormal{cov}(u_t,u_{t+s})=\rho^s \sigma^2_u$ is independent of $t$ if $|\rho|<1$.)\\
 \vspace{0.3cm}
 \item That is why: 
 
 $H=\begin{bmatrix}
- 1&  \rho &  & \rho^{n-1}\\
- \rho &  1&  \rho & \\ 
- &  \rho &  1& \rho\\ 
-\rho^{n-1} &  & \rho &1 
+    1&  \rho & \rho^2 & \rho^3 & \cdots & \rho^{n-1}\\
+    \rho &  1&  \rho & \rho^2 & \cdots & \rho^{n-2} \\ 
+    \rho^2 &  \rho &  1& \rho  & \cdots & \rho^{n-3} \\ 
+    \cdots & \cdots & \cdots & \cdots & \cdots & \cdots \\
+     \rho^{n-1} & \rho^{n-2} & \rho^{n-3} & \cdots & \rho & 1
 \end{bmatrix}$
 \vspace{0.3cm}
 \item Usually, we do not know the matrix $\boldsymbol{H}$, it must be estimated. In such case, we call the method Feasible General Least Squares (FGLS).

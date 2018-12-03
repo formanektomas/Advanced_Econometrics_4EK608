@@ -337,7 +337,7 @@ y_t = c + \sum_{i = 1}^{p} \alpha_i y_{t-i} + u_t &&
 }
 \node[mynode] at (8.8,1.9) (Table){{\scriptsize Test statistic:}\\
 \vspace*{4mm}
-$F = \frac{(\textit{SSR}_R - \textit{SSR}_{UR})}{q(\textit{SSR}_{UR})}(T-k) \Duck{H_0} F(q \cdot T - k)$\\
+$F = \frac{(\textit{SSR}_R - \textit{SSR}_{UR})}{q(\textit{SSR}_{UR})}(T-k) \!\Duck{H_0}\! F(q ; T - k)$\\
 {\scriptsize where\\
 \vspace*{1.5mm}
 $k$ - number of estimated parameters in the UR model\\
@@ -1156,7 +1156,7 @@ $y_{1t} \sim I(1)$ nominal F/X rate index for 2 currencies (domestic/foreign), \
 $y_{2t} \sim I(1)$ domestic inflation index (e.g. CPI), \\
 $y_{3t} \sim I(1)$ foreign inflation. \\
 \medskip
-We can test a hypothesis of stationary combination of the three series:\\  real exchange rate $\sim I(0)$: under $H_0$: $\bm{\beta} = (1, -1, -1)'$ \\ \dots i.e. the 2 identifying CI restrictions imposed are: $\beta_2 = \beta_3 = 1$ 
+According to Zivot and Wang, we can test a hypothesis of stationary combination of the three series:  real exchange rate $\sim I(0)$:\\ under $H_0$: $\bm{\beta} = (1, -1, -1)'$ 
 \end{frame}
 %---------------------------------
 \begin{frame}{VECM: Number of cointegrating vectors}
