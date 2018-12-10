@@ -1483,7 +1483,7 @@ $\frac{\partial P(y > 0| \bm{x})}{\partial x_j} = \mytikzmark{a}{(\beta_j / \sig
 \vspace*{1cm}
 \underline{On the mean of positive outcomes:}\\
 \medskip
-$\frac{\partial E(y|y>0|\bm{x})}{\partial x_j} = \beta_j \overbrace{\{ 1 - \lambda(\bm{x \beta}/\sigma)[\bm{x \beta}/\sigma + \lambda(\bm{x \beta}/\sigma)] \}}^{\mytikzmark{b}{}}$ \\
+$\frac{\partial E(y|y>0,\bm{x})}{\partial x_j} = \beta_j \overbrace{\{ 1 - \lambda(\bm{x \beta}/\sigma)[\bm{x \beta}/\sigma + \lambda(\bm{x \beta}/\sigma)] \}}^{\mytikzmark{b}{}}$ \\
 \bigskip
 \underline{On the mean of all possible outcomes including zero:} \\
 \medskip
@@ -1692,8 +1692,8 @@ $\max LL(\bm{\beta}, \sigma) = \sum \limits_{i=1}^{n} \log f(w_i|\bm{x}_i, c_i) 
 \end{tikzpicture}
 \end{frame}
 %---------------------------------
-\subsection{Truncated data (non-random selection): Heckit model}
-\begin{frame}{Truncated data (non-random selection): Heckit model}
+\subsection{Truncated data, Heckit}
+\begin{frame}{Truncated data}
 \begin{itemize}
 \item Truncated data/regression models (for some observations, response variable is missing due to non-random selection)
 \item In a truncated regression model, the outcome and the explanatory variables are only observed if the outcome is less or equal some value $c_i$
@@ -1717,7 +1717,7 @@ y_i = \bm{x}_i \bm{\beta} + u_i, \ u_i|\bm{x}_i \sim N(0, \sigma^2) \\
 \end{tikzpicture}
 \end{frame}
 %---------------------------------
-\begin{frame}{Truncated data (non-random selection): Heckit model}
+\begin{frame}{Truncated data}
 \textbf{ML estimation of the truncated regression model} \\
 \bigskip
 Density of an observed outcome conditional on explanatory variables and the threshold $c_i$ \\
@@ -1731,16 +1731,16 @@ $\max LL(\bm{\beta}, \sigma) = \sum \limits_{i=1}^{n} \log g(y_i|\bm{x}_i, c_i) 
 As in the censored regression model, nonnormality \\or heteroskedasticity in the truncated regression model lead \\to inconsistency. 
 \begin{tikzpicture}[<-,overlay,remember picture,inner sep=0.6pt,shorten <=0.2em,font=\scriptsize]
 \tikzset{
-    mynode/.style={rectangle, draw=Red, minimum size=1cm, text width=4.2cm},
+    mynode/.style={rectangle, draw=White, minimum size=1cm, text width=4.0cm},
     myarrow/.style={->, >=stealth, semithick, Red}
 }
-\node[mynode] at (6.8,4.2)(box){Density and distribution function of a normal distribution with mean $\bm{x}_i \bm{\beta}$ and variance $\sigma^2$};
+\node[mynode] at (6.8,4.2)(box){Density and distribution \\function of a normal distribution with mean $\bm{x}_i \bm{\beta}$ and \\variance $\sigma^2$};
 \draw[myarrow] (box) -- ++ (1);
 \draw[myarrow] (box) -- ++ (2);
 \end{tikzpicture}
 \end{frame}
 %---------------------------------
-\begin{frame}{Truncated data (non-random selection): Heckit model}
+\begin{frame}{Truncated data}
 \textbf{\underline{Sample selection corrections}}\\
 \begin{itemize}
 \item[] The question is under which assumptions a sample with nonrandom sample selection can be used to infer relationships in the population
@@ -1753,37 +1753,39 @@ $y = \bm{x\beta} + u, \ E(u|\bm{x})=\mytikzmark{0}{0}$ \\
 \medskip
 $s_i y_i = s_i \bm{x}_i \bm{\beta} + \mytikzmark{R}{s_i u_i}$\\
 \bigskip
-\underline{Condition for consistency of OLS:} \\ $\textit{corr}(sx_j, su) = E(sx_ju) = 0$
+\underline{Condition for consistency of OLS:} \\ $E(su)=0$\\$E[(sx_j)(su)] = E(sx_ju) = 0$ (because $s^2=s$ as $s$ si binary)
 \begin{tikzpicture}[<-,overlay,remember picture,inner sep=0.6pt,shorten <=0.2em,font=\scriptsize]
 \tikzset{
     mynode/.style={rectangle, minimum size=1cm, text width=6cm},
     myarrow/.style={->, >=stealth, semithick, Red}
 }
-\node[mynode] at (3,2.9)(box1){Population model};
+\node[mynode] at (1.8,3.3)(box1){Population model};
 \draw[myarrow] (box1) -- ++ (0);
-	\node[mynode] at (3,2.15)(box2){Sample selection indicator, $s_i=1$ if observation selected/included in the sample, $s_i=0$ otherwise};
+	\node[mynode] at (-0.5,2.3)(box2){Sample selection indicator, $s_i=1$\\ if observation selected/included in \\the sample, $s_i=0$ otherwise};
 	\draw[myarrow] (box2) -- ++ (si);
-		\node[mynode] at (3,1.49)(box3){Regression based on the selected sample};
+		\node[mynode] at (1,1.49)(box3){Regression based \\on the selected sample};
 		\draw[myarrow] (box3) -- ++ (R);
 \end{tikzpicture}
 \end{frame}
 %---------------------------------
-\begin{frame}{Truncated data (non-random selection): Heckit model}
+\begin{frame}{Truncated data}
 
 {\small
-\textbf{Three conditions for OLS consistency on the selected sample:} \\
+Unbiasedness: $E(u|x_1,x_2,\dots,x_k)=0$ vs. $E(su|sx_1,sx_2,\dots,sx_k)=0$\\
+\medskip
+\textbf{Conditions for OLS consistency on the selected sample:} \\
 \begin{itemize}
-\item[1.] Selection is independent of explanatory variables and the error term.
-\item[2.] Selection is completely determined by explanatory variables.
-\item[3.] Selection depends on the explanatory variables and other factors that are uncorrelated with the error term.
+\item[1.] $s$ is independent of explanatory variables and the error term.\\$E(sx_ju)=E(s)E(x_ju) = 0$ because $E(x_ju) = 0$.
+\item[2.] $s$ is completely determined by explanatory variables. $sx_j = f(\bm{x})$. Hence, corr($sx_j,u$) = 0 and $E(su|sx_1,sx_2,\dots,sx_k)=0$
+\item[3.] $s$ depends on the explanatory variables and other factors that are uncorrelated with the error term.
 \end{itemize}
-\textbf{Similar results apply to IV/2SLS estimation}
+\textbf{Similar conditions apply to IV/2SLS estimation}
 \begin{itemize}
-\item[] Instead of explanatory variables, the conditions have to hold for the full list of exogenous variables that are used in the model.
+\item[] Besides explanatory variables $\bm{x}$, conditions extend to the full set of IVs: $\bm{z}$ as well.
 \end{itemize}
 \textbf{Sample selection and nonlinear models estimated by ML}
 \begin{itemize}
-\item[] Consistency if sample selection is only determined by regressors.
+\item[] MLE (probit, logit) produces consisten etstimates if $s$ is fully determined by regressors (cond. 2.).
 \end{itemize}}
 \end{frame}
 %---------------------------------
@@ -1844,7 +1846,7 @@ $E(y|\bm{x}, \bm{z}, s = 1) = \bm{x \beta} + \mytikzmark{B}{\boxed{\rho \lambda 
 \end{flalign*}
 \underline{2) Include estimated correction term in regression:}\\
 \medskip
-$y_i = \beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki} + \mytikzmark{3}{\circled{$\rho$}}\mytikzmark{4}{\hat{\lambda}} + \textit{error}$
+$y_i = \beta_0 + \beta_1 x_{i1} + \dots + \beta_k x_{ik} + \mytikzmark{3}{\circled{$\rho$}}\mytikzmark{4}{\hat{\lambda}_i} + \textit{error}$
 \begin{tikzpicture}[<-,overlay,remember picture,inner sep=0.6pt,shorten <=0.2em,font=\scriptsize]
 \tikzset{
     mynode/.style={rectangle, minimum size=1cm, text width=6cm},
@@ -1852,7 +1854,7 @@ $y_i = \beta_0 + \beta_1 x_{1i} + \dots + \beta_k x_{ki} + \mytikzmark{3}{\circl
 }
 \node[mynode] at (0,2.4)(box1){Estimate Probit for work decision using all observations (working and nonworking women)};
 \draw[myarrow] (box1) -- ++ (1);
-	\node[mynode] at (0,1.45)(box2){Calculate inverse Mills ratio using Probit coefficients};
+	\node[mynode] at (0,1.45)(box2){Calculate inverse Mills ratio using Probit \\coefficients (only $\hat{\lambda}_i$ for $s_i=1$ are necessary)};
 	\draw[myarrow] (box2) -- ++ (2);
 		\node[mynode] at (-5,-1)(box3){If this coefficient is different from zero, there is 						nonignorable sample selection bias};
 		\draw[myarrow] (box3) -- ++ (3);
