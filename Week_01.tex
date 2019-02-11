@@ -5,6 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}  
+\usepackage{amsmath}
 \usepackage{bm}
 %
 % For more themes, color themes and font themes, see:
@@ -14,10 +15,11 @@
 {
   \usetheme{Darmstadt}      % or try Darmstadt, Madrid, Warsaw, ...
   \usecolortheme{default} % or try albatross, beaver, crane, ...
-  \usefonttheme{serif}  % or try serif, structurebold, ...
+  \usefonttheme{serif}  % or try default, serif, structurebold, ...
   \setbeamertemplate{navigation symbols}{}
   \setbeamertemplate{caption}[numbered]
-} 
+  \setbeamertemplate{headline}{}
+}
 %
 %
 \title[Week1]{Week 1:  Repetition \\ Time Series Regression Models (TSRMs)}
@@ -110,9 +112,9 @@ For each $t$, the expected value of error conditionally on the explanatory varia
 \begin{frame}{G-M assumptions for TSRMs}
 \begin{itemize}
  \item TS.4 Conditional Homoskedasticity 
- $$Var(u_t|\boldsymbol{X})=Var(u_t)=\sigma^2, \hspace{0.5cm} t=1,2,\dots,n$$
+ $$\textnormal{var}(u_t|\boldsymbol{X})=Var(u_t)=\sigma^2, \hspace{0.5cm} t=1,2,\dots,n$$
  
- \item TS.5 Serial Correlation (Autocorrelation) is not present $$ cov(u_t,u_s|\boldsymbol{X}) = 0, \hspace{0.5cm} t\neq s$$
+ \item TS.5 Serial Correlation (Autocorrelation) is not present $$ \textnormal{cov}(u_t,u_s|\boldsymbol{X}) = 0, \hspace{0.5cm} t\neq s$$
 
  \item TS.6 Normality \\
  $u_t$ are independent of $\boldsymbol{X}$ and $\textit{i.i.d.}$
@@ -136,7 +138,7 @@ For each $t$, the expected value of error conditionally on the explanatory varia
 \item Under assumptions TS.1 - TS.5, \\ 
 variance of $\hat{\beta_j}$ conditional on $\boldsymbol{X}$ is given by: 
 
-$$\textit{var}(\hat{\beta_j}|\boldsymbol{X}) 
+$$\textnormal{var}(\hat{\beta_j}|\boldsymbol{X}) 
   =\frac{\sigma^2}{\textit{SST}_j(1-R^2_j)}, \quad j=1,\dots,k$$
 
 where $\textit{SST}_j$ is the total sum of squares of $\boldsymbol{x}_{j}$ and $R^2_j$ is the coefficient of determination from auxiliary regression of $x_j$ on other explanatory variables. 
@@ -300,7 +302,7 @@ $e_t$ is an $\textit{iid}$ time series. Observations with higher time distance t
 \vspace{0.5cm}
 
 \item Autoregressive proces of order 1 AR(1)
-$$y_t=\rho y_{t-1} + e_t \Rightarrow Corr(y_t,y_{t+h})=\rho^h$$
+$$y_t=\rho y_{t-1} + e_t \Rightarrow \textnormal{corr}(y_t,y_{t+h})=\rho^h$$
 If stability condition $|\rho|<1$ holds, TS is weakly dependent because correlation converges  to zero with growing $h$.
 \end{itemize}
 
@@ -330,7 +332,7 @@ $$E(u_t|x_{t1},\dots,x_{tk})=E(u_t|\boldsymbol{x}_t)=0$$
 \begin{itemize}
 \item Under assumptions TS.1', TS.2' and TS.3', \\OLS estimators are consistent (not unbiased)\\
 \vspace{0.5cm}
-TS.1' - TS.3' $\Rightarrow plim\hat{\beta}_j = \beta_j, \hspace{0.5cm} j=0, 1, \dots, k$
+TS.1' - TS.3' $\Rightarrow \textnormal{plim}\,\hat{\beta}_j = \beta_j, \hspace{0.5cm} j=0, 1, \dots, k$
 \end{itemize}
 \end{frame}
 
@@ -357,12 +359,12 @@ By removing strict exogeneity (changing TS.3 to TS.3'):
 \begin{frame}{Asymptotic properties of OLS estimators}
 \begin{itemize}
 \item TS.4' Contemporaneous homoskedasticity
-$$Var(u_t|\boldsymbol{x}_t)=Var(u_t)=\sigma^2$$
+$$\textnormal{var}(u_t|\boldsymbol{x}_t)=Var(u_t)=\sigma^2$$
 
 \vspace{0.5cm}
 
 \item TS.5' No serial correlation \\(autocorrelation in residuals is not present)
-$$Corr(u_t,u_s|\boldsymbol{x}_t,\boldsymbol{x}_s=0), t\neq s$$
+$$\textnormal{corr}(u_t,u_s|\boldsymbol{x}_t,\boldsymbol{x}_s=0), t\neq s$$
 \end{itemize}
 \end{frame}
 
@@ -373,6 +375,10 @@ $$Corr(u_t,u_s|\boldsymbol{x}_t,\boldsymbol{x}_s=0), t\neq s$$
 \item Theorem: Asymptotic normality of OLS estimators \\
 \vspace{0.5cm}
 Under assumptions TS.1' – TS.5', OLS estimators are asymptotically normally distributed. Usual OLS standard errors, $t$-statistics and $F$-statistics are asymptotically valid.
+$$
+\hat{\bm{\beta}} \rightarrow N(\bm{\beta}, \hat{\sigma}^2(\bm{X}^{\prime} \bm{X})^{-1} )
+\textnormal{~as~} n \rightarrow \infty
+$$
 \end{itemize}
 \end{frame}
 
@@ -445,8 +451,8 @@ $$H_0 : \rho_1 = \dots = \rho_q = 0$$
 \item $E(\boldsymbol{uu}^T)=\sigma^2\boldsymbol{H}$ \\ (i.e. not $\sigma^2 \boldsymbol{I}_{\! n}$) - covariance matrix of disturbances
 \end{itemize}
 \vspace{0.5cm}
-\item Principle of GLSM: \\Transformation of GLRM using a transformation matrix $\boldsymbol{T}$ to get: 
-$$\textit{Var}(\boldsymbol{u}) = \sigma^2 \boldsymbol{I}_{\! n}$$
+\item Principle of GLSM: \\Transformation of GLRM using a transformation matrix $\boldsymbol{T}$ (such that $\bm{THT}^{\prime}$) to get: 
+$$\textnormal{var}(\boldsymbol{u}) = \sigma^2 \boldsymbol{I}_{\! n}$$
 \end{itemize}
 \end{frame}
 
@@ -529,7 +535,7 @@ $$E(\boldsymbol{uu}^T)= \sigma^2_u\bm{H} = \frac{\sigma^2_{\varepsilon}}{1-\rho^
      \rho^{n-1} & \rho^{n-2} & \rho^{n-3} & \cdots & \rho & 1
 \end{bmatrix}$$
 
-( we assume homoskedasticity and known variance $\textit{Var}(u_t)$ )
+( we assume homoskedasticity and known variance $\textnormal{var}(u_t)$ )
 \end{frame}
 
 %------------------------------------------------------
