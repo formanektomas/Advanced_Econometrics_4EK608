@@ -112,7 +112,7 @@ For each $t$, the expected value of error conditionally on the explanatory varia
 \begin{frame}{G-M assumptions for TSRMs}
 \begin{itemize}
  \item TS.4 Conditional Homoskedasticity 
- $$\textnormal{var}(u_t|\boldsymbol{X})=Var(u_t)=\sigma^2, \hspace{0.5cm} t=1,2,\dots,n$$
+ $$\textnormal{var}(u_t|\boldsymbol{X})=\textnormal{var}(u_t)=\sigma^2, \hspace{0.5cm} t=1,2,\dots,n$$
  
  \item TS.5 Serial Correlation (Autocorrelation) is not present $$ \textnormal{cov}(u_t,u_s|\boldsymbol{X}) = 0, \hspace{0.5cm} t\neq s$$
 
@@ -359,7 +359,7 @@ By removing strict exogeneity (changing TS.3 to TS.3'):
 \begin{frame}{Asymptotic properties of OLS estimators}
 \begin{itemize}
 \item TS.4' Contemporaneous homoskedasticity
-$$\textnormal{var}(u_t|\boldsymbol{x}_t)=Var(u_t)=\sigma^2$$
+$$\textnormal{var}(u_t|\boldsymbol{x}_t)=\textnormal{var}(u_t)=\sigma^2$$
 
 \vspace{0.5cm}
 
@@ -451,8 +451,9 @@ $$H_0 : \rho_1 = \dots = \rho_q = 0$$
 \item $E(\boldsymbol{uu}^T)=\sigma^2\boldsymbol{H}$ \\ (i.e. not $\sigma^2 \boldsymbol{I}_{\! n}$) - covariance matrix of disturbances
 \end{itemize}
 \vspace{0.5cm}
-\item Principle of GLSM: \\Transformation of GLRM using a transformation matrix $\boldsymbol{T}$ (such that $\bm{THT}^{\prime}$) to get: 
+\item Principle of GLSM: \\Transformation of LRM using a transformation matrix $\boldsymbol{T}$ (such that $\bm{THT}^{T}=\bm{I}_n$) to get: 
 $$\textnormal{var}(\boldsymbol{u}) = \sigma^2 \boldsymbol{I}_{\! n}$$
+in the transformed model.
 \end{itemize}
 \end{frame}
 
@@ -460,6 +461,7 @@ $$\textnormal{var}(\boldsymbol{u}) = \sigma^2 \boldsymbol{I}_{\! n}$$
 
 \begin{frame}{GLSM – matrix form}
 \textbf{CLRM:} \hspace{0.2cm} $\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\beta}+\boldsymbol{u}$; estimator: $\boldsymbol{\hat{\beta}}=(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{y}$ \\
+~\\
 \textbf{GLRM:} $\boldsymbol{T}\boldsymbol{y}=\boldsymbol{TX}\boldsymbol{\beta}+\boldsymbol{T}\boldsymbol{u}$\\
 \begin{itemize}
 \item For covariance matrix of the transformed model, we get:
