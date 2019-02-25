@@ -2,6 +2,8 @@
 %
 % Choose how your presentation looks.
 %
+\usepackage{xkeyval}
+\usepackage{graphicx}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}  
@@ -20,7 +22,8 @@
   \usefonttheme{serif}  % or try default, serif, structurebold, ...
   \setbeamertemplate{navigation symbols}{}
   \setbeamertemplate{caption}[numbered]
-} 
+  \setbeamertemplate{headline}{}
+}
 %
 %
 \title[Week1]{Week 3:  Lag Operators \\ Cointegration (continued), Forecasting}
@@ -229,14 +232,14 @@ y & = \beta_0 + \beta_1 x_1 +\beta_2 x_2 + \dots + \beta_k x_k + u\\ \nonumber
 \hat{y}_p & = E(y|x_1 = c_1, x_2 = c_2,\dots,x_k = c_k)\\ \nonumber
 \hat{y}_p & = \hat{\beta}_0 + \hat{\beta}_1 c_1 +\hat{\beta}_2 c_2 + \dots + \hat{\beta}_k c_k  \nonumber
 \end{align}
-\item Rough (underestimated) confidence interval for the expected value prediction: (95\%): $\hat{y}_p \pm 2 \times \textit{s.e.}(\hat{y}_p)$. \\ (Rule of thumb) 
+\item Rough (underestimated) confidence interval for the expected value prediction: (95\%): $\hat{y}_p \pm 2 \times \textnormal{s.e.}(\hat{y}_p)$. \\ (Rule of thumb) 
 \end{itemize}
 \end{frame}
 
 %---------------------------------------------
 
 \begin{frame}{Predictions - basics}
-$\textit{s.e.}(\hat{y}_p)$ can be obtained by reparametrization:
+$\textnormal{s.e.}(\hat{y}_p)$ can be obtained by reparametrization:
 
 \vspace{0.5cm}
 \begin{itemize}
@@ -245,9 +248,9 @@ $$y^*=\beta^*_0 + \beta^*_1 (x_1 -c_1) + \beta^*_2(x_2 - c_2) + \dots + u$$
 \item The following holds:
 \begin{align} \nonumber
  \hat{y}_p &= \hat{\beta_0^*} \\ \nonumber
- \textit{s.e.}(\hat{y}_p ) &= 
-   \textit{s.e.}(\hat{\beta_0^*}), \quad i.e. \\ \nonumber
- Var(\hat{y}_p) &= Var(\hat{\beta}_0^*)
+ \textnormal{s.e.}(\hat{y}_p ) &= 
+   \textnormal{s.e.}(\hat{\beta_0^*}), \quad i.e. \\ \nonumber
+ \textnormal{var}(\hat{y}_p) &= \textnormal{var}(\hat{\beta}_0^*)
 \end{align} 
 \end{itemize}
 \end{frame}
@@ -264,8 +267,8 @@ y_p & = \beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c_k + u_p \nonumber
 \item Prediction error
 $$\hat{e}_p = y_p - \hat{y}_p = (\beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c_k) + u_p - \hat{y}_p$$
 \item Prediction error variance
-$$Var(\hat{e}_p) = Var(u_p) + Var(\hat{y}_p)$$
-because $Var(\beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c_k)=0$
+$$\textnormal{var}(\hat{e}_p) = \textnormal{var}(u_p) + \textnormal{var}(\hat{y}_p)$$
+because $\textnormal{var}(\beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c_k)=0$
 \end{itemize}
 \end{frame}
 
@@ -273,26 +276,26 @@ because $Var(\beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c_k)=0$
 
 \begin{frame}{Predictions - basics}
 \begin{itemize}
-\item If homoskedasticity holds, $\sigma^2 = Var(u_p)$: \\
+\item If homoskedasticity holds, $\sigma^2 = \textnormal{var}(u_p)$: \\
 
 \begin{itemize}
-\item $Var(\hat{e}_p) = \sigma^2 + Var(\hat{y}_p)$
+\item $\textnormal{var}(\hat{e}_p) = \sigma^2 + \textnormal{var}(\hat{y}_p)$
 \vspace{0.2cm}
 \item We estimate $\sigma^2$ from the original LRM as $(\textit{SSR}/(n-k-1))$
 \vspace{0.2cm}
-\item We get $Var(\hat{y}_p)$ from the reparametrized LRM
+\item We get $\textnormal{var}(\hat{y}_p)$ from the reparametrized LRM
 \end{itemize}
 \vspace{0.5cm}
 \item Standard prediction error:
 \begin{itemize}
 \vspace{0.2cm}
- \item $\textit{s.e.}(\hat{e}_p) = \sqrt[]{Var(\hat{e}_p)}$
+ \item $\textnormal{s.e.}(\hat{e}_p) = \sqrt[]{\textnormal{var}(\hat{e}_p)}$
 \end{itemize}
 \vspace{0.5cm}
 \item Prediction interval (95\%)
 \vspace{0.2cm}
 \begin{itemize}
-\item $\hat{y}_p \pm t_{0.025} \times \textit{s.e.}(\hat{e}_p) $
+\item $\hat{y}_p \pm t_{0.025} \times \textnormal{s.e.}(\hat{e}_p) $
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -336,8 +339,8 @@ $E(\hat{e}_p) \,=\, E(\hat{y}_p - y_p)
 \vspace{0.3cm}
 and the variance of $\hat{e}_p$ can be expressed as:\\
 \vspace{0.3cm}
-$E(\hat{e}_p^2) \,=\,\textit{var}(\hat{e}_p)
-   \,=\, \bm{x}_{p}^\prime \textit{var}(\hat{\bm{\beta}})\bm{x}_{p} + \textit{var}(u_p) $
+$E(\hat{e}_p^2) \,=\,\textnormal{var}(\hat{e}_p)
+   \,=\, \bm{x}_{p}^\prime \textnormal{var}(\hat{\bm{\beta}})\bm{x}_{p} + \textnormal{var}(u_p) $
 \end{frame}
 
 %---------------------------------------------
@@ -346,20 +349,20 @@ $E(\hat{e}_p^2) \,=\,\textit{var}(\hat{e}_p)
 Variance of $\hat{e}_p$ (continued):
 \begin{equation*}
 \begin{aligned}
-\textit{var}(\hat{e}_p) \,&=\,
-  \bm{x}_{p}^\prime \textit{var}(\hat{\bm{\beta}})\bm{x}_{p} + \textit{var}(u_p)\\
+\textnormal{var}(\hat{e}_p) \,&=\,
+  \bm{x}_{p}^\prime \textnormal{var}(\hat{\bm{\beta}})\bm{x}_{p} + \textnormal{var}(u_p)\\
  \,&=\,
-   \bm{x}_{p}^\prime \left[ \sigma^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p} + \textit{var}(u_p)\\
-   & \textnormal{substitute $\sigma^2, \textit{var}(u_p)$ with $\hat{\sigma}^2$ (homoskedasticity)}\\
+   \bm{x}_{p}^\prime \left[ \sigma^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p} + \textnormal{var}(u_p)\\
+   & \textnormal{substitute $\sigma^2, \textnormal{var}(u_p)$ with $\hat{\sigma}^2$ (homoskedasticity)}\\
   \,&=\,
    \underbrace{\bm{x}_{p}^\prime \left[ \hat{\sigma}^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p}}_{\hat{\sigma}_p^2}
    + \hat{\sigma}^2
 \end{aligned}
 \end{equation*}
 With growing sample size (asymptotically), \\
-$\textit{var}(u_p) = \hat{\sigma}_p^2 + \hat{\sigma}^2$ converges to $\hat{\sigma}^2$\\
-$\dots$ $\textit{plim} \, \hat{\bm{\beta}} = \bm{\beta} \,\,\,\, \Rightarrow \,\,\,\, 
-  \textit{plim} \, \hat{\sigma}_p^2 = 0$
+$\textnormal{var}(u_p) = \hat{\sigma}_p^2 + \hat{\sigma}^2$ converges to $\hat{\sigma}^2$\\
+$\dots$ $\textnormal{plim} \, \hat{\bm{\beta}} = \bm{\beta} \,\,\,\, \leftrightarrow \,\,\,\, 
+  \textnormal{plim} \, \hat{\sigma}_p^2 = 0$
 
 \end{frame}
 
@@ -368,16 +371,16 @@ $\dots$ $\textit{plim} \, \hat{\bm{\beta}} = \bm{\beta} \,\,\,\, \Rightarrow \,\
 Variance of $\hat{e}_p$ (continued):
 \begin{equation*}
 \begin{aligned}
-\textit{var}(\hat{e}_p) \,&=\,
+\textnormal{var}(\hat{e}_p) \,&=\,
 \bm{x}_{p}^\prime \left[ \hat{\sigma}^2 \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \right] \bm{x}_{p}
    + \hat{\sigma}^2\\
-   & \textnormal{after re-arranging, $s.e.(\hat{e}_p)$ may be written as}\\
+   & \textnormal{after re-arranging, $\textnormal{s.e.}(\hat{e}_p)$ may be written as}\\
    &~\\
-   s.e.(\hat{e}_p) \,&=\, \hat{\sigma} \cdot \,  
+   \textnormal{s.e.}(\hat{e}_p) \,&=\, \hat{\sigma} \cdot \,  
    \sqrt[]{1+ \bm{x}_{p}^\prime \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \bm{x}_{p}~} \,,\\
-   &\textnormal{which relates to the individual prediction error. }\\
+   &\textnormal{which relates to the individual prediction error. }\\~&~\\
    &\textnormal{For mean prediction errors (considering $\hat{\sigma}_p^2$ only): }\\
-   s.e.(\widetilde{e}_p) \,&=\, \hat{\sigma} \cdot \,  
+   \textnormal{s.e.}(\widetilde{e}_p) \,&=\, \hat{\sigma} \cdot \,  
    \sqrt[]{~~~~ \bm{x}_{p}^\prime \left( \bm{X}^\prime \! \bm{X}  \right)^{-1} \bm{x}_{p}~} \,.\\
 \end{aligned}
 \end{equation*}
@@ -388,9 +391,9 @@ Variance of $\hat{e}_p$ (continued):
 \begin{frame}{Predictions - basics (Matrix form)}
 Prediction intervals: individual vs. mean value predictions:\\
 \vspace{0.3cm}
-\textbf{Individual prediction:} $y_p \in \hat{y}_p \pm t^*_{\alpha/2} \times s.e.(\hat{e}_p)$\\
+\textbf{Individual prediction:} $y_p \in \hat{y}_p \pm t^*_{\alpha/2} \times \textnormal{s.e.}(\hat{e}_p)$\\
 \vspace{0.3cm}
-\textbf{Mean value:} \hspace{1.7cm} $y_p \in \hat{y}_p \pm t^*_{\alpha/2} \times s.e.(\widetilde{e}_p)$
+\textbf{Mean value:} \hspace{1.7cm} $y_p \in \hat{y}_p \pm t^*_{\alpha/2} \times \textnormal{s.e.}(\widetilde{e}_p)$
 
 \begin{figure}
 \includegraphics[width=0.6\textwidth]{img/P3_PredError.jpg}
@@ -427,7 +430,7 @@ We can generalize the previous discussion on predictions by considering both bia
 
 \medskip
 \begin{itemize}
-   \item $\textit{MSE} = \textnormal{E}
+   \item $\textit{MSE} = E
    \left[ \left( y_i - \hat{f}(\bm{x}_i) \right)^2 \right]$\\
    \smallskip
    where $\hat{f}(\bm{x}_i)$ is the prediction that $\hat{f}$ generates for the $i$-th regressor set. $\hat{f}$ represents a general class of predictors (linear, non-linear, non-parametric, etc.) and it may produce either biased or unbiased predictions
@@ -454,7 +457,7 @@ $$ \textit{MSE}_{\textnormal{Tr}} = \frac{1}{n}
 \end{itemize}
 
 When searching for the ``best'' model by minimizing $ \textit{MSE}$, the above statistic would lead to over-fit models.
-\vspace{0.3cm}
+\medskip
 \begin{itemize}
 \item Instead, we should (if possible) compute the $ \textit{MSE}$ using fresh test
 data $\textnormal{Te}=\left\lbrace y_i, \bm{x}_i \right\rbrace _1 ^m$:
@@ -469,31 +472,31 @@ Suppose we have a model $\hat{f}(\bm{x})$, fitted to some training data $\textno
 then the \textbf{expected test MSE} can be decomposed into:\\
 
 \medskip
-$\textnormal{E}(\textit{MSE}_0)
-   = \textit{var}(\hat{f}(\bm{x}_0))
-   + [\textit{Bias\,}(\hat{f}(\bm{x}_0))]^2
-   + \textit{var}(\varepsilon_0),$
+$E(\textit{MSE}_0)
+   = \textnormal{var}(\hat{f}(\bm{x}_0))
+   + [\textnormal{Bias\,}(\hat{f}(\bm{x}_0))]^2
+   + \textnormal{var}(\varepsilon_0),$
 
 where\\
 \smallskip
-$\textit{Bias\,}(\hat{f}(\bm{x}_0)) 
-       = \textnormal{E}[\hat{f}(\bm{x}_0)]
+$\textnormal{Bias\,}(\hat{f}(\bm{x}_0)) 
+       = E[\hat{f}(\bm{x}_0)]
        - f(\bm{x}_0)$,\\
-$\varepsilon_0$ is the irreducible error: $\textnormal{E}(\textit{MSE}_0) \geq \varepsilon_0$,\\ 
+$\varepsilon_0$ is the irreducible error: $E(\textit{MSE}_0) \geq \varepsilon_0$,\\ 
 all three RHS elements are non-negative,\\
 \smallskip
 The above equation refers to the average test $\textit{MSE}$ that we would obtain if we repeatedly estimated $f(\bm{x})$ using a large number of training sets and then tested each $\hat{f}(\bm{x})$ at $\bm{x}_0$.
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Variance vs. Bias trade-off}
-$\textnormal{E}(\textit{MSE}_0)
-   = \textit{var}(\hat{f}(\bm{x}_0))
-   + [\textit{Bias\,}(\hat{f}(\bm{x}_0))]^2
-   + \textit{var}(\varepsilon_0),$\\
+$E(\textit{MSE}_0)
+   = \textnormal{var}(\hat{f}(\bm{x}_0))
+   + [\textnormal{Bias\,}(\hat{f}(\bm{x}_0))]^2
+   + \textnormal{var}(\varepsilon_0),$\\
 \begin{figure}
-\includegraphics[angle=0,scale=0.35]{img/biasvariance.png}
+\includegraphics[width=0.6\textwidth]{img/biasvariance.png}
 \end{figure}
-\small{This is an illustration, $\textit{var}(\varepsilon_0)$ not shown explicitly. \\(lies at the /asymptotic/ minima of Variance and $\textnormal{Bias}^2$)}
+\small{This is an illustration, $\textnormal{var}(\varepsilon_0)$ not shown explicitly. \\(lies at the /asymptotic/ minima of variance and $\textnormal{Bias}^2$)}
 \end{frame}
 %------------------------------------------------
 \section{$k$-Fold Cross Validation}
@@ -514,9 +517,13 @@ Repeatedly fit a model of interest to samples formed from the training set \& ma
 
 \begin{itemize}
   \item In $k$-Fold Cross-Validation ($k$FCV), the original sample is randomly partitioned into $k$ roughly equal subsamples (divisibility). 
+  \smallskip
   \item Of the $k$ subsamples, a single subsample is retained as the test sample, and the remaining $(k-1)$ subsamples are used as training data. 
-  \item The cross-validation process is then repeated $k$ times (the $k$ folds), with each of the $k$ subsamples used exactly once as the test sample. 
+  \smallskip
+  \item The cross-validation process is then repeated $k$ times \\(the $k$ folds), with each of the $k$ subsamples used exactly once as the test sample. 
+  \smallskip
   \item The $k$ results from the folds can then be averaged to produce a single estimation. 
+  \smallskip
   \item $k = 5$ or $k=10$ is commonly used.
 \end{itemize}  
 \end{frame}
@@ -572,9 +579,9 @@ For any LRM: $\bm{y} = \bm{X\beta}+\bm{u}$
 \begin{itemize}
 
 \item Say, the sample (time series) for a period $t=1,2, \dots, T$ may be conveniently divided into two groups: $T_1 + T_2 = T$.  \\ 
-$[$ consider two periods: fixed vs. floating F/X rates $]$ \\ 
-$[$ pre-EU accession vs. post-EU accession period $]$ \\
-$[$ applies to CS data as well; e.g Male/Female $]$
+~~$[$ consider two periods: fixed vs. floating F/X rates $]$ \\ 
+~~$[$ pre-EU accession vs. post-EU accession period $]$ \\
+~~$[$ applies to CS data as well; e.g Male/Female $]$
 \vspace{0.3cm}
 \item Now, the LRM's vectors and matrices may be partitioned as follows: \\
 \vspace{0.3cm}
