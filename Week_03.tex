@@ -886,8 +886,8 @@ Here, $x_{t+1}$ needs to be estimated before $y_{t+1}$\\
 \item Dynamic models depending on lagged variables only:\\
 $y_t=\delta_0+\alpha_1 y_{t-1} + \gamma_1 x_{t-1} + u_t$\\
 $E(u_t|I_{t-1})=0$\\
-$E(y_{t+1}|I_t)=\delta_0+\alpha_1 y_{t-1} + \gamma_1 x_{t-1}$\\
-We can use more lags, drop $x$ or add more variables
+$E(y_{t+1}|I_t)=\delta_0+\alpha_1 y_{t} + \gamma_1 x_{t}$\\
+~~ Also, we can use more lags, drop or add regressors \dots 
 \end{itemize}
 \end{enumerate}
 \end{frame}
@@ -903,11 +903,11 @@ point forecast: $\hat{f}_t = \hat{\delta}_0 + \hat{\alpha}_1 y_t + \hat{\gamma}_
 \vspace{0.2cm}
 forecast error: $\hat{e}_{t+1}=y_{t+1}-\hat{f}_t $\\
 \vspace{0.2cm}
-$\textit{s.e.}$ of forecast: $\textit{s.e.}(\hat{e}_{t+1})= \{ [\textit{s.e.} (\hat{f}_t)]^2+\hat{\sigma}^2\}^{1/2}$  \\
+$\textnormal{s.e.}$ of forecast: $\textnormal{s.e.}(\hat{e}_{t+1})= \{ [\textnormal{s.e.} (\hat{f}_t)]^2+\hat{\sigma}^2\}^{1/2}$  \\
 \vspace{0.82cm}
 forecast interval: essentially the same as prediction interval \\
 \vspace{0.2cm}
-approximate 95\% forecast interval is:  $\hat{f}_t \pm 1.96 \! \times \! \textit{s.e.}(\hat{e}_{t+1})$
+approximate 95\% forecast interval is:  $\hat{f}_t \pm 1.96 \! \times \! \textnormal{s.e.}(\hat{e}_{t+1})$
 \end{frame}
 
 %---------------------------------------------
