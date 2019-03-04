@@ -21,6 +21,7 @@
   \usefonttheme{serif}  % or try default, serif, structurebold, ...
   \setbeamertemplate{navigation symbols}{}
   \setbeamertemplate{caption}[numbered]
+  \setbeamertemplate{headline}{}
 } 
 %
 %
@@ -262,7 +263,6 @@ After estimating \eqref{eqrat1}, we can calculate lag distributions for \eqref{e
 \end{frame}
 
 %------------------------------------------------
-
 \begin{frame}{Rational distributed lag}
 RDL specification:\\
 \medskip
@@ -272,21 +272,45 @@ can be used to calculate $\delta_h$ in the IDL model:\\
 \medskip
 $\quad y_t = \alpha + \delta_0 x_t  + \delta_1 x_{t-1} + \delta_2 x_{t-2} + \dots + u_t $\\
 \medskip
-
 With RDLs, impact propensity $\gamma_0 \equiv \delta_0$ can differ in sign from lagged coefficients. \\
 \medskip
 $\delta_h = \rho^{h-1}(\rho \gamma_0 + \gamma_1)$ corresponds to the $x_{t-h}$ variable for $h \geq 1$. \\
-~ \dots Note: for $\rho > 0$, $\delta_h$ doesn't change sign with growing $h \geq 1$. \\
-\medskip
+\smallskip
+~ \dots $\delta_0$ may differ in sign from ``lags'', even if $\rho > 0$.\\
+~ \dots for $\rho > 0$, $\delta_h$ doesn't change sign with growing $h \geq 1$. \\
+\bigskip
 Long-run propensity: $\textit{LRP} = \frac{\gamma_0 + \gamma_1}{1-\rho},$\\
 \smallskip
 where $|\rho| < 1$ $\> \Rightarrow$ the sign of LRP follows the sign of $(\gamma_0+\gamma_1)$. \\
 \medskip
 Also,  $u_t = v_t + \rho v_{t-1} + \rho^2 v_{t-2} + \cdots \> \>  MA(\infty)$
+\end{frame}
+%------------------------------------------------
+\begin{frame}{IDL/Koyck and RDL -- summary}
+$y_t = \alpha + \delta_0 x_t  + \delta_1 x_{t-1} + \delta_2 x_{t-2} + \delta_3 x_{t-3}+ \dots + u_t $\\
+\bigskip
+IDL/Koyck: $y_t = \alpha_0 + \gamma x_t + \rho y_{t-1} + v_t$\\
+\smallskip
+RDL: $\qquad \quad y_t = \alpha_0+\gamma_0 x_t + \rho y_{t-1} +\gamma_1 x_{t-1} + v_t $\\
+\bigskip
+\begin{table}
+\centering
+\caption{Koyck vs. RDL coefficients}
+\label{Tab1}
+\begin{tabular}{|l|c|c|}
+\hline
+  & IDL/Koyck & RDL \\
+  \hline 
+Impact multiplier & $\delta_0=\gamma~~~$ & $\delta_0=\gamma_0$ \\
+\hline
+Lagged multiplier (lag $h$) & $\delta_h = \gamma \rho^h$ & $\delta_h = \rho^{h-1}(\rho \gamma_0 + \gamma_1)$ \\
+\hline 
+LRP & $\frac{\gamma}{1-\rho}$ & $\frac{\gamma_0 + \gamma_1}{1-\rho}$\\
+\hline
+\end{tabular}
+\end{table} 
 
 \end{frame}
-
-
 %------------------------------------------------
 \section{PAM, AEH, Rational expectations}
 
@@ -446,8 +470,9 @@ Of course, not all interpretations are always relevant, we must choose according
 \end{frame}
 %------------------------------------------------
 \begin{frame}{Koyck, PAM, AEH: regression of $y_t$ on $x_t$ and $y_{t-1}$}
-\textbf{Example:} We have an estimated model for $c_t \leftarrow f(x_t)$:\\
-private consumption $(c_t)$ as a function of disposable income $(x_t)$
+\textbf{Example:} Model for $c_t \leftarrow f(x_t,x_{t-1},x_{t-2},\dots)$:\\
+private consumption $(c_t)$ as a function of disposable income $(x_t)$.\\
+Same estimated model for Koyck, PAM, AEH:
 \begin{equation*}
 \begin{aligned}
 \hat{c}_t & = &1,038~&+ &0.404 x_t~ &+ &0.501 c_{t-1} \\
