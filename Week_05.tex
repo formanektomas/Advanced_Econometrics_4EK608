@@ -23,6 +23,7 @@
   \usefonttheme{serif}  % or try default, serif, structurebold, ...
   \setbeamertemplate{navigation symbols}{}
   \setbeamertemplate{caption}[numbered]
+    \setbeamertemplate{headline}{}
 } 
 %
 %
@@ -201,23 +202,24 @@ OLS estimators we have used for parameters in the CLRM can be derived by the met
 %---------------------------------------------
 \begin{frame}{Estimators and estimation methods}
 \begin{itemize}
-    \item Let $\bm{h}(\bm{w}) = \bm{h}(y,\bm{x}, \bm{z}, \bm{\theta})$ define a regression model, 
+    \item Let $h(\bm{w}) = h(y,\bm{x}, \bm{z}, \bm{\theta})$ define a regression model,
+    \\so that $ E [h( y_i, \bm{x}_i, \bm{z}_i, \bm{\theta} )] = 0 \, , ~~~ \forall i.$ 
     \\where $\bm{z}$ is a set of $r$ instruments (IVs) - see Week 8.
     \\For simplicity, we can start by assuming  $\bm{x} \equiv \bm{z}$.
     \item \textbf{Method of moments estimator} $\hat{\bm{\theta}}_{\textit{MM}}$ minimizes:
     $$
     \underset{\hat{\bm{\theta}}}{\textnormal{min}}:
-    \left[ \frac{1}{n} \sum_{i=1}^n \bm{h}(\bm{w}_i,\hat{\bm{\theta}} )
+    \left[ \frac{1}{n} \sum_{i=1}^n h (\bm{w}_i,\hat{\bm{\theta}} )
     \right]^{\prime}
-    \left[ \frac{1}{n} \sum_{i=1}^n \bm{h}(\bm{w}_i,\hat{\bm{\theta}} )
+    \left[ \frac{1}{n} \sum_{i=1}^n h (\bm{w}_i,\hat{\bm{\theta}} )
     \right]
     $$
     \item If $\bm{x} \neq \bm{z}$ and \# IVs > \# regressors (overidentification), \textbf{Generalized method of moments} is used (GMM)
     $$
     \underset{\hat{\bm{\theta}}}{\textnormal{min}}:
-    \left[ \frac{1}{n} \sum_{i=1}^n \bm{h}(\bm{w}_i,\hat{\bm{\theta}} )
+    \left[ \frac{1}{n} \sum_{i=1}^n h (\bm{w}_i,\hat{\bm{\theta}} )
     \right]^{\prime} \bm{W}_n
-    \left[ \frac{1}{n} \sum_{i=1}^n \bm{h}(\bm{w}_i,\hat{\bm{\theta}} )
+    \left[ \frac{1}{n} \sum_{i=1}^n h (\bm{w}_i,\hat{\bm{\theta}} )
     \right]
     $$
     where $\bm{W}_n$ is a conveniently chosen ($r \times r$) matrix. 
@@ -285,8 +287,8 @@ $f(y|\bm{\theta})=(2\pi\sigma^2)^{-0.5} \hspace{0.1cm} exp[-(y-\mu)^2/2\sigma^2]
 \bigskip
 In the case of CLRM, for each $y_i=\alpha + \beta x_i + \varepsilon_i$: \\
 \medskip
-$f(y_i, \bm{x}_i|\bm{\theta})=(2\pi\sigma^2)^{-0,5} \hspace{0.1cm} exp[-(y_i-\mathbf{E}(y_i))^2/2\sigma^2]$, that is:\\
-$f(y_i, \bm{x}_i|\bm{\theta})=(2\pi\sigma^2)^{-0,5} \hspace{0.1cm} exp[-(y_i-\bm{x}_i^{\prime}\bm{\beta})^2/2\sigma^2]$
+$f(y_i| \bm{x}_i,\bm{\theta})=(2\pi\sigma^2)^{-0,5} \hspace{0.1cm} exp[-(y_i-\mathbf{E}(y_i))^2/2\sigma^2]$, that is:\\
+$f(y_i| \bm{x}_i,\bm{\theta})=(2\pi\sigma^2)^{-0,5} \hspace{0.1cm} exp[-(y_i-\bm{x}_i^{\prime}\bm{\beta})^2/2\sigma^2]$
 
 \end{frame}
 %---------------------------------------------
