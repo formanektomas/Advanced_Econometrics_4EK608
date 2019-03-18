@@ -530,6 +530,35 @@ Estimation can be done with FGLS (autocorrelation of transformed residuals), or 
 FD is most suitable when we have $t = 1; 2$ – two period panel (FD may be used with more time periods, we have $N(T-1)$ observations after differencing)
 \end{frame}
 %---------------------------------
+\begin{frame}{FD estimator example}
+$\textit{crmrte}_{it} = \beta_0 + \delta_0 \mytikzmark{d87}{\circled{$d87_{it}$}} + \beta_1 \textit{unem}_{it} + \circled{$a_i$} + \circled{$u_{it}$},$ \ $t= 1982, 1987$
+\medskip
+$$\textit{crmrte}_{i1987} = \beta_0 + \delta_0 \cdot 1 + \beta_1 \textit{unem}_{i1987} + a_i + \mytikzmark{1987}{u_{i1987}}$$
+$$\textit{crmrte}_{i1982} = \beta_0 + \delta_0 \cdot 0 + \beta_1 \textit{unem}_{i1982} + a_i + \mytikzmark{1982}{u_{i1982}}$$
+\medskip
+\hfill $\Rightarrow \boxed{\Delta \textit{crmrte}_{i}} = \circledd{$\delta_0$} + \beta_1 \boxed{\Delta \textit{unem}_{i}} + \boxed{\Delta u_{i}}$
+\medskip
+\begin{align*}
+\Delta \widehat{\textit{crmrte}} = 15.40 &+ 2.22 \ \Delta \textit{unem}\\
+(4.70) &\quad (.88)
+\end{align*}
+\begin{tikzpicture}[<-,overlay,remember picture,inner sep=1.5pt,shorten <=0.02em,font=\scriptsize]
+\tikzset{
+    mynode/.style={rectangle,draw=ProcessBlue,  fill=White, semithick, inner sep=0.02em, minimum size=1em, text centered, text width=8em},
+    myarrow/.style={->, >=stealth, thin, Red}
+}
+\node[mynode] at (10.17,5.5) (model){Model expanded: written separately for each time period };
+\draw[myarrow] (model) -- ++   (1987);
+\draw[myarrow] (model) -- ++   (1982);
+	\node[mynode] at (5,5.5) (dammy){Dummy for the second time period};
+	\draw[myarrow] (dammy) -- ++  (d87);
+		\node[mynode] at (10,2) (1){Individual unobserved effect disappears};
+			\node[mynode] at (9,0.7) (2){With OLS estimation, HAC errors should be used};
+				\node[mynode] at (1,3.06) (3){FD applied};
+					\node[mynode] at (6,2.3) (4){$\delta_0$ has a time effect interpretation};
+\end{tikzpicture}
+\end{frame}
+%---------------------------------
 \begin{frame}{FD estimator – more than two time periods}
 $$y_{it} = \delta_1 + \delta_2 d2_t + \delta_3 d3_t + \bm{x}_{it} \bm{\beta} + a_i + u_{it};$$
 \hfill $3$ periods $(t=1,2,3)$, $3N$ total observations\\
@@ -586,35 +615,6 @@ Asymptotic inference for FD estimator holds ($t$ and $F$ statistics asymptotical
 Under  \textcolor{Blue}{\textbf{FD.1 - FD.7}}\\
 FD estimator is BLUE (conditional on explanatory variables).\\
 FD estimators - i.e. pooled OLS on first differences - are normally distributed ($t$ and $F$ statistics have exact $t$ and $F$ distributions).
-\end{frame}
-%---------------------------------
-\begin{frame}{FD estimator example}
-$\textit{crmrte}_{it} = \beta_0 + \delta_0 \mytikzmark{d87}{\circled{$d87_{it}$}} + \beta_1 \textit{unem}_{it} + \circled{$a_i$} + \circled{$u_{it}$},$ \ $t= 1982, 1987$
-\medskip
-$$\textit{crmrte}_{i1987} = \beta_0 + \delta_0 \cdot 1 + \beta_1 \textit{unem}_{i1987} + a_i + \mytikzmark{1987}{u_{i1987}}$$
-$$\textit{crmrte}_{i1982} = \beta_0 + \delta_0 \cdot 0 + \beta_1 \textit{unem}_{i1982} + a_i + \mytikzmark{1982}{u_{i1982}}$$
-\medskip
-\hfill $\Rightarrow \boxed{\Delta \textit{crmrte}_{i}} = \circledd{$\delta_0$} + \beta_1 \boxed{\Delta \textit{unem}_{i}} + \boxed{\Delta u_{i}}$
-\medskip
-\begin{align*}
-\Delta \widehat{\textit{crmrte}} = 15.40 &+ 2.22 \ \Delta \textit{unem}\\
-(4.70) &\quad (.88)
-\end{align*}
-\begin{tikzpicture}[<-,overlay,remember picture,inner sep=1.5pt,shorten <=0.02em,font=\scriptsize]
-\tikzset{
-    mynode/.style={rectangle,draw=ProcessBlue,  fill=White, semithick, inner sep=0.02em, minimum size=1em, text centered, text width=8em},
-    myarrow/.style={->, >=stealth, thin, Red}
-}
-\node[mynode] at (10.17,5.5) (model){Model expanded: written separately for each time period };
-\draw[myarrow] (model) -- ++   (1987);
-\draw[myarrow] (model) -- ++   (1982);
-	\node[mynode] at (5,5.5) (dammy){Dummy for the second time period};
-	\draw[myarrow] (dammy) -- ++  (d87);
-		\node[mynode] at (10,2) (1){Individual unobserved effect disappears};
-			\node[mynode] at (9,0.7) (2){With OLS estimation, HAC errors should be used};
-				\node[mynode] at (1,3.06) (3){FD applied};
-					\node[mynode] at (6,2.3) (4){$\delta_0$ has a time effect interpretation};
-\end{tikzpicture}
 \end{frame}
 %---------------------------------
 \begin{frame}{FD estimator}
