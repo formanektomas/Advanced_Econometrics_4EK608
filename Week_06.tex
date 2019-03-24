@@ -121,7 +121,7 @@ In our $\log(wage)$ equation, we would test the $H_0$ of ``time-invariant'' $\be
 \vspace{1cm}
 \vfill
 \bigskip
-$F=\frac{( \mytikzmark{SSRr}{\textit{SSR}_r}- \mytikzmark{SSRur}{\textit{SSR}_{ur}}}{\textit{SSR}_{ur}} \cdot \frac{(n-T-Tk)}{(T-1)k};$ \\
+$F=\frac{ \mytikzmark{SSRr}{\textit{SSR}_r}- \mytikzmark{SSRur}{\textit{SSR}_{ur}}}{\textit{SSR}_{ur}} \cdot \frac{(n-T-Tk)}{(T-1)k};$ \\
 \bigskip
 {\small under $H_0$ of no structural break, $F \sim F((T-1)k, (n- \mytikzmark{TTk}{\circledd{$T-Tk$)}})$} \\
 \bigskip
@@ -1121,7 +1121,7 @@ $y_{it} = \delta_1 y_{i,t-1} + \bm{x}^{\prime}_{it} \bm{\beta} + a_i + u_{it}$\\
 \textbf{Arellano-Bond} (AB) \textbf{estimator} 
 \begin{itemize}
 \item The model is transformed into first differences to eliminate the individual effects:\\
-$\Delta y_{it} = \delta_1 \Delta y_{i,t-1} + \Delta \bm{x}^T_{it} \bm{\beta} + \Delta u_{it}$, 
+$\Delta y_{it} = \delta_1 \Delta y_{i,t-1} + \Delta \bm{x}^{\prime}_{it} \bm{\beta} + \Delta u_{it}$, 
 \item then a generalized method of moments (GMM) approach is used to produce asymptotically efficient estimates for the dynamic coefficients.
 \item AB approach is based on IV (we need instruments for the lagged dependent variable – this is an endogenous regressor, correlated with the errors in the FD model).
 \item \textcolor{Red}{Warning:} AR(2) / not AR(1) / autocorrelation in residuals of the AB-estimated model renders the AB estimator inconsistent. After using the AB estimator, always test for AR(2) autocorrelation in the residuals!
