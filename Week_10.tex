@@ -1124,13 +1124,13 @@ For an $m$-dimensional $I$(1) / non-stationary / vector $\bm{y}=(y_1, y_2, \dots
 \item $0 < r < m$ possible cointegrating vectors [$r=0$ $\Rightarrow$ non-CI series]
 \item and ($m-r$) common stochastic trends.\\
 (Proof comes from a Beveridge-Nelson decomposition of $\Delta y$)
-\end{itemize}
+\end{itemize}  \medskip
 $\bm{y} = (y_1, y_2)'$: max. 1 linearly independent cointegrating vector: $r \in \{0;1\}$
 \begin{itemize}
-\item If any $(\alpha y_1 + \beta y_2) \sim I(0)$, we can find $\infty$ linear combinations of $(\alpha, \beta)$ that lead to a $I(0)$ processes.
+\item If any $(\alpha y_1 + \beta y_2) \sim I(0)$, we can find $\infty$ linear combinations of $(\alpha, \beta)$ that lead to $I(0)$ processes.
 \item Hence, it is easy and common to normalize the CI relationship by setting $\alpha=1$
 \item If $y_1, y_2 \sim CI(1,1)$, a cointegrating vector $\bm{\beta} = (1, -\beta_2)'$ exists, such that $(y_1 - \beta_2 y_2) \sim I(0)$
-\end{itemize}
+\end{itemize} \medskip
 Example of a CI system for $\bm{y} = (y_1, y_2)'$ with $\bm{\beta} = (1, -\beta_2)'$:
 \begin{enumerate}[ {[}1{]} ]
 \item $y_{1t} = \beta_2 y_{2t} + u_t$, \qquad $\Leftarrow$ one CI relationship
@@ -1156,7 +1156,7 @@ $y_{1t} \sim I(1)$ nominal F/X rate index for 2 currencies (domestic/foreign), \
 $y_{2t} \sim I(1)$ domestic inflation index (e.g. CPI), \\
 $y_{3t} \sim I(1)$ foreign inflation. \\
 \medskip
-According to Zivot and Wang, we can test a hypothesis of stationary combination of the three series:  real exchange rate $\sim I(0)$:\\ under $H_0$: $\bm{\beta} = (1, -1, -1)'$ 
+According to Zivot and Wang, we can test a hypothesis of stationary combination of the three series:  real exchange rate $\sim I(0)$.\\(with equal domestic and foreign inflation, F/X rate is unchanged)
 \end{frame}
 %---------------------------------
 \begin{frame}{VECM: Number of cointegrating vectors}
@@ -1219,11 +1219,11 @@ VAR(1) model for a 2-dimensional vector $\bm{y} = (y_1, y_2)'$; ~~~$y_1, y_2 \si
 \vspace{0.2cm}
 $\bm{y}_t = \bm{A}_1 \bm{y}_{t-1} + \bm{u}_t$, \qquad $t=1,2, \dots, T$, \\
 \bigskip
-For a bivariate VAR, only one cointegrating vector  $\bm{\beta}=(1, -\beta_2)'$  can exist /normalized/. The VECM model is defined as follows:\\
+For a bivariate VAR, only one cointegrating vector  $\bm{\beta}=(1, -\beta_2)'$  can exist /normalized/. The VECM(0) model -- no $(\bm{\Gamma}_{p-j} \bm{\Delta} \bm{y}_{t-p+j})$ terms -- is defined as follows:\\
 \medskip
 $\Delta\bm{y}_t = \bm{\Pi} \bm{y}_{t-1} + \bm{\varepsilon}_t$, \\
 \medskip
-where $\bm{\Pi}$ is a $2 \times 2$ matrix with rank: $r=1$.\\
+where $\bm{\Pi}= (\bm{A}_1-\bm{I}_2)$ is a $2 \times 2$ matrix with rank: $r=1$.\\
 \hspace*{8mm} $\bm{\Pi}$ may be decomposed as follows: $\bm{\Pi} \!=\! \begin{pmatrix}
 \alpha_1 \\ \alpha_2 
 \end{pmatrix} \!
@@ -1283,13 +1283,13 @@ Johansen's Trace Statistic \& test\\
 \begin{itemize}
     \item Based on the estimated eigenvalues of the matrix $\bm{\Pi}$:\\
     $\hat{\lambda}_1 > \hat{\lambda}_2 > \dots > \hat{\lambda}_m \qquad \textnormal{~~~where~~~}0 \leq \lambda_j < 1$\\
-    (and $r$ is the \# of nonzero eigenvalues)
+    
     \medskip
-    \item $H_0(r)~:~r=r_0$ \\$H_1(r_0):~r > r_0$
+    \item $H_0(r)~:~r=r_0$ \\$H_1(r_0):~r > r_0$ \\ (where $r_0$ is the \# of nonzero eigenvalues under $H_0$.)
+    \medskip
+    \item Under $H_0$, eigenvectors $\hat{\lambda}_{r_0+1}, \dots, \hat{\lambda}_{m}$ should be close to zero (as well as the $\textit{LR}_{\textit{tr}}$ statistic): \\
     \medskip
     \item $\textit{LR}_{\textit{tr}}\, (r_0) =~ - T \! \displaystyle \sum_{i=r_0+1}^m \log(1-\hat{\lambda}_i) $\\
-    \medskip
-    \item Under $H_0$, eigenvectors $\hat{\lambda}_{r_0+1}, \dots, \hat{\lambda}_{m}$ should be close to zero (as well as the $\textit{LR}_{\textit{tr}}$ statistic). \\
     \medskip
     \item Under $H_0$, $\textit{LR}_{\textit{tr}}$ follows a multivariate Dickey-Fuller distribution.
 \end{itemize}
