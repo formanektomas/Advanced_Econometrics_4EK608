@@ -589,7 +589,7 @@ and $\mu = E(y|\bm{x}) = \textit{var} (y|\bm{x})$
 \begin{flalign*}
 \frac{\partial \mu(\bm{x})}{\partial x_j} = \exp (\bm{x \beta})\beta_j = \mu(\bm{x}) \beta_j \Rightarrow \mytikzmark{B}{\boxed{\beta_j = \frac{\frac{\partial \mu(\bm{x})}{\mu(\bm{x})}}{\partial x_j}}} &&
 \end{flalign*} 
-\vspace{0.3cm}
+\vspace{0.5cm}
 \underline{\textbf{MLE: ML estimation of the Poisson regression model}}\\
 \vspace{-0.4cm}
 \begin{flalign*}
@@ -597,13 +597,13 @@ and $\mu = E(y|\bm{x}) = \textit{var} (y|\bm{x})$
 \end{flalign*}
 A limitation of the model is that it assumes: $E(y|\bm{x}) = \textit{var} (y|\bm{x})$ \\
 \medskip
-ML estimators in the Poisson regression model are consistent and asymptotically normal even if the Poisson distribution does not hold.
+ML estimators in the Poisson regression model are consistent and asymptotically normal even if the Poisson distribution assumption (equidispersion) does not hold.
 \begin{tikzpicture}[<-,overlay,remember picture,inner sep=1.5pt,shorten <=0.2em,font=\scriptsize]
 \tikzset{
     mynode/.style={rectangle, minimum size=3cm, text width=3.25cm},
     myarrow/.style={->, >=stealth, semithick, Red}
 }
-\node[mynode] at (8.1,5.60)(box){$(\% \Delta) E(y)$ \dots by what percentage does the mean (expected) outcome change if $x_j$ is increased by one?};
+\node[mynode] at (2.4,5.70)(box){$(\% \Delta) E(y)$ \dots by what percentage does the mean (expected) outcome change if $x_j$ is \\increased by one?};
 \draw[myarrow] (box) -- ++ (B);
 \end{tikzpicture}
 \end{frame}
