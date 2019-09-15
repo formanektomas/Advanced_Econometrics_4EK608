@@ -114,7 +114,7 @@ For each $t$, the expected value of error conditionally on the explanatory varia
  \item TS.4 Conditional Homoskedasticity 
  $$\textnormal{var}(u_t|\boldsymbol{X})=\textnormal{var}(u_t)=\sigma^2, \hspace{0.5cm} t=1,2,\dots,n$$
  
- \item TS.5 Serial Correlation (Autocorrelation) is not present $$ \textnormal{cov}(u_t,u_s|\boldsymbol{X}) = 0, \hspace{0.5cm} t\neq s$$
+ \item TS.5 Serial Correlation (Autocorrelation) is not present $$ \textnormal{corr}(u_t,u_s|\boldsymbol{X}) = 0, \hspace{0.5cm} t\neq s$$
 
  \item TS.6 Normality \\
  $u_t$ are independent of $\boldsymbol{X}$ and $\textit{i.i.d.}$
@@ -286,6 +286,12 @@ is more reliable (does not overshoot) than that one from the original regression
 
 \item Time series can be non-stationary and weakly dependent.
 \end{itemize}
+
+\begin{block}{Notes on CLT \& LLN}
+\textbf{CLT} implies that the sum of independent random variables \\(or weakly dependent RVs) -- if centered and standardized by \\its s.d. -- has an asymptotic distribution $N(0,1)$.\\ \vspace{0.1cm}
+\textbf{LLN} theorem implies that the average from a random sample converges in probability to the population average; LLN holds for stationary and weakly dependent series.
+\end{block}
+
 \end{frame}
 
 %------------------------------------------------------
@@ -296,8 +302,8 @@ is more reliable (does not overshoot) than that one from the original regression
 \vspace{0.5cm}
 \begin{itemize}
 \item Moving average process of order one: MA(1)
-$$x_t=e_t+\alpha_1 e_{t-1}$$
-$e_t$ is an $\textit{iid}$ time series. Observations with higher time distance than 1 are uncorrelated.
+$$x_t=e_t+\alpha_1 e_{t-1},$$
+where $e_t$ is an $\textit{iid}$ time series.\\ $$\textnormal{corr}(x_t,x_{t+1})=\tfrac{\alpha_1}{1+\alpha_1^2},$$ observations with higher time distance than 1 are uncorrelated.
 
 \vspace{0.5cm}
 
@@ -314,7 +320,7 @@ If stability condition $|\rho|<1$ holds, TS is weakly dependent because correlat
 \begin{itemize}
 \item TS.1' Linearity \\The stochastic process 
 $\{(x_{t1},x_{t2},\dots,x_{tk},y_t);t=1,2,\dots, n\}$ follows the linear model $ y_t = \beta_0 + \beta_1 x_{t1} + \dots + \beta_k x_{tk}+u_t$ 
-\\ We assume both dependent and independent variables are stationary and weakly dependent.
+\\ \vspace{0.1cm} We assume both dependent and independent variables are stationary and weakly dependent.
 \vspace{0.5cm}
 \item TS.2' No perfect collinearity \\
 There is no perfect collinearity among regressors. \\
@@ -364,7 +370,7 @@ $$\textnormal{var}(u_t|\boldsymbol{x}_t)=\textnormal{var}(u_t)=\sigma^2$$
 \vspace{0.5cm}
 
 \item TS.5' No serial correlation \\(autocorrelation in residuals is not present)
-$$\textnormal{corr}(u_t,u_s|\boldsymbol{x}_t,\boldsymbol{x}_s=0), t\neq s$$
+$$\textnormal{corr}(u_t,u_s|\boldsymbol{x}_t,\boldsymbol{x}_s ) = 0, t\neq s$$
 \end{itemize}
 \end{frame}
 
@@ -410,7 +416,9 @@ process
 \begin{frame}{Serial correlation}
 \begin{itemize}
 \item Causes and effects
-\item Robust inference
+\item FGLS (only with strictly exogenous regressors)
+\item OLS + robust inference (Newey-West \& other HAC s.e.)
+\vspace{0.6cm}
 \item Testing AR(1) serial correlation with strictly exogenous regressors
 \begin{align}\nonumber
 y_t & = \beta_0+\beta_1 x_{t1}+\dots+\beta_k x_{tk}+u_t \\ \nonumber
@@ -436,6 +444,7 @@ $$H_0 : \rho = 0$$
 \item Breusch-Godfrey test for AR($q$) serial correlation
 $$\hat{u}_t=\alpha_0+\alpha_1 x_{t1} + \dots + \alpha_k x_{tk} + \rho_1 \hat{u}_{t-1} +\dots+ \rho_q \hat{u}_{t-q}+\textit{error}  $$
 $$H_0 : \rho_1 = \dots = \rho_q = 0$$
+(Use $F$-test \quad or \quad LM-test: $(n-q)R_u^2 \underset{H_0}{\sim} \chi^2_{(q)}$.)
 \end{itemize}
 \end{frame}
 
