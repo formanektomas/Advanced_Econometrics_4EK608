@@ -10,6 +10,8 @@
 \usepackage{amsmath}
 \usepackage{bm}
 \usepackage{wrapfig}
+\usepackage{xcolor}
+\definecolor{mygray}{gray}{0.6}
 %
 % For more themes, color themes and font themes, see:
 % http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
@@ -214,9 +216,9 @@ $\delta_0+\delta_1+\dots=\gamma(1+\rho+\rho^2+\rho^3+\dots)=\frac{\gamma}{1-\rho
 \begin{frame}{Geometric distributed lag (Koyck) }
 \textbf{Koyck transformation of the IDL model:}
 \begin{align} 
-y_t & = \alpha + \delta_0 x_t \,\,\,\,\,\,\,\, + \delta_1 x_{t-1} \,\,+ \delta_2 x_{t-2} + \dots + u_t \notag \\
+y_t & = \alpha + \delta_0 x_t  + \delta_1 x_{t-1} \,\,+ \delta_2 x_{t-2} + \dots + u_t \hspace{0.3cm} |\delta_j = \gamma \rho^j  \notag \\
+y_t & = \alpha + \gamma x_t \,\,+ \gamma\rho x_{t-1} \,+ \gamma\rho^2 x_{t-2}+\dots + u_t  \label{IDL} \\ 
 \hline \notag \\ 
-y_t & = \alpha + \gamma (\rho^0) x_t + \gamma\rho x_{t-1} + \gamma\rho^2 x_{t-2}+\dots + u_t \label{IDL} \\ 
 y_{t-1} & = \alpha + \gamma x_{t-1} + \gamma\rho x_{t-2} + \gamma\rho^2 x_{t-3} + \dots+u_{t-1} \hspace{0.3cm} |\times \rho 
 \\ \label{eqk3}
 \rho y_{t-1} & = \alpha\rho + \gamma\rho x_{t-1} + \gamma \rho^2 x_{t-2} + \dots + \rho u_{t-1}
@@ -247,6 +249,7 @@ Problems of the Koyck transformation:
 \begin{itemize}
     \item in \eqref{Koyck}, regressor $y_{t-1}$ is not exogenous ($v_t=u_t-\rho u_{t-1}$)\\ \dots IVR will be discussed in Week 8
     \item $v_t=u_t-\rho u_{t-1}$ is not i.i.d.
+    \item Koyck transformation extends to models with multiple regressors only if common $\rho$ (geometric decay) can be assumed.
 \end{itemize}
 
 
@@ -257,14 +260,13 @@ Problems of the Koyck transformation:
 The geometric distributed lag is a special case of \\rational distributed lag (RDL) model:
 \begin{align} \nonumber
 y_t & = \alpha_0+\gamma x_t + \rho y_{t-1} + v_t \hspace{0.3cm} \textnormal{(geometric distributed lag)}\\\label{eqrat1} 
-y_t & = \alpha_0+\gamma_0 x_t + \rho y_{t-1} +\gamma_1 x_{t-1} + v_t  \hspace{0.3cm} \textnormal{ (RDL)}
+y_t & = \alpha_0+\gamma_0 x_t +\gamma_1 x_{t-1} + \rho y_{t-1} + v_t  \hspace{0.3cm} \textnormal{ (RDL)}
 \end{align}
-This can be shown by successive substitution ($|\rho| < 1$):
+This can be shown by successive substitution for the $y_{t-1}$ term \\of RDL equation \eqref{eqrat1}, where we get:
 \begin{align}\nonumber
-y_t & = \alpha + \gamma_0 (x_t + \rho x_{t-1} + \rho^2 x_{t-2}+\dots) \\ & + \gamma_1 (x_{t-1} + \rho x_{t-2} + \rho^2 x_{t-3}+\dots) + u_t \\ \nonumber
-y_t & = \alpha + \gamma_0 x_t + (\rho \gamma_0 + \gamma_1) x_{t-1} + \rho (\rho \gamma_0 + \gamma_1) x_{t-2} +\\ & + \rho^2 (\rho \gamma_0 + \gamma_1) x_{t-3} + \dots + u_t \label{eqrat2}
+y_t & = \alpha + \gamma_0 x_t + (\rho \gamma_0 + \gamma_1) x_{t-1} + \rho (\rho \gamma_0 + \gamma_1) x_{t-2} +\\ & + \rho^2 (\rho \gamma_0 + \gamma_1) x_{t-3} + \rho^3 (\rho \gamma_0 + \gamma_1) x_{t-4}+ \dots \nonumber \\  &+\rho^{h-1}(\rho \gamma_0 + \gamma_1)x_{t-h} + \dots + u_t \label{eqrat2}
 \end{align}
-After estimating \eqref{eqrat1}, we can calculate lag distributions for \eqref{eqrat2}
+After estimating \eqref{eqrat1}, we can calculate lag distribution for \eqref{eqrat2}
 
 \end{frame}
 
@@ -272,7 +274,7 @@ After estimating \eqref{eqrat1}, we can calculate lag distributions for \eqref{e
 \begin{frame}{Rational distributed lag}
 RDL specification:\\
 \medskip
-$\quad y_t = \alpha_0+\gamma_0 x_t + \rho y_{t-1} +\gamma_1 x_{t-1} + v_t $\\
+$\quad y_t = \alpha_0+\gamma_0 x_t +\gamma_1 x_{t-1} + \rho y_{t-1}  + v_t $\\
 \medskip
 can be used to calculate $\delta_h$ in the IDL model:\\
 \medskip
@@ -292,12 +294,13 @@ where $|\rho| < 1$ $\> \Rightarrow$ the sign of LRP follows the sign of $(\gamma
 Also,  $u_t = v_t + \rho v_{t-1} + \rho^2 v_{t-2} + \cdots \> \>  MA(\infty)$
 \end{frame}
 %------------------------------------------------
-\begin{frame}{IDL/Koyck and RDL -- summary}
+\begin{frame}{Koyck transformation and RDL model -- summary}
+IDL model specification:\\ \smallskip
 $y_t = \alpha + \delta_0 x_t  + \delta_1 x_{t-1} + \delta_2 x_{t-2} + \delta_3 x_{t-3}+ \dots + u_t $\\
 \bigskip
-IDL/Koyck: $y_t = \alpha_0 + \gamma x_t + \rho y_{t-1} + v_t$\\
+Koyck: $\qquad \,\, y_t = \alpha_0 + \gamma x_t + \rho y_{t-1} + v_t$\\
 \smallskip
-RDL: $\qquad \quad y_t = \alpha_0+\gamma_0 x_t + \rho y_{t-1} +\gamma_1 x_{t-1} + v_t $\\
+RDL: $\qquad \quad y_t = \alpha_0+\gamma_0 x_t +\gamma_1 x_{t-1} + \rho y_{t-1}  + v_t $\\
 \bigskip
 \begin{table}
 \centering
@@ -305,7 +308,7 @@ RDL: $\qquad \quad y_t = \alpha_0+\gamma_0 x_t + \rho y_{t-1} +\gamma_1 x_{t-1} 
 \label{Tab1}
 \begin{tabular}{|l|c|c|}
 \hline
-  & IDL/Koyck & RDL \\
+  & Koyck & RDL \\
   \hline 
 Impact multiplier & $\delta_0=\gamma~~~$ & $\delta_0=\gamma_0$ \\
 \hline
@@ -323,8 +326,7 @@ LRP & $\frac{\gamma}{1-\rho}$ & $\frac{\gamma_0 + \gamma_1}{1-\rho}$\\
 \begin{frame}{Partial adjustment model}
 Partial adjustment model (PAM) \\is based on two main assumptions:
 \begin{enumerate}
-\item LRM describes behavior of $y_t^{\ast}$, which is the unobserved, \\ 
-expected/equilibrium/target/optimum value of $y_t$:
+\item LRM describes long-run behavior of $y_t^{\ast}$: the unobserved, expected/equilibrium/target/optimum value of $y_t$:
 \begin{equation}
 {y}_t^\ast = \alpha + \beta x_t + u_t  ~~~~~~~~  \label{eqpam1} 
 \end{equation}
@@ -451,7 +453,7 @@ $\hat{\alpha} =\hat{\beta}_0^{\prime}/\hat{\phi}$\\
 \smallskip
 $\hat{\beta} =\hat{\beta}_1^{\prime}/\hat{\phi}$ ~~~~~($\beta_1^{\prime}$ and $\beta$ are the SR and LR propensities )\\
 \smallskip
-\footnotesize{\qquad Note: Both problems of Koyck-transformed model estimation apply.}
+\footnotesize{\qquad Note: Problems of Koyck-transformed model estimation apply.}
 \end{frame}
 %------------------------------------------------
 
