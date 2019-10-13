@@ -203,10 +203,10 @@ OLS estimators we have used for parameters in the CLRM can be derived by the met
 \begin{frame}{Estimators and estimation methods}
 \begin{itemize}
     \item Let $h (\bm{w}) = h(y,\bm{x}, \bm{z}, \bm{\theta})$ define a regression model,
-    \\so that $ E h [( y_i, \bm{x}_i, \bm{z}_i, \bm{\theta} )] = 0 \, , ~~~ \forall i.$ 
+    \\so that $ E (h [( y_i, \bm{x}_i, \bm{z}_i, \bm{\theta} )]) = 0 \, , ~~~ \forall i.$ 
     \\where $\bm{z}$ is a set of $r$ instruments (IVs) - see Week 8.
     \\For simplicity, we can start by assuming  $\bm{x} \equiv \bm{z}$.
-    \item \textbf{Method of moments estimator} $\hat{\bm{\theta}}_{\textit{MM}}$ minimizes:
+    \item \textbf{Method of moments estimator} $\hat{\bm{\theta}}_{\textit{MM}}$ can be shown to minimize:
     $$
     \underset{\hat{\bm{\theta}}}{\textnormal{min}}:
     \left[ \frac{1}{n} \sum_{i=1}^n h (\bm{w}_i,\hat{\bm{\theta}} )
@@ -325,7 +325,8 @@ if CLRM assumptions hold $\Rightarrow$ MLE estimators $\tilde{\alpha}$, $\tilde{
     \medskip
     \item \textbf{Asymptotic efficiency:}  $\bm{\hat{\theta}}$ is asymptotically efficient and achieves the Cramér-Rao lower bound for consistent estimators (see Greene, chapter 14.4.5)
     \medskip
-    \item \textbf{Invariance:} MLE of $\bm{\gamma}_0=\bm{c}(\bm{\theta}_0)$ is $\bm{c}(\bm{\hat{\theta}})$ if $\bm{c}(\bm{\theta}_0)$ \\is a continuous and countinuously differentiable function.
+    \item \textbf{Invariance:} MLE of $\bm{\gamma}_0=\bm{c}(\bm{\theta}_0)$ is $\bm{c}(\bm{\hat{\theta}})$ if $\bm{c}(\bm{\theta}_0)$ \\is a continuous and countinuously differentiable function.\\ \smallskip \footnotesize{ 
+    (empirical advantages: we can use reparameterization in MLE, \\~e.g. $\gamma_j = 1/\theta_j$ ~~or~~ $\theta^2 = 1/\sigma^2$).}
 \end{itemize}
 \end{frame}
 %---------------------------------------------
@@ -363,7 +364,7 @@ $$
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Nonlinear regression}
-\textbf{Assumptions of the nonlinear regression model}\\
+\textbf{Assumptions relevant to the nonlinear regression model}\\
 \begin{itemize}
  \item[1] \textbf{Functional form:} The conditional mean function for $y_i$, given $\bm{x}_i$ is: $$\mathbf{E}[y_i|\bm{x}_i] = h(\bm{x}_i\, , \,\bm{\beta})~, \quad i=1,2,\dots,n$$
  \item[2] \textbf{Identifiability of model parameters:} The parameter vector in the model is identified (estimable) if there is no nonzero parameter $\bm{\beta}^0 \neq \bm{\beta}$ such that $h(\bm{x}_i, \bm{\beta}^0)=h(\bm{x}_i, \bm{\beta})$ for all $\bm{x}_i$.
@@ -376,7 +377,7 @@ $$
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Nonlinear regression}
-\textbf{Assumptions of the nonlinear regression model}\\
+\textbf{Assumptions relevant to the nonlinear regression model}\\
 \medskip
 \begin{itemize}
  \item[4] \textbf{Homoskedasticity and nonautocorrelation:}\\
@@ -393,7 +394,7 @@ $$
 \end{frame}
 %---------------------------------------------
 \begin{frame}{Nonlinear regression}
-\textbf{Assumptions of the nonlinear regression model}\\
+\textbf{Assumptions relevant to the nonlinear regression model}\\
 \medskip
 \begin{itemize}
 \item[5] \textbf{Data generating process:} DGP for $\bm{x}_i$ is assumed to be a well-behaved population such that first and second sample moments of the data can be assumed to converge to fixed, finite population counterparts. The crucial assumption is that the process generating $\bm{x}_i$ is strictly exogenous to that generating $\varepsilon_i$
@@ -550,7 +551,7 @@ Prob(F-statistics)                                                    & 0.000000
 \begin{itemize}
 \item Quantile regression estimates the relationship between regressors and a specified quantile of dependent variable.
 \medskip
-\item The (linear) quantile model can be defined as $Q[y|\bm{x}, q]=\bm{x}^{\prime}\bm{\beta}_q$, such that $\textnormal{Prob}[y \le \bm{x}^{\prime}\bm{\beta}_q|\bm{x}]=q$, $0<q<1$ \\where $q$ denotes the $q$-th quantile.
+\item The (linear) quantile model can be defined as $Q[y|\bm{x}, q]=\bm{x}^{\prime}\bm{\beta}_q$, such that $\textnormal{Prob}[y \le \bm{x}^{\prime}\bm{\beta}_q|\bm{x}]=q$, $0<q<1$ \\where $q$ denotes the $q$-th quantile of $y$.
 \medskip
 \item One important special case of quantile regression is the least absolute deviations (LAD) estimator, which corresponds to fitting the conditional median of the response variable ($q=\frac{1}{2}$).
 \medskip
