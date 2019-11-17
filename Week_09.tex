@@ -219,6 +219,8 @@ Order condition is fulfilled in both equations.
 \textcolor{Blue}{Example 4: (Identification)}\\ Labor supply of married working women contnd.\\
 \bigskip
 \begin{itemize}
+\item Identification of the first equation (Supply). For the rank condition, either $\beta_{22}$ or $\beta_{23}$ non-zero population coefficient in the (second equation) is required -- so that $\textit{exper},~\textit{exper}^2$ (or both) can be used in the reduced form.
+\medskip
 \item To evaluate the rank condition for supply equation, we estimate the reduced form for $\log(\textit{wage})$ and test if we can reject the null hypothesis that coefficients for both coefficients for $exper$ and $\textit{exper}^2$ are zero. \\If $H_0$ is rejected, the rank condition is fulfilled.\\
 \medskip
 \item We would do the evaluation of the rank condition for the demand equation analogically.
@@ -533,17 +535,20 @@ Pr($X_2$ does not appear significant) $~~=0.95$\\
 &= 0.9025 &&
 \end{flalign*}
 \begin{flalign*}
-\textnormal{Pr(at least one of } X_1, X_2 \textnormal{ appear significant)} & = 1 - 0.9025 = &&\\
-& = \mytikzmark{a}{0.0975} && \\
+\textnormal{Pr(at least one of } X_1, X_2 \textnormal{ appear significant)} & ~= 1 - 0.9025 = &&\\
+&  \mytikzmark{a}{~= 0.0975} && \\
 \end{flalign*}
-For $c$ independent candidates: \ $\alpha^* = 1 - (1-\alpha)^c$\\
-If we want the true significance level to be $0.05$, we must solve the equation $0.05=1-(1- \alpha)^c$ and do all $t$-tests on significance level $\alpha$.
+
+If we want the true significance level to be $0.05$, we must solve the equation $0.05=1-(1- \alpha)^2$ and do all $t$-tests on significance level $\alpha^*$ (here, $\alpha^* \doteq 0.0253$).\\
+\medskip
+For $c$ independent candidates: \ $\alpha^* = 1 - (1-\alpha)^c$.
+
 \begin{tikzpicture}[<-,overlay,remember picture,inner sep=0.05pt,shorten <=0.2em,font=\small]
 \tikzset{
     mynode/.style={rectangle,draw=Black, dotted, fill=White, semithick, inner sep=.002em, minimum size=2em, text centered, text width=9em},
     myarrow/.style={->, >=stealth, thin, Black}
 }
-\node[mynode] at (1.3,2.38) (b){true significant level\\ $\alpha^* = (1 - (1-\alpha)^2)$};
+\node[mynode] at (+2.3,3.1) (b){true significance level\\ $\alpha^* = (1 - (1-\alpha)^2)$};
 \draw[myarrow] (b) -- ++   (a);
 \end{tikzpicture}
 \end{frame}
