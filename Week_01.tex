@@ -295,21 +295,21 @@ is more reliable (does not overshoot) than that one from the original regression
 \end{frame}
 
 %------------------------------------------------------
-
 \begin{frame}{Stationary and weakly dependent time series}
-
 \textbf{Examples of weakly dependent time series:}
-\vspace{0.5cm}
+\bigskip
 \begin{itemize}
-\item Moving average process of order one: MA(1)
+\item Moving average process of order one: \texttt{ma(1)}
 $$x_t=e_t+\alpha_1 e_{t-1},$$
 where $e_t$ is an $\textit{iid}$ time series.\\ $$\textnormal{corr}(x_t,x_{t+1})=\tfrac{\alpha_1}{1+\alpha_1^2},$$ observations with higher time distance than 1 are uncorrelated.
 
-\vspace{0.5cm}
+\bigskip
 
-\item Autoregressive proces of order 1 AR(1)
+\item Stable autoregressive process of order 1: \texttt{ar(1)}\\
+\medskip
+Under stability condition $|\rho|<1$, it can be demonstrated that (Wooldridge, Introductory econometrics, ch. 11.1):
 $$y_t=\rho y_{t-1} + e_t \Rightarrow \textnormal{corr}(y_t,y_{t+h})=\rho^h$$
-If stability condition $|\rho|<1$ holds, TS is weakly dependent because correlation converges  to zero with growing $h$.
+If stability condition holds, TS is weakly dependent because correlation converges  to zero with growing $h$.
 \end{itemize}
 
 \end{frame}
