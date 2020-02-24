@@ -34,10 +34,11 @@
 {
   \usetheme{Darmstadt}      % or try Darmstadt, Madrid, Warsaw, ...
   \usecolortheme{default} % or try albatross, beaver, crane, ...
-  \usefonttheme{serif}  % or try serif, structurebold, ...
+  \usefonttheme{serif}  % or try default, serif, structurebold, ...
   \setbeamertemplate{navigation symbols}{}
   \setbeamertemplate{caption}[numbered]
-} 
+  \setbeamertemplate{headline}{}
+}
 %
 %
 \title[Week1]{Week 2:  Unit roots tests \\ Handling strongly dependent time series, Spurious regression, Cointegration and error correction model (ECM)}
@@ -79,9 +80,9 @@ Testy jednotkových kořenů,
 Weakly dependent time series
   \vspace{0.4cm}
 \begin{itemize}
-  \item Moving average process of order one MA(1) $x_t=e_t+\alpha_1 e_{t-1}$, where $e_t$ is $\textit{i.i.d.}$ time series. \\Observations with higher time distance than 1 are uncorrelated. This process is stationary.
+  \item Moving average process of order one \texttt{ma(1)} $x_t=e_t+\alpha_1 e_{t-1}$, where $e_t$ is $\textit{i.i.d.}$ time series. \\Observations with higher time distance than 1 are uncorrelated. This process is stationary.
   \vspace{0.7cm}
-  \item Autoregressive process of order 1: AR(1) \\
+  \item For stable autoregressive process of order 1 \texttt{ar(1)}: \\ \smallskip
   $y_t = \rho_1 y_{t-1} + e_t \Rightarrow \textnormal{cor}(y_t,y_{t+h})=\rho^h_1$\\
   \vspace{0.4cm}
   If stability condition $|\rho|<1$  holds, the process is weakly dependent because correlation converges to zero with growing $h$. Also, this process is stationary for $y_0 =0$.
@@ -221,7 +222,7 @@ $\, \, \, \, \rho_h = \frac{\textit{cov} \, (y_t, y_{t-h})}{\sigma_{y_t} \cdot \
 \begin{frame}{Unit root tests}
 \textbf{Dickey-Fuller (DF) test} – motivation \\
 \medskip
-Unit root test in an $\textit{ar}(1)$ process: \\
+Unit root test in an \texttt{ar(1)} process: \\
 \medskip
 $y_t = \alpha + \rho y_{t-1} + e_t$\\
 \medskip
@@ -233,7 +234,7 @@ $ H_0 : \rho = 1, \> \> \> H_1 : \rho <1$ \\
 \item[$\circ$] For  $\rho =1 \ \wedge \ \alpha =0 \rightarrow y_t$     is a random walk.
 \item[$\circ$] For  $\rho =1 \ \wedge \ \alpha \neq 0 \rightarrow y_t$     is a randomw walk with a drift   \\and $E(y_t)$ is a linear function of $t$ .
 \end{itemize}
-\item Under $H_1$, $y_t$  is a weakly dependent $\textit{ar}(1)$ process. \\
+\item Under $H_1$, $y_t$  is a weakly dependent \texttt{ar(1)} process. \\
 \bigskip
 \end{itemize}
 \medskip
@@ -242,7 +243,7 @@ $ H_0 : \rho = 1, \> \> \> H_1 : \rho <1$ \\
 \begin{frame}{Unit root tests}
 \textbf{Dickey-Fuller (DF) test} – motivation \\
 \medskip
-Unit root test in an $\textit{ar}(1)$ process: \\
+Unit root test in an \texttt{ar(1)} process: \\
 \medskip
 $y_t = \alpha + \rho y_{t-1} + e_t$\\
 \medskip
@@ -260,7 +261,7 @@ However, if unit root is likely to be present, the probability of $\rho<0$ is ne
 \begin{frame}{Dickey Fuller (DF) test}
 \small
 \begin{itemize}
-\item Basic equation for unit root test in an $\textit{ar}(1)$ process: \qquad $ y_t = \alpha + \rho y_{t-1} + e_t $ \\
+\item Basic equation for unit root test in an \texttt{ar(1)} process: \qquad $ y_t = \alpha + \rho y_{t-1} + e_t $ \\
 \item For DF test, we apply a suitable transformation to $y_t$:  \\we subtract $y_{t-1}$ from both sides of the equation:
 \begin{flalign*}
 & \Delta y_t  = \alpha + (\rho - 1) y_{t-1} + e_t; \text{ apply substitution: } \theta=(\rho-1)&&\\
