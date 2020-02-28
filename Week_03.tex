@@ -180,22 +180,24 @@ Estimators are consistent and asymptotically efficient, but biased in small samp
 
 %slide 9
 \begin{frame}{Cointegration among more than two variables}
-\textbf{Possibility of more cointegrating vectors}\\
-long-run: $y_t= \beta_0 + \beta_1 x_t + \beta_2 w_t + \beta_3 z_t + u_t$,\\ all observed variables are $I(1)$\\
+\textbf{Possibility of more cointegrating vectors:}\\
+\medskip
+Long-run relationship: $y_t= \beta_0 + \beta_1 x_t + \beta_2 w_t + \beta_3 z_t + u_t$,\\ with all observed variables are $I(1)$\\
+
 \medskip
 If this long-run relationship exists, then the disequilibrium error \\
 \begin{equation}  \label{eq7}
 u_t= [y_t - \beta_0 - \beta_1 x_t - \beta_2 w_t - \beta_3 z_t ]
-\quad \sim I(0) 
+\quad \sim I(0). 
 \end{equation} 
 
-\vspace{0.3cm}
-In the multivariate case, there may be more than one stationary linear combination linking cointegrated variables. 
-
-\vspace{0.3cm}
+\medskip
 If a linear combination of variables such as \eqref{eq7} is stationary, then the coefficients in this relationship form a cointegrating vector, e.g. $(1,-\beta_{1},-\beta_{2},-\beta_{3})$. 
 
-\vspace{0.3cm} 
+\medskip
+In the multivariate case, there may be more than one linearly independent stationary combinations linking the cointegrated variables (Topic discussed formally during Week 10). 
+
+\medskip
 Cointegration: the existence of at least one cointegrating vector.
 
 \end{frame}
@@ -268,7 +270,7 @@ y_p & = \beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c_k + u_p \nonumber
 $$\hat{e}_p = y_p - \hat{y}_p = (\beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c_k) + u_p - \hat{y}_p$$
 \item Prediction error variance
 $$\textnormal{var}(\hat{e}_p) = \textnormal{var}(u_p) + \textnormal{var}(\hat{y}_p)$$
-because $\textnormal{var}(\beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c_k)=0$
+because~~$\textnormal{var}(\beta_0 + \beta_1 c_1 + \beta_2 c_2 + \dots+\beta_k c_k)=0$
 \end{itemize}
 \end{frame}
 
@@ -406,10 +408,9 @@ Prediction intervals: individual vs. mean value predictions:\\
 \begin{itemize}
 \item Why is it difficult to predict individual values? 
 \begin{itemize}
-\item they include random errors
+\item they include ``individual'' random errors
 \item we work with estimated parameters
 \item parameters can change in time
-\item (look at the formula for prediction error.)
 \end{itemize}
 \vspace{0.3cm}
 \item Prediction of expected values
@@ -426,7 +427,8 @@ Prediction intervals: individual vs. mean value predictions:\\
 
 \begin{frame}{Mean Squared Error of prediction}
 
-We can generalize the previous discussion on predictions by considering both biased and unbiased predictors and by allowing for different functional forms and complexity levels in predictive models. Predictions may be compared using:
+We can generalize the previous discussion on predictions by considering both biased and unbiased predictors and by allowing for different functional forms and complexity levels in predictive models. \\ \bigskip 
+Predictions may be compared/evaluated using:
 
 \medskip
 \begin{itemize}
@@ -468,7 +470,7 @@ $$ \textit{MSE}_{\textnormal{Te}} = \frac{1}{m}
 \end{frame}
 %------------------------------------------------
 \begin{frame}{Variance vs. Bias trade-off}
-Suppose we have a model $\hat{f}(\bm{x})$, fitted to some training data $\textnormal{Tr}$ and let $\left\lbrace y_0, \bm{x}_0 \right\rbrace$ be a test observation drawn from the population. If the true model is $y_i = f(\bm{x}_i) + \varepsilon_i$, \\[with $f(\bm{x}_i)= \textnormal{E}(y_i | \bm{x}_i )$],
+Suppose we have a model $\hat{f}(\bm{x})$, fitted to some training data $\textnormal{Tr}$ and let $\left\lbrace y_0, \bm{x}_0 \right\rbrace$ be a test observation drawn from the population. If the true model is $y_i = f(\bm{x}_i) + \varepsilon_i$, \\ [with $f(\bm{x}_i)= \textnormal{E}(y_i | \bm{x}_i )$],
 then the \textbf{expected test MSE} can be decomposed into:\\
 
 \medskip
@@ -496,7 +498,7 @@ $E(\textit{MSE}_0)
 \begin{figure}
 \includegraphics[width=0.6\textwidth]{img/biasvariance.png}
 \end{figure}
-\small{This is an illustration, $\textnormal{var}(\varepsilon_0)$ not shown explicitly. \\(lies at the /asymptotic/ minima of variance and $\textnormal{Bias}^2$)}
+\small{This is an illustration, $\textnormal{var}(\varepsilon_0)$ not shown explicitly. \\(lies at the /asymptotic/ minima of Variance and $\textnormal{Bias}^2$)}
 \end{frame}
 %------------------------------------------------
 \section{$k$-Fold Cross Validation}
@@ -518,7 +520,7 @@ Repeatedly fit a model of interest to samples formed from the training set \& ma
 \begin{itemize}
   \item In $k$-Fold Cross-Validation ($k$FCV), the original sample is randomly partitioned into $k$ roughly equal subsamples (divisibility). 
   \smallskip
-  \item Of the $k$ subsamples, a single subsample is retained as the test sample, and the remaining $(k-1)$ subsamples are used as training data. 
+  \item One of the $k$ subsamples is retained as the test sample, and the remaining $(k-1)$ subsamples are used as training data. 
   \smallskip
   \item The cross-validation process is then repeated $k$ times \\(the $k$ folds), with each of the $k$ subsamples used exactly once as the test sample. 
   \smallskip
@@ -543,10 +545,11 @@ In TS, a similar ``Walk forward'' test procedure may be applied.
 $ \textit{CV}_{(k)}= \frac{1}{k}\displaystyle\sum_{s=1}^{k} \textit{MSE}_s ,$
 \vspace{0.3cm}
 \begin{itemize}
-\item [where] $\textit{CV}_{(k)}$ is the $k$-fold \textit{CV} estimate,
-\item [ ] $k$ is the number of folds used (e.g. 5 or 10),
-\item [ ] $\textit{MSE}_s = \frac{1}{m_s} \sum_{i \in C_s}^{}(y_i - \widehat{y}_i)^2 $ 
-\item [ ] $m_s$ and $C_s$ refer to test sample  observations for each \\of the $k$ train sample / test sample steps.
+\item [where] $\textit{CV}_{(k)}$ is the cross-validated estimate of \textit{MSE},
+\item[ ] $k$ is the number of folds used (e.g. 5 or 10),
+\item[ ] $\textit{MSE}_s = \frac{1}{m_s} \sum_{i \in C_s}^{}(y_i - \widehat{y}_i)^2 $ 
+\item[ ] $m_s$ is the number of observations in the $s$-th test sample
+\item[ ] $C_s$ refers to the $s$-th set of test sample  observations. 
 \end{itemize}
 \vspace{0.3cm}
 As we evaluate predictions from two or more models, 
